@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 아이콘 뒤 둥근 사각형. 코드에서 backgroundTintList로 프로젝트 색을 입힘 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/primary_container" />
+    <corners android:radius="@dimen/radius_m" />
+</shape>

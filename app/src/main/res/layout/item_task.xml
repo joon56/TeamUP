@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 업무 카드: RelativeLayout으로 우선순위 띠·체크박스·내용·상태 배지를 배치 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.TeamUp.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gap_s"
+    android:paddingStart="0dp"
+    android:paddingTop="@dimen/gap_m"
+    android:paddingBottom="@dimen/gap_m">
+
+    <View
+        android:id="@+id/priorityBar"
+        android:layout_width="@dimen/priority_bar"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/content"
+        android:layout_alignBottom="@+id/content"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bg_priority_bar" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/gap_xs"
+        android:layout_toEndOf="@id/priorityBar"
+        android:saveEnabled="false" />
+
+    <TextView
+        android:id="@+id/statusBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_badge"
+        android:paddingStart="10dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp"
+        android:textAppearance="@style/TextAppearance.TeamUp.Small" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/gap_s"
+        android:layout_toStartOf="@id/statusBadge"
+        android:layout_toEndOf="@id/check"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+
+        <TextView
+            android:id="@+id/meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+    </LinearLayout>
+</RelativeLayout>

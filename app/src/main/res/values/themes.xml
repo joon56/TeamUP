@@ -1,0 +1,77 @@
+<resources>
+    <!-- 앱 전체 테마. 색상은 values/colors.xml(라이트), values-night/colors.xml(다크)에서 자동 선택 -->
+    <style name="Base.Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorOnSecondary">@color/on_primary</item>
+        <item name="colorSecondaryContainer">@color/primary_container</item>
+        <item name="colorOnSecondaryContainer">@color/on_primary_container</item>
+        <item name="colorTertiary">@color/info</item>
+        <item name="colorError">@color/danger</item>
+
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceContainerLowest">@color/bg</item>
+        <item name="colorSurfaceContainerLow">@color/surface</item>
+        <item name="colorSurfaceContainer">@color/surface</item>
+        <item name="colorSurfaceContainerHigh">@color/surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/surface_highest</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorOutline">@color/outline_strong</item>
+        <item name="colorOutlineVariant">@color/outline</item>
+
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_tertiary</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+        <item name="fontFamily">@font/pretendard</item>
+
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.TeamUp.Dialog</item>
+        <item name="android:datePickerDialogTheme">@style/ThemeOverlay.TeamUp.Picker</item>
+        <item name="android:timePickerDialogTheme">@style/ThemeOverlay.TeamUp.Picker</item>
+        <item name="materialButtonStyle">@style/Widget.TeamUp.Button.Primary</item>
+        <item name="textInputStyle">@style/Widget.TeamUp.Input</item>
+        <item name="checkboxStyle">@style/Widget.TeamUp.CheckBox</item>
+        <item name="radioButtonStyle">@style/Widget.TeamUp.Radio</item>
+        <item name="bottomNavigationStyle">@style/Widget.TeamUp.BottomNav</item>
+        <item name="snackbarStyle">@style/Widget.TeamUp.Snackbar</item>
+    </style>
+
+    <style name="Theme.TeamUp" parent="Base.Theme.TeamUp" />
+
+    <style name="ThemeOverlay.TeamUp.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceContainerHigh">@color/surface</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+        <item name="fontFamily">@font/pretendard</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.TeamUp.Dialog</item>
+    </style>
+
+    <!-- 날짜·시간 선택창 (DatePickerDialog / TimePickerDialog): 머리글을 보라색으로 -->
+    <style name="ThemeOverlay.TeamUp.Picker" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:colorAccent">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:datePickerStyle">@style/Widget.TeamUp.DatePicker</item>
+        <item name="android:timePickerStyle">@style/Widget.TeamUp.TimePicker</item>
+    </style>
+
+    <style name="Widget.TeamUp.DatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:headerBackground">@color/primary</item>
+    </style>
+
+    <style name="Widget.TeamUp.TimePicker" parent="android:Widget.Material.TimePicker">
+        <item name="android:headerBackground">@color/primary</item>
+    </style>
+
+    <style name="ShapeAppearance.TeamUp.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+</resources>

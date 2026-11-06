@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 여백 -->
+    <dimen name="screen_padding">20dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="gap_xs">4dp</dimen>
+    <dimen name="gap_s">8dp</dimen>
+    <dimen name="gap_m">12dp</dimen>
+    <dimen name="gap_l">16dp</dimen>
+    <dimen name="gap_xl">24dp</dimen>
+    <dimen name="gap_xxl">32dp</dimen>
+
+    <!-- 모서리 -->
+    <dimen name="radius_s">8dp</dimen>
+    <dimen name="radius_m">12dp</dimen>
+    <dimen name="radius_l">16dp</dimen>
+    <dimen name="radius_xl">20dp</dimen>
+
+    <!-- 크기 -->
+    <dimen name="icon_s">18dp</dimen>
+    <dimen name="icon_m">24dp</dimen>
+    <dimen name="icon_box">44dp</dimen>
+    <dimen name="avatar">40dp</dimen>
+    <dimen name="avatar_l">64dp</dimen>
+    <dimen name="touch_target">48dp</dimen>
+    <dimen name="button_height">52dp</dimen>
+    <dimen name="action_button_height">96dp</dimen>
+    <dimen name="top_bar_height">56dp</dimen>
+    <dimen name="progress_track">6dp</dimen>
+    <dimen name="ring_size">132dp</dimen>
+    <dimen name="ring_thickness">12dp</dimen>
+    <dimen name="priority_bar">4dp</dimen>
+    <dimen name="color_swatch">36dp</dimen>
+    <dimen name="fab_bottom_space">96dp</dimen>
+    <dimen name="bottom_nav_min_height">80dp</dimen>
+</resources>

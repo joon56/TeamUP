@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 업무 추가/수정 화면. 입력 폼은 ConstraintLayout으로 배치 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_top_bar" />
+
+    <androidx.core.widget.NestedScrollView android:defaultFocusHighlightEnabled="false"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingTop="@dimen/gap_s"
+            android:paddingEnd="@dimen/screen_padding"
+            android:paddingBottom="@dimen/gap_xl">
+
+            <!-- ===== 지연 안내 (마감이 지난 업무를 수정할 때만) ===== -->
+            <LinearLayout
+                android:id="@+id/overdueBanner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_high"
+                android:backgroundTint="@color/danger_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/gap_l"
+                android:paddingTop="@dimen/gap_xs"
+                android:paddingEnd="@dimen/gap_xs"
+                android:paddingBottom="@dimen/gap_xs"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_s"
+                    android:layout_height="@dimen/icon_s"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/danger" />
+
+                <TextView
+                    android:id="@+id/overdueText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong"
+                    android:textColor="@color/danger" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/postponeButton"
+                    style="@style/Widget.TeamUp.Button.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_postpone"
+                    android:textColor="@color/danger"
+                    app:icon="@drawable/ic_postpone"
+                    app:iconTint="@color/danger" />
+            </LinearLayout>
+
+            <!-- ===== 프로젝트 ===== -->
+            <TextView
+                android:id="@+id/projectLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/label_project"
+                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/overdueBanner"
+                app:layout_goneMarginTop="@dimen/gap_s" />
+
+            <FrameLayout
+                android:id="@+id/projectBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/projectLabel">
+
+                <!-- 프로젝트가 정해진 경우: 이름만 표시 -->
+                <LinearLayout
+                    android:id="@+id/projectCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/gap_m">
+
+                    <ImageView
+                        android:id="@+id/projectIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_icon_box"
+                        android:importantForAccessibility="no"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_folder" />
+
+                    <TextView
+                        android:id="@+id/projectName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/gap_m"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+                </LinearLayout>
+
+                <!-- 업무 탭에서 새 업무를 만들 때: 프로젝트 선택 드롭다운 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/projectPickerLayout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:boxBackgroundColor="@color/surface"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxStrokeColor="@color/selector_input_stroke"
+                    app:startIconDrawable="@drawable/ic_folder">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/projectPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:saveEnabled="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </FrameLayout>
+
+            <!-- ===== 제목 · 설명 ===== -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:hint="@string/hint_task_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/projectBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text|textCapSentences"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:hint="@string/hint_task_desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ===== 담당자 ===== -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/assigneeLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:hint="@string/label_assignee"
+                app:boxBackgroundColor="@color/surface"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/selector_input_stroke"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descLayout"
+                app:startIconDrawable="@drawable/ic_person">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/assigneePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:saveEnabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ===== 마감일 (누르면 달력) ===== -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dueLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:hint="@string/label_due"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/assigneeLayout"
+                app:startIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dueInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:saveEnabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 몇 주차 업무로 집계되는지 -->
+            <TextView
+                android:id="@+id/weekHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_xs"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dueLayout" />
+
+            <!-- ===== 우선순위 (RadioGroup) ===== -->
+            <TextView
+                android:id="@+id/priorityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/label_priority"
+                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weekHint" />
+
+            <RadioGroup
+                android:id="@+id/priorityGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/priorityLabel">
+
+                <RadioButton
+                    android:id="@+id/priorityHigh"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/priority_high"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/priorityMedium"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:text="@string/priority_medium"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/priorityLow"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/priority_low"
+                    app:buttonCompat="@null" />
+            </RadioGroup>
+
+            <!-- ===== 진행 상태 (RadioGroup) ===== -->
+            <TextView
+                android:id="@+id/statusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/label_status"
+                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/priorityGroup" />
+
+            <RadioGroup
+                android:id="@+id/statusGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/statusLabel">
+
+                <RadioButton
+                    android:id="@+id/statusTodo"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:text="@string/status_todo"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/statusInProgress"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/status_in_progress"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/statusDone"
+                    style="@style/Widget.TeamUp.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/status_done"
+                    app:buttonCompat="@null" />
+            </RadioGroup>
+
+            <!-- ===== 삭제 (수정 모드에서만) ===== -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteButton"
+                style="@style/Widget.TeamUp.Button.Danger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xl"
+                android:text="@string/action_delete"
+                android:visibility="gone"
+                app:icon="@drawable/ic_delete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/statusGroup" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ===== 하단 저장 버튼 (키보드가 올라오면 키보드 바로 위) ===== -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/gap_s"
+        android:paddingEnd="@dimen/screen_padding"
+        android:paddingBottom="@dimen/gap_m">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            style="@style/Widget.TeamUp.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_save" />
+    </FrameLayout>
+</LinearLayout>

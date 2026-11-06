@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".TeamUpApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TeamUp">
+
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.project.ProjectEditActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.project.ProjectDetailActivity" />
+        <activity
+            android:name=".ui.task.TaskEditActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.member.MemberDetailActivity" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+
+        <!-- 앱 안에서 고른 언어를 Android 12 이하에서도 기억 -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+    </application>
+
+</manifest>

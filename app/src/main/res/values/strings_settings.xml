@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 설정·검색 화면에서 새로 추가한 문자열 -->
+<resources>
+    <string name="st_clear_search">검색어 지우기</string>
+</resources>

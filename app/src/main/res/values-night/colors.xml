@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 다크 테마 (기본). 이름은 values/colors.xml(라이트)과 같아야 함 -->
+<resources>
+    <color name="bg">#FF111016</color>
+    <color name="surface">#FF1A1920</color>
+    <color name="surface_high">#FF23222B</color>
+    <color name="surface_highest">#FF2D2C36</color>
+    <color name="outline">#FF2C2B36</color>
+    <color name="outline_strong">#FF3D3C49</color>
+    <color name="nav_bg">#FF15141A</color>
+
+    <color name="text_primary">#FFF4F3F8</color>
+    <color name="text_secondary">#FFA3A2B3</color>
+    <color name="text_tertiary">#FF6F6E80</color>
+
+    <color name="primary">#FF7C5CFF</color>
+    <color name="primary_pressed">#FF6A4AF0</color>
+    <color name="primary_container">#FF2B2350</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="on_primary_container">#FFC9BCFF</color>
+
+    <color name="success">#FF3DD68C</color>
+    <color name="success_container">#FF15322A</color>
+    <color name="warning">#FFF5A524</color>
+    <color name="warning_container">#FF3A2C12</color>
+    <color name="danger">#FFFF5C6C</color>
+    <color name="danger_container">#FF3D1A1F</color>
+    <color name="info">#FF4EA8FF</color>
+    <color name="info_container">#FF142B42</color>
+</resources>

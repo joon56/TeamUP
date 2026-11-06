@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 상세 화면 공통 상단 바. 화면마다 필요한 버튼만 보이게 함 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/gap_xs"
+    android:paddingEnd="@dimen/gap_xs">
+
+    <ImageButton
+        android:id="@+id/back"
+        style="@style/Widget.TeamUp.IconButton"
+        android:contentDescription="@string/action_back"
+        android:src="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_xs"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+
+    <ImageButton
+        android:id="@+id/action1"
+        style="@style/Widget.TeamUp.IconButton"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/action2"
+        style="@style/Widget.TeamUp.IconButton"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/textAction"
+        style="@style/Widget.TeamUp.Button.Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:iconPadding="4dp" />
+</LinearLayout>

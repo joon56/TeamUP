@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 홈 "새 프로젝트" 큰 버튼: 보라 그라데이션 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="#FF8F72FF" android:endColor="#FF5E3FE6" />
+    <corners android:radius="@dimen/radius_xl" />
+</shape>

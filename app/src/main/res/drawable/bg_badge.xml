@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 작은 상태 배지. 코드에서 backgroundTintList로 색을 바꿈 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface_high" />
+    <corners android:radius="999dp" />
+</shape>

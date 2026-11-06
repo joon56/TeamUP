@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Order: 1=Mon ... 7=Sun (java.time.DayOfWeek) -->
+    <string-array name="weekdays_short">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+    <string-array name="weekdays_long">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!-- Demo sample data -->
+    <string-array name="sample_project_names">
+        <item>Data Analysis Team Project</item>
+        <item>App Development Project</item>
+        <item>Marketing Proposal</item>
+    </string-array>
+    <string-array name="sample_project_descs">
+        <item>Analyzing college students\' daily patterns with public data</item>
+        <item>Building TeamUp, a team project management app</item>
+        <item>Promotion strategy for the campus café\'s new menu</item>
+    </string-array>
+    <string-array name="sample_member_names">
+        <item>Minsu Kim</item>
+        <item>Seoyeon Lee</item>
+        <item>Jihoon Park</item>
+        <item>Haeun Choi</item>
+    </string-array>
+    <string-array name="sample_member_roles">
+        <item>Research</item>
+        <item>Presentation</item>
+        <item>Development</item>
+        <item>Design</item>
+        <item>Planning</item>
+        <item>Marketing</item>
+        <item>Data analysis</item>
+    </string-array>
+    <string-array name="sample_tasks_a">
+        <item>Choose an analysis topic</item>
+        <item>Collect public data</item>
+        <item>Clean the data</item>
+        <item>Draft visualizations</item>
+        <item>Summarize the findings</item>
+        <item>Make presentation slides</item>
+        <item>Submit the final report</item>
+    </string-array>
+    <string-array name="sample_tasks_b">
+        <item>Write requirements</item>
+        <item>Design the screens</item>
+        <item>Design the data structure</item>
+        <item>Build the login screen</item>
+        <item>Build the home dashboard</item>
+        <item>Build task management</item>
+        <item>Polish the design</item>
+        <item>Test and fix bugs</item>
+        <item>Prepare the final presentation</item>
+    </string-array>
+    <string-array name="sample_tasks_c">
+        <item>Market research</item>
+        <item>Define target customers</item>
+        <item>Analyze competing cafés</item>
+        <item>Draft the proposal</item>
+        <item>Apply the professor\'s feedback</item>
+    </string-array>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 앱 안에서 쓰는 로고 (상단 바, 로그인 화면) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M5.5,19L11.5,5"
+        android:strokeWidth="3.4"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="11.5"
+                android:endY="5"
+                android:startX="5.5"
+                android:startY="19"
+                android:type="linear">
+                <item android:color="#FF6A4CF5" android:offset="0" />
+                <item android:color="#FFA48CFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M12.5,19L18.5,5"
+        android:strokeAlpha="0.75"
+        android:strokeWidth="3.4"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="18.5"
+                android:endY="5"
+                android:startX="12.5"
+                android:startY="19"
+                android:type="linear">
+                <item android:color="#FF6A4CF5" android:offset="0" />
+                <item android:color="#FFA48CFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

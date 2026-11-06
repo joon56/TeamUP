@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 1=월 ... 7=일 순서 (java.time.DayOfWeek) -->
+    <string-array name="weekdays_short">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>일</item>
+    </string-array>
+    <string-array name="weekdays_long">
+        <item>월요일</item>
+        <item>화요일</item>
+        <item>수요일</item>
+        <item>목요일</item>
+        <item>금요일</item>
+        <item>토요일</item>
+        <item>일요일</item>
+    </string-array>
+
+    <!-- 시연용 샘플 데이터 -->
+    <string-array name="sample_project_names">
+        <item>데이터분석 팀플</item>
+        <item>앱 개발 프로젝트</item>
+        <item>마케팅 기획안</item>
+    </string-array>
+    <string-array name="sample_project_descs">
+        <item>공공 데이터로 대학생 생활 패턴 분석하기</item>
+        <item>팀 프로젝트 관리 앱 TeamUp 만들기</item>
+        <item>교내 카페 신메뉴 홍보 전략 기획</item>
+    </string-array>
+    <string-array name="sample_member_names">
+        <item>김민수</item>
+        <item>이서연</item>
+        <item>박지훈</item>
+        <item>최하은</item>
+    </string-array>
+    <string-array name="sample_member_roles">
+        <item>자료 조사</item>
+        <item>발표</item>
+        <item>개발</item>
+        <item>디자인</item>
+        <item>기획</item>
+        <item>마케팅</item>
+        <item>데이터 분석</item>
+    </string-array>
+    <string-array name="sample_tasks_a">
+        <item>분석 주제 선정</item>
+        <item>공공 데이터 수집</item>
+        <item>데이터 전처리</item>
+        <item>시각화 초안 만들기</item>
+        <item>분석 결과 정리</item>
+        <item>발표 자료 제작</item>
+        <item>최종 보고서 제출</item>
+    </string-array>
+    <string-array name="sample_tasks_b">
+        <item>요구사항 정리</item>
+        <item>화면 설계</item>
+        <item>데이터 구조 설계</item>
+        <item>로그인 화면 구현</item>
+        <item>홈 대시보드 구현</item>
+        <item>업무 관리 기능 구현</item>
+        <item>디자인 다듬기</item>
+        <item>테스트 및 버그 수정</item>
+        <item>최종 발표 준비</item>
+    </string-array>
+    <string-array name="sample_tasks_c">
+        <item>시장 조사</item>
+        <item>타깃 고객 정의</item>
+        <item>경쟁 카페 분석</item>
+        <item>기획안 초안 작성</item>
+        <item>교수님 피드백 반영</item>
+    </string-array>
+</resources>
