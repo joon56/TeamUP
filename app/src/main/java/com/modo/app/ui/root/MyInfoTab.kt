@@ -85,7 +85,7 @@ class MyInfoTab(private val activity: RootActivity, private val b: TabMeBinding)
 
         b.logout.setOnClickListener {
             Dialogs.confirm(activity, R.string.confirm_logout, null, R.string.settings_logout) {
-                AuthService.signOut()
+                AuthService.signOut(activity)
                 activity.startActivity(
                     Intent(activity, LoginActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

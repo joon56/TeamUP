@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 파일 첨부 · 파일함 (Supabase Storage) -->
+<resources>
+    <string name="attach_photo">사진</string>
+    <string name="attach_file">파일</string>
+    <string name="attachments_label">첨부 파일</string>
+    <string name="attachments_add">파일 첨부</string>
+    <string name="attachment_remove">첨부 빼기</string>
+
+    <string name="file_uploading">%1$s 올리는 중… %2$d%%</string>
+    <string name="file_too_big">50MB가 넘는 파일은 올릴 수 없어요</string>
+    <string name="file_upload_failed">파일을 올리지 못했어요. 인터넷 연결을 확인해 주세요.</string>
+    <string name="file_downloading">파일을 내려받는 중…</string>
+    <string name="file_no_app">이 파일을 열 수 있는 앱이 없어요</string>
+    <string name="file_open_failed">파일을 열지 못했어요</string>
+
+    <string name="files_title">파일함</string>
+    <string name="files_empty">아직 파일이 없어요. 채팅·업무·회의록에 첨부한 파일도 여기에 모여요.</string>
+    <string name="files_upload">파일 올리기</string>
+    <string name="files_meta">%1$s · %2$s · %3$s</string>
+    <string name="files_source_chat">채팅</string>
+    <string name="files_source_task">업무</string>
+    <string name="files_source_minutes">회의록</string>
+    <string name="files_source_direct">파일함</string>
+    <string name="files_delete_confirm">이 파일을 삭제할까요?</string>
+    <string name="files_delete_note_chat">채팅방에 보낸 메시지도 함께 삭제돼요.</string>
+    <string name="files_delete_note_task">업무의 첨부 파일에서도 빠져요.</string>
+    <string name="files_delete_note_minutes">회의록의 첨부 파일에서도 빠져요.</string>
+    <string name="files_deleted">파일을 삭제했어요</string>
+</resources>

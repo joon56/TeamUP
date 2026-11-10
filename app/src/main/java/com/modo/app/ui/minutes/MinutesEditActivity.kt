@@ -46,10 +46,11 @@ import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
 import com.modo.app.ui.common.toast
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.launch
+import com.modo.app.ui.files.AttachmentsEditor
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.launch
 
 /**
  * 회의록 작성·수정. 메모를 쓰거나 녹음을 받아쓰고, AI로 요약해 결정 사항과 할 일 후보를 뽑아
@@ -72,6 +73,7 @@ class MinutesEditActivity : AppCompatActivity() {
 
     private var speech: SpeechSession? = null
     private var summarizing = false
+    private lateinit var attachments: AttachmentsEditor
 
     private val micPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) startRecording() else toast(R.string.minutes_mic_denied)
@@ -109,6 +111,10 @@ class MinutesEditActivity : AppCompatActivity() {
         binding.aiButton.setOnClickListener { summarize() }
         binding.addTasksButton.setOnClickListener { addTasks() }
         binding.saveButton.setOnClickListener { save(finishAfter = true) }
+        attachments = AttachmentsEditor(
+            this, binding.attachmentList, binding.attachButton, binding.attachStatus, "minutes.attach",
+            projectId = { projectId }, onChanged = {},
+        )
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -116,7 +122,10 @@ class MinutesEditActivity : AppCompatActivity() {
                 if (ready && snapshot() != initialSnapshot) {
                     Dialogs.confirm(
                         this@MinutesEditActivity, R.string.msg_discard_title, R.string.msg_discard_body, R.string.action_discard,
-                    ) { finish() }
+                    ) {
+                        attachments.discard()
+                        finish()
+                    }
                 } else {
                     finish()
                 }
@@ -141,6 +150,7 @@ class MinutesEditActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         speech?.stop()
+        if (::attachments.isInitialized) attachments.release()
         super.onDestroy()
     }
 
@@ -164,6 +174,7 @@ class MinutesEditActivity : AppCompatActivity() {
         binding.titleInput.setText(existing?.title ?: defaultTitle(project, today))
         binding.notesInput.setText(existing?.body.orEmpty())
         binding.transcriptInput.setText(existing?.transcript.orEmpty())
+        attachments.set(existing?.attachments.orEmpty())
         renderDate()
         renderAttendees(data)
         renderSummary()
@@ -178,6 +189,7 @@ class MinutesEditActivity : AppCompatActivity() {
     private fun snapshot(): String = listOf(
         binding.titleInput.text.toString().trim(), binding.notesInput.text.toString().trim(),
         binding.transcriptInput.text.toString().trim(), meetingDate, attendees.sorted(), summary,
+        attachments.attachments.map { it.path },
     ).joinToString("|")
 
     private fun renderDate() {
@@ -431,12 +443,13 @@ class MinutesEditActivity : AppCompatActivity() {
             transcript = binding.transcriptInput.text.toString().trim(),
             summary = summary,
             attendeeIds = DataHub.current.membersOf(projectId).map { it.id }.filter { it in attendees },
-            attachments = base?.attachments.orEmpty(),
+            attachments = attachments.attachments,
             createdBy = base?.createdBy.orEmpty(),
             createdByName = base?.createdByName.orEmpty(),
             createdAt = base?.createdAt ?: 0,
         )
         val id = TeamRepository.saveMinutes(minutes, failureToast())
+        attachments.commit(projectId, "minutes", id)
         // 새 회의록을 한 번 저장했으면 다음 저장부터는 같은 문서를 고침
         original = minutes.copy(
             id = id, createdAt = base?.createdAt ?: System.currentTimeMillis(),

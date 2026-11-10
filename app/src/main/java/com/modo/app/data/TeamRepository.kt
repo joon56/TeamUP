@@ -510,6 +510,20 @@ object TeamRepository {
         filesRef(file.projectId).document(file.id).delete().addOnFailureListener(logFailure("deleteFile", onFailure))
     }
 
+    /** 파일함에서 지운 파일을 그 파일이 첨부된 업무·회의록의 첨부 목록에서도 뺌 */
+    fun removeAttachment(file: FileMeta, onFailure: (Exception) -> Unit = {}) {
+        val data = DataHub.current
+        val (ref, current) = when (file.source) {
+            "task" -> tasksRef(file.projectId) to data.tasksOf(file.projectId).firstOrNull { it.id == file.sourceId }?.attachments
+            "minutes" -> minutesRef(file.projectId) to data.minutesOf(file.projectId).firstOrNull { it.id == file.sourceId }?.attachments
+            else -> return
+        }
+        if (current == null || current.none { it.path == file.attachment.path }) return
+        val left = current.filterNot { it.path == file.attachment.path }.map { FirestoreMapper.attachmentToMap(it) }
+        ref.document(file.sourceId).update(mapOf("attachments" to left, "updatedAt" to now()))
+            .addOnFailureListener(logFailure("removeAttachment", onFailure))
+    }
+
     // ───────────────────────── 샘플 데이터 ─────────────────────────
 
     /** 시연용 샘플 프로젝트 생성 (오늘 날짜 기준으로 일정이 잡힘) */

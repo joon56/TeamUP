@@ -102,6 +102,19 @@
 
     <View style="@style/Widget.Modo.Divider" />
 
+    <!-- 사진·파일 올리는 중 -->
+    <TextView
+        android:id="@+id/uploadStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/gap_xs"
+        android:paddingEnd="@dimen/screen_padding"
+        android:textAppearance="@style/TextAppearance.Modo.Caption"
+        android:textColor="@color/primary"
+        android:visibility="gone" />
+
     <!-- 입력창: 첨부 · 글 · 보내기 -->
     <LinearLayout
         android:layout_width="match_parent"

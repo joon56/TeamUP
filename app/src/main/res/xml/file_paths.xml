@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FileProvider로 다른 앱에 넘길 수 있는 폴더: 원래 이름을 붙인 열기용 복사본만 -->
+<paths>
+    <cache-path name="open" path="modo-open/" />
+</paths>

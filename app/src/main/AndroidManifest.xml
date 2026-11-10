@@ -55,6 +55,18 @@
         <activity android:name=".ui.member.MemberDetailActivity" />
         <activity android:name=".ui.meeting.AvailabilityActivity" />
         <activity android:name=".ui.meeting.MeetingFinderActivity" />
+        <activity android:name=".ui.files.FilesActivity" />
+
+        <!-- 받은 첨부 파일을 다른 앱(사진·PDF 보기)으로 열 때 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <!-- 회전해도 녹음이 끊기지 않게 화면을 다시 만들지 않음 -->
         <activity
             android:name=".ui.minutes.MinutesEditActivity"

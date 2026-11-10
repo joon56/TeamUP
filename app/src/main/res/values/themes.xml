@@ -42,9 +42,20 @@
         <item name="snackbarStyle">@style/Widget.Modo.Snackbar</item>
         <!-- 롱프레스 메뉴·멘션 목록: 배경과 구분되는 둥근 카드 -->
         <item name="popupMenuBackground">@drawable/bg_popup</item>
+        <!-- 기본(android.widget) PopupMenu·ListPopupWindow도 같은 카드 배경 -->
+        <item name="android:popupMenuStyle">@style/Widget.Modo.PopupMenu</item>
+        <item name="android:listPopupWindowStyle">@style/Widget.Modo.ListPopupWindow</item>
     </style>
 
     <style name="Theme.Modo" parent="Base.Theme.Modo" />
+
+    <style name="Widget.Modo.PopupMenu" parent="android:Widget.Material.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_popup</item>
+    </style>
+
+    <style name="Widget.Modo.ListPopupWindow" parent="android:Widget.Material.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/bg_popup</item>
+    </style>
 
     <style name="ThemeOverlay.Modo.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorSurface">@color/surface</item>

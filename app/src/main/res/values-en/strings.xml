@@ -65,6 +65,11 @@
     <string name="login_switch_to_signup">Don\'t have an account? Sign up</string>
     <string name="login_switch_to_login">Already have an account? Log in</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="login_or">or</string>
+    <string name="login_google">Continue with Google</string>
+    <string name="error_google_no_account">No Google account on this device. Add one in Settings and try again</string>
+    <string name="error_google_failed">Google sign-in failed. Please try again later</string>
+    <string name="error_google_email_in_use">This email is registered with a password. Log in with your email and password</string>
     <string name="msg_reset_sent">Password reset email sent</string>
     <string name="error_name_required">Please enter your name</string>
     <string name="error_email_invalid">Please enter a valid email address</string>

@@ -177,6 +177,48 @@
             android:layout_marginTop="@dimen/gap_xl"
             android:text="@string/action_login" />
 
+        <!-- 또는 Google 계정으로 (처음이면 가입, 이미 있으면 로그인) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_l"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/outline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_m"
+                android:layout_marginEnd="@dimen/gap_m"
+                android:text="@string/login_or"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                android:textColor="@color/text_tertiary" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/outline" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/google"
+            style="@style/Widget.Modo.Button.Tonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_l"
+            android:text="@string/login_google"
+            app:icon="@drawable/ic_google"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/gap_m"
+            app:iconTint="@null" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/switchMode"
             style="@style/Widget.Modo.Button.Text"

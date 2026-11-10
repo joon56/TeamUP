@@ -105,9 +105,9 @@ chatRooms/{roomId}          type(project|direct), projectId?, memberUids[], name
 
 | 서비스 | 용도 | 설정 |
 |---|---|---|
-| Supabase Storage (무료) | 파일·사진 | Management API로 프로젝트·비공개 버킷 `modo-files`·Firebase Third-party Auth·RLS(iss/aud 확인) 구성. 앱은 REST + Firebase ID 토큰. 경로 `projects/{pid}/{uuid}/{파일명}`, `dm/{roomId}/{uuid}/{파일명}`. 파일당 50MB |
+| Supabase Storage (무료) | 파일·사진 | Management API로 프로젝트·비공개 버킷 `modo-files`·Firebase Third-party Auth·RLS(iss/aud 확인) 구성. 앱은 REST + Firebase ID 토큰. 경로 `projects/{pid}/{uuid}.{확장자}`, `dm/{roomId}/{uuid}.{확장자}` (저장소 키에 한글을 못 써서 원래 이름은 Firestore 첨부 정보에 저장). 파일당 50MB. 목록 조회는 정책으로 막고, 지우기는 올린 사람만 |
 | Firebase AI Logic (Gemini Developer API) | 회의록 요약·할 일 추출 (`gemini-3.8-flash`, JSON 스키마 응답) | 콘솔에서 시작하기 1회. API 키 허용 목록에 `firebasevertexai`·`firebaseappcheck` 추가. App Check 필수(2026-11-02부터 자동 적용) → 디버그 빌드는 디버그 공급자, 기기별 디버그 토큰을 콘솔에 등록(또는 적용 시점을 2027-01-21까지 늦춤). 무료 요금제는 보낸 내용이 제품 개선에 쓰일 수 있어 처음 요약 때 안내 |
-| Google 로그인 | 소셜 로그인 | 콘솔에서 Google 제공업체 사용 설정 + 서명 SHA-1 등록 |
+| Google 로그인 | 소셜 로그인 | 콘솔에서 Google 제공업체 사용 설정 + 서명 SHA-1·SHA-256 등록(디버그 키 = 배포 APK 서명 키). 앱은 Credential Manager(`GetSignInWithGoogleOption`, 웹 클라이언트 ID) → Firebase `signInWithCredential` |
 | SpeechRecognizer | 회의 녹음 받아쓰기 | 기기 음성 인식(무료). 오디오 파일은 저장하지 않음 |
 
 한계: 파일 접근 권한은 "우리 Firebase 프로젝트 로그인 사용자 + 추측 불가능한 경로"까지만 보장(Supabase가 Firestore 팀원 여부를 모름). 문서에 명시.

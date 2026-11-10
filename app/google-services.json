@@ -12,7 +12,20 @@
           "package_name": "com.modo.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "55280275863-a5s8ksm42ath6ov3llp33u6u2jc0b2ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.modo.app",
+            "certificate_hash": "dabd88c3e157eea17216da901fdf99959a3d891d"
+          }
+        },
+        {
+          "client_id": "55280275863-802np52cbj5b73ok599di4g8mgnpaadf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCARsOChgLpRncPlhuskDGWj4SBIj8gnDA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55280275863-802np52cbj5b73ok599di4g8mgnpaadf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -31,7 +49,12 @@
           "package_name": "com.teamup.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "55280275863-802np52cbj5b73ok599di4g8mgnpaadf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCARsOChgLpRncPlhuskDGWj4SBIj8gnDA"
@@ -39,7 +62,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55280275863-802np52cbj5b73ok599di4g8mgnpaadf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

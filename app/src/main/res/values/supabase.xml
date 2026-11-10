@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    파일 첨부 저장소 (Supabase Storage, 버킷 modo-files).
+    publishable 키는 앱에 넣도록 만든 공개 키라 저장소에 올려도 됩니다. 접근은 버킷 정책이
+    "우리 Firebase 프로젝트로 로그인한 사용자"로 제한합니다.
+-->
+<resources>
+    <string name="supabase_url" translatable="false">https://esmoraausbtnzbnpqreb.supabase.co</string>
+    <string name="supabase_publishable_key" translatable="false">sb_publishable_omCMKlAEZg6Zi04vsSImag_WzZM7UKi</string>
+</resources>

@@ -98,6 +98,40 @@
                     android:minLines="5" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- ===== 첨부 파일 ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/attachments_label"
+                android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+            <LinearLayout
+                android:id="@+id/attachmentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/attachStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                android:textColor="@color/primary"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/attachButton"
+                style="@style/Widget.Modo.Button.Tonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:minHeight="44dp"
+                android:text="@string/attachments_add"
+                app:icon="@drawable/ic_attach"
+                app:iconGravity="textStart" />
+
             <!-- ===== 녹음 받아쓰기 ===== -->
             <LinearLayout
                 android:layout_width="match_parent"

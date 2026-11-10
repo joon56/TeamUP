@@ -238,17 +238,20 @@ object ChatRepository {
         refId: String? = null,
         mentions: List<String> = emptyList(),
         onFailure: (Exception) -> Unit = {},
-    ) {
+    ): String {
         val batch = db.batch()
-        addMessage(batch, roomId, memberUidsOf(roomId), type, text, file, refId, mentions)
+        val id = addMessage(batch, roomId, memberUidsOf(roomId), type, text, file, refId, mentions)
         batch.commit().addOnFailureListener {
             Log.w(TAG, "send", it)
             onFailure(it)
         }
+        return id
     }
 
-    fun deleteMessage(message: ChatMessage, onFailure: (Exception) -> Unit = {}) {
-        messagesRef(message.roomId).document(message.id).delete().addOnFailureListener(onFailure)
+    fun deleteMessage(message: ChatMessage, onFailure: (Exception) -> Unit = {}) = deleteMessage(message.roomId, message.id, onFailure)
+
+    fun deleteMessage(roomId: String, messageId: String, onFailure: (Exception) -> Unit = {}) {
+        messagesRef(roomId).document(messageId).delete().addOnFailureListener(onFailure)
     }
 
     /** 방을 열었을 때 내 안 읽은 수를 0으로 */

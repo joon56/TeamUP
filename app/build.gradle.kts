@@ -14,8 +14,8 @@ android {
         applicationId = "com.modo.app"
         minSdk = 26
         targetSdk = 37
-        versionCode = 2
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.2.1"
     }
 
     buildTypes {
@@ -53,6 +53,10 @@ dependencies {
     // 회의록 AI 요약 (Firebase AI Logic · Gemini Developer API). App Check 필수 → 개발용 디버그 공급자
     implementation(libs.firebase.ai)
     implementation(libs.firebase.appcheck.debug)
+    // Google 로그인 (Credential Manager → Firebase Auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     testImplementation(libs.junit)
     // 단위 테스트에서 진짜 org.json 사용 (안드로이드 jar의 org.json은 빈 껍데기)

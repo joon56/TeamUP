@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="attach_photo">Photo</string>
+    <string name="attach_file">File</string>
+    <string name="attachments_label">Attachments</string>
+    <string name="attachments_add">Attach file</string>
+    <string name="attachment_remove">Remove attachment</string>
+
+    <string name="file_uploading">Uploading %1$s… %2$d%%</string>
+    <string name="file_too_big">Files over 50 MB can\'t be uploaded</string>
+    <string name="file_upload_failed">Couldn\'t upload the file. Check your connection.</string>
+    <string name="file_downloading">Downloading…</string>
+    <string name="file_no_app">No app can open this file</string>
+    <string name="file_open_failed">Couldn\'t open the file</string>
+
+    <string name="files_title">Files</string>
+    <string name="files_empty">No files yet. Files attached in chat, tasks and minutes show up here too.</string>
+    <string name="files_upload">Upload</string>
+    <string name="files_meta">%1$s · %2$s · %3$s</string>
+    <string name="files_source_chat">Chat</string>
+    <string name="files_source_task">Task</string>
+    <string name="files_source_minutes">Minutes</string>
+    <string name="files_source_direct">Files</string>
+    <string name="files_delete_confirm">Delete this file?</string>
+    <string name="files_delete_note_chat">The chat message with this file will be deleted too.</string>
+    <string name="files_delete_note_task">It will also be removed from the task\'s attachments.</string>
+    <string name="files_delete_note_minutes">It will also be removed from the minutes\' attachments.</string>
+    <string name="files_deleted">File deleted</string>
+</resources>

@@ -358,6 +358,52 @@
                     app:buttonCompat="@null" />
             </RadioGroup>
 
+            <!-- ===== 첨부 파일 (Supabase Storage) ===== -->
+            <TextView
+                android:id="@+id/attachLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/attachments_label"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/statusGroup" />
+
+            <LinearLayout
+                android:id="@+id/attachmentList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attachLabel" />
+
+            <TextView
+                android:id="@+id/attachStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                android:textColor="@color/primary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attachmentList" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/attachButton"
+                style="@style/Widget.Modo.Button.Tonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:minHeight="44dp"
+                android:text="@string/attachments_add"
+                app:icon="@drawable/ic_attach"
+                app:iconGravity="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attachStatus" />
+
             <!-- ===== 삭제 (수정 모드에서만) ===== -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteButton"
@@ -369,7 +415,7 @@
                 android:visibility="gone"
                 app:icon="@drawable/ic_delete"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/statusGroup" />
+                app:layout_constraintTop_toBottomOf="@id/attachButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

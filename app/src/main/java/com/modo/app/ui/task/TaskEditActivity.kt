@@ -31,6 +31,7 @@ import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
 import com.modo.app.ui.common.toast
+import com.modo.app.ui.files.AttachmentsEditor
 import java.time.LocalDate
 
 /**
@@ -49,6 +50,8 @@ class TaskEditActivity : AppCompatActivity() {
         val dueDate: LocalDate,
         val priority: Priority,
         val status: TaskStatus,
+        /** 첨부 파일 경로 (바뀌었는지만 비교) */
+        val attachments: List<String> = emptyList(),
     )
 
     private lateinit var binding: ActivityTaskEditBinding
@@ -68,6 +71,7 @@ class TaskEditActivity : AppCompatActivity() {
     private var dueDate: LocalDate = LocalDate.now()
     private var projectChoices: List<Project> = emptyList()
     private var assigneeChoices: List<Member?> = emptyList() // null = 담당자 없음
+    private lateinit var attachments: AttachmentsEditor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +88,10 @@ class TaskEditActivity : AppCompatActivity() {
         binding.topBar.textAction.setText(R.string.action_save)
         binding.topBar.textAction.setOnClickListener { save() }
         binding.saveButton.setOnClickListener { save() }
+        attachments = AttachmentsEditor(
+            this, binding.attachmentList, binding.attachButton, binding.attachStatus, "task.attach",
+            projectId = { projectId }, onChanged = {},
+        )
         binding.deleteButton.setOnClickListener { confirmDelete() }
         binding.postponeButton.setOnClickListener { postpone() }
         binding.dueInput.setOnClickListener { pickDue() }
@@ -198,7 +206,7 @@ class TaskEditActivity : AppCompatActivity() {
         // 2) 처음 값 (저장 안 한 변경 비교 기준)
         val task = original
         initialForm = if (task != null) {
-            Form(task.projectId, task.title, task.description, task.assigneeId, task.dueDate, task.priority, task.status)
+            Form(task.projectId, task.title, task.description, task.assigneeId, task.dueDate, task.priority, task.status, task.attachments.map { it.path })
         } else {
             Form(
                 projectId, intent.getStringExtra(EXTRA_TITLE).orEmpty(), "", intent.getStringExtra(EXTRA_ASSIGNEE),
@@ -231,6 +239,7 @@ class TaskEditActivity : AppCompatActivity() {
         binding.statusGroup.check(statusButton(status))
 
         binding.deleteButton.isVisible = task != null
+        attachments.set(task?.attachments.orEmpty())
         binding.projectCard.isVisible = projectLocked
         binding.projectPickerLayout.isVisible = !projectLocked
         refreshProjects(data)
@@ -361,8 +370,10 @@ class TaskEditActivity : AppCompatActivity() {
             dueDate = form.dueDate,
             priority = form.priority,
             status = form.status,
+            attachments = attachments.attachments,
         )
         val savedId = TeamRepository.saveTask(task, failureToast())
+        attachments.commit(form.projectId, "task", savedId)
         // 메시지에서 만든 업무는 채팅방에 "업무 등록" 알림을 남김
         if (original == null && sourceRoom != null) {
             ChatRepository.send(sourceRoom, MessageType.TASK, form.title, refId = savedId, onFailure = failureToast())
@@ -379,6 +390,7 @@ class TaskEditActivity : AppCompatActivity() {
         dueDate = dueDate,
         priority = checkedPriority(),
         status = checkedStatus(),
+        attachments = attachments.attachments.map { it.path },
     )
 
     // ───────── RadioGroup ↔ 값 (when) ─────────
@@ -429,7 +441,14 @@ class TaskEditActivity : AppCompatActivity() {
 
     private fun close() {
         closing = true
+        // 저장하지 않고 나가면 이번에 올린 첨부는 지움 (저장했으면 commit에서 비워 둠)
+        if (::attachments.isInitialized) attachments.discard()
         finish()
+    }
+
+    override fun onDestroy() {
+        if (::attachments.isInitialized) attachments.release()
+        super.onDestroy()
     }
 
     companion object {

@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
+import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StyleSpan
@@ -17,9 +18,11 @@ import android.widget.ListPopupWindow
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.firestore.ListenerRegistration
 import com.modo.app.R
 import com.modo.app.data.AppData
@@ -28,16 +31,19 @@ import com.modo.app.data.ChatRepository
 import com.modo.app.data.DataHub
 import com.modo.app.data.Member
 import com.modo.app.data.MessageType
+import com.modo.app.data.TeamRepository
 import com.modo.app.databinding.ItemMsgEventBinding
 import com.modo.app.databinding.ItemMsgMineBinding
 import com.modo.app.databinding.ItemMsgOtherBinding
 import com.modo.app.databinding.ViewChatRoomBinding
+import com.modo.app.logic.FileRules
 import com.modo.app.logic.MessageTask
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.failureToast
 import com.modo.app.ui.common.toast
+import com.modo.app.ui.files.AttachPicker
 import com.modo.app.ui.files.FileActions
 import com.modo.app.ui.meeting.MeetingFinderActivity
 import com.modo.app.ui.task.TaskEditActivity
@@ -45,6 +51,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.launch
 
 /**
  * 채팅방 본문 동작 (채팅방 화면 · 프로젝트 화면 채팅 탭 공용).
@@ -53,6 +60,7 @@ import java.time.format.DateTimeFormatter
  * - Enter(하드웨어 키)·키보드 [보내기]로 전송, Shift+Enter는 줄바꿈 (키 이벤트)
  * - @ 를 입력하면 팀원 고르기 → 멘션 (상대 알림에 표시)
  * - 말풍선 길게 누르기: 복사 / 할 일로 만들기 / 삭제
+ * - 첨부(+): 사진·파일을 올려 보냄 (프로젝트방이면 파일함에도 기록)
  */
 class ChatRoomController(
     private val activity: AppCompatActivity,
@@ -68,6 +76,8 @@ class ChatRoomController(
     private val pendingMentions = mutableMapOf<String, String>() // uid → 이름
     private var mentionPopup: ListPopupWindow? = null
     private val zone = ZoneId.systemDefault()
+    private val picker = AttachPicker(activity, "chat.$roomId") { sendFile(it) }
+    private var uploading = 0
 
     init {
         b.send.isEnabled = false // 빈 입력칸에서는 회색
@@ -98,7 +108,7 @@ class ChatRoomController(
         }
         b.pinnedBanner.setOnClickListener { onOpenNotices() }
         b.attach.isVisible = FileActions.isAvailable
-        b.attach.setOnClickListener { FileActions.pickForChat(activity, roomId) }
+        b.attach.setOnClickListener { picker.showMenu(it) }
     }
 
     fun start() {
@@ -109,6 +119,30 @@ class ChatRoomController(
         listener?.remove()
         listener = null
         mentionPopup?.dismiss()
+        picker.release()
+    }
+
+    /** 사진은 미리보기 말풍선, 그 밖은 파일 말풍선. 파일 메시지 글에는 이름을 넣어 채팅 목록 미리보기에 씀 */
+    private fun sendFile(uri: Uri) {
+        val picked = FileActions.describe(activity, uri)
+        val folder = projectId?.let { FileRules.Folder.Project(it) } ?: FileRules.Folder.Direct(roomId)
+        uploading++
+        showUpload(picked.name, 0)
+        activity.lifecycleScope.launch {
+            val attachment = FileActions.upload(activity, picked, folder) { showUpload(picked.name, it) }
+            uploading--
+            if (uploading == 0) b.uploadStatus.isVisible = false
+            if (attachment == null) return@launch
+            val type = if (attachment.isImage) MessageType.IMAGE else MessageType.FILE
+            val text = if (attachment.isImage) "" else attachment.name
+            val messageId = ChatRepository.send(roomId, type, text, file = attachment, onFailure = activity.failureToast())
+            projectId?.let { TeamRepository.addFile(it, attachment, "chat", messageId) }
+        }
+    }
+
+    private fun showUpload(name: String, percent: Int) {
+        b.uploadStatus.isVisible = true
+        b.uploadStatus.text = activity.getString(R.string.file_uploading, name, percent)
     }
 
     /** 화면이 다시 보이면 읽음 처리 */
@@ -214,18 +248,31 @@ class ChatRoomController(
         b.msgList.addView(row.root)
     }
 
-    private fun bindBody(message: ChatMessage, text: android.widget.TextView, image: android.widget.ImageView) {
+    private fun bindBody(message: ChatMessage, bubble: View, text: android.widget.TextView, image: android.widget.ImageView) {
         val file = message.file
         when {
             message.type == MessageType.IMAGE && file != null -> {
                 image.isVisible = true
-                FileActions.loadThumbnail(activity, file, image)
+                FileActions.loadThumbnail(activity, file, image) {
+                    // 사진이 늦게 붙으면서 높이가 커지므로, 맨 아래를 보고 있었으면 다시 맨 아래로
+                    if (isNearBottom()) image.doOnNextLayout { scrollToBottom() }
+                }
                 text.isVisible = message.text.isNotBlank()
                 text.text = message.text
+                // 글 없이 사진만 보내면 말풍선 대신 둥근 사진만
+                if (message.text.isBlank()) {
+                    bubble.background = null
+                    bubble.setPadding(0, 0, 0, 0)
+                    image.setBackgroundResource(R.drawable.bg_card)
+                    image.clipToOutline = true
+                }
             }
             message.type == MessageType.FILE && file != null -> {
                 image.isVisible = false
                 text.text = activity.getString(R.string.chat_last_file, file.name) + " · " + FileActions.formatSize(file.size)
+                text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_doc, 0, 0, 0)
+                text.compoundDrawablePadding = activity.resources.getDimensionPixelSize(R.dimen.gap_s)
+                text.compoundDrawableTintList = text.textColors
             }
             else -> {
                 image.isVisible = false
@@ -236,7 +283,7 @@ class ChatRoomController(
 
     private fun addMine(message: ChatMessage, showTime: Boolean) {
         val row = ItemMsgMineBinding.inflate(LayoutInflater.from(activity), b.msgList, false)
-        bindBody(message, row.text, row.image)
+        bindBody(message, row.bubble, row.text, row.image)
         row.time.isVisible = showTime
         row.time.text = Fmt.time(activity, Instant.ofEpochMilli(message.createdAt).atZone(zone).toLocalTime())
         attachActions(row.bubble, message)
@@ -254,7 +301,7 @@ class ChatRoomController(
         row.avatar.setTextColor(color)
         row.name.isVisible = showHeader
         row.name.text = name
-        bindBody(message, row.text, row.image)
+        bindBody(message, row.bubble, row.text, row.image)
         row.time.isVisible = showTime
         row.time.text = Fmt.time(activity, Instant.ofEpochMilli(message.createdAt).atZone(zone).toLocalTime())
         if (!showHeader) (row.root.layoutParams as? android.widget.LinearLayout.LayoutParams)?.topMargin = 2
@@ -298,7 +345,11 @@ class ChatRoomController(
                         val title = MessageTask.title(message.text, mentioned.map { it.name })
                         TaskEditActivity.startFromMessage(activity, pid, title, roomId, message.id, mentioned.firstOrNull()?.id)
                     }
-                    MENU_DELETE -> ChatRepository.deleteMessage(message, activity.failureToast())
+                    MENU_DELETE -> {
+                        ChatRepository.deleteMessage(message, activity.failureToast())
+                        // 보낸 사진·파일도 저장소와 파일함에서 정리
+                        message.file?.let { FileActions.deleteUploaded(activity, it, projectId) }
+                    }
                 }
                 true
             }
