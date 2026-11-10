@@ -30,7 +30,7 @@
 
             <!-- ===== 프로필 ===== -->
             <LinearLayout
-                style="@style/Widget.TeamUp.Card"
+                style="@style/Widget.Modo.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foreground="@null"
@@ -56,7 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Title"
+                        android:textAppearance="@style/TextAppearance.Modo.Title"
                         android:textSize="26sp" />
                 </FrameLayout>
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/gap_m"
                     android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Title" />
+                    android:textAppearance="@style/TextAppearance.Modo.Title" />
 
                 <TextView
                     android:id="@+id/role"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.TeamUp.BodySecondary" />
+                    android:textAppearance="@style/TextAppearance.Modo.BodySecondary" />
 
                 <TextView
                     android:id="@+id/kind"
@@ -86,7 +86,7 @@
                     android:paddingTop="3dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="3dp"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Small" />
+                    android:textAppearance="@style/TextAppearance.Modo.Small" />
             </LinearLayout>
 
             <!-- ===== 완료 현황 3칸 ===== -->
@@ -97,7 +97,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    style="@style/Widget.TeamUp.Card"
+                    style="@style/Widget.Modo.Card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
@@ -112,17 +112,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Number" />
+                        android:textAppearance="@style/TextAppearance.Modo.Number" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/member_stats_assigned"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/Widget.TeamUp.Card"
+                    style="@style/Widget.Modo.Card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -138,18 +138,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Number"
+                        android:textAppearance="@style/TextAppearance.Modo.Number"
                         android:textColor="@color/success" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/member_stats_done"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/Widget.TeamUp.Card"
+                    style="@style/Widget.Modo.Card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -164,24 +164,99 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Number"
+                        android:textAppearance="@style/TextAppearance.Modo.Number"
                         android:textColor="@color/primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/member_stats_rate"
-                        android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
                 </LinearLayout>
             </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress"
-                style="@style/Widget.TeamUp.Progress.Linear"
+                style="@style/Widget.Modo.Progress.Linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_l"
                 android:max="100" />
+
+            <!-- ===== 1:1 채팅 · 팀장 넘기기 ===== -->
+            <LinearLayout
+                android:id="@+id/actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/directChat"
+                    style="@style/Widget.Modo.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/member_direct_chat"
+                    app:icon="@drawable/ic_chat"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/transferLead"
+                    style="@style/Widget.Modo.Button.Tonal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:text="@string/member_transfer_lead"
+                    app:icon="@drawable/ic_star"
+                    app:iconGravity="textStart" />
+            </LinearLayout>
+
+            <!-- ===== 가능 시간 (나·앱 안 쓰는 팀원은 편집, 그 외는 회의 시간 찾기) ===== -->
+            <LinearLayout
+                android:id="@+id/availabilityCard"
+                style="@style/Widget.Modo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/Widget.Modo.IconBox"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_event_available"
+                    app:tint="@color/primary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/me_availability"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <TextView
+                        android:id="@+id/availabilitySummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
 
             <!-- ===== 담당 업무 ===== -->
             <TextView
@@ -189,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xl"
                 android:text="@string/member_tasks"
-                android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
 
             <LinearLayout
                 android:id="@+id/taskList"
@@ -200,7 +275,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/remove"
-                style="@style/Widget.TeamUp.Button.Danger"
+                style="@style/Widget.Modo.Button.Danger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

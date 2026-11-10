@@ -1,158 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 업무 탭: 내 모든 프로젝트의 업무를 상태 필터(RadioGroup)와 "내 업무만"(CheckBox)으로 걸러 봄 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    루트 "할 일" 탭: 모든 프로젝트의 업무를 겹치지 않는 4개 분류(할 일·진행 중·지연·완료)로 나눠 보여줌
+    분류는 RadioGroup(칩 모양), 목록은 날짜별로 묶음
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView android:defaultFocusHighlightEnabled="false"
-        android:id="@+id/tasksScroll"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/gap_xs">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tasks_title"
+            android:textAppearance="@style/TextAppearance.Modo.Display" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/mineOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:saveEnabled="false"
+            android:text="@string/filter_mine"
+            android:textAppearance="@style/TextAppearance.Modo.Label" />
+
+        <ImageButton
+            android:id="@+id/search"
+            style="@style/Widget.Modo.IconButton"
+            android:contentDescription="@string/desc_search"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_s"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/screen_padding"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:id="@+id/segments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/segTodo"
+                style="@style/Widget.Modo.ChipRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_s"
+                android:saveEnabled="false"
+                app:buttonCompat="@null" />
+
+            <RadioButton
+                android:id="@+id/segInProgress"
+                style="@style/Widget.Modo.ChipRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_s"
+                android:saveEnabled="false"
+                app:buttonCompat="@null" />
+
+            <RadioButton
+                android:id="@+id/segOverdue"
+                style="@style/Widget.Modo.ChipRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_s"
+                android:saveEnabled="false"
+                app:buttonCompat="@null" />
+
+            <RadioButton
+                android:id="@+id/segDone"
+                style="@style/Widget.Modo.ChipRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:saveEnabled="false"
+                app:buttonCompat="@null" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/gap_xs"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false">
 
         <LinearLayout
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="@dimen/screen_padding"
-            android:paddingTop="@dimen/gap_s"
             android:paddingEnd="@dimen/screen_padding"
-            android:paddingBottom="@dimen/fab_bottom_space">
-
-            <!-- 제목 + 검색 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:minHeight="@dimen/touch_target"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tasks_title"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Title" />
-
-                <ImageButton
-                    android:id="@+id/tasksSearch"
-                    style="@style/Widget.TeamUp.IconButton"
-                    android:layout_marginEnd="-12dp"
-                    android:contentDescription="@string/desc_search"
-                    android:src="@drawable/ic_search" />
-            </LinearLayout>
-
-            <!-- 상태 필터: RadioGroup 안의 칩 모양 RadioButton (가로 스크롤) -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_m"
-                android:overScrollMode="never"
-                android:scrollbars="none">
-
-                <RadioGroup
-                    android:id="@+id/tasksFilterGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/tasksFilterAll"
-                        style="@style/Widget.TeamUp.ChipRadio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/gap_s"
-                        android:button="@null"
-                        android:checked="true"
-                        android:text="@string/filter_all"
-                        app:buttonCompat="@null" />
-
-                    <RadioButton
-                        android:id="@+id/tasksFilterTodo"
-                        style="@style/Widget.TeamUp.ChipRadio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/gap_s"
-                        android:button="@null"
-                        android:text="@string/status_todo"
-                        app:buttonCompat="@null" />
-
-                    <RadioButton
-                        android:id="@+id/tasksFilterInProgress"
-                        style="@style/Widget.TeamUp.ChipRadio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/gap_s"
-                        android:button="@null"
-                        android:text="@string/status_in_progress"
-                        app:buttonCompat="@null" />
-
-                    <RadioButton
-                        android:id="@+id/tasksFilterDone"
-                        style="@style/Widget.TeamUp.ChipRadio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/gap_s"
-                        android:button="@null"
-                        android:text="@string/status_done"
-                        app:buttonCompat="@null" />
-
-                    <RadioButton
-                        android:id="@+id/tasksFilterOverdue"
-                        style="@style/Widget.TeamUp.ChipRadio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@null"
-                        android:text="@string/status_overdue"
-                        app:buttonCompat="@null" />
-                </RadioGroup>
-            </HorizontalScrollView>
-
-            <!-- 내 업무만 + 개수 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_s"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/tasksMineOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter_mine"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Body" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tasksCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tasksList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_s"
-                android:orientation="vertical" />
-        </LinearLayout>
+            android:paddingBottom="@dimen/gap_xl" />
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/tasksFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/screen_padding"
-        android:contentDescription="@string/add_task"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary"
-        app:tint="@color/on_primary" />
-</FrameLayout>
+</LinearLayout>

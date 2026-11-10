@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 채팅 목록 (카톡식): 팀방 + 1:1, 최근 대화순, 안 읽은 수 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_top_bar" />
+
+    <RadioGroup
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/screen_padding"
+        android:paddingBottom="@dimen/gap_s">
+
+        <RadioButton
+            android:id="@+id/filterAll"
+            style="@style/Widget.Modo.ChipRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/gap_s"
+            android:saveEnabled="false"
+            android:text="@string/chat_filter_all"
+            app:buttonCompat="@null" />
+
+        <RadioButton
+            android:id="@+id/filterTeam"
+            style="@style/Widget.Modo.ChipRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/gap_s"
+            android:saveEnabled="false"
+            android:text="@string/chat_filter_team"
+            app:buttonCompat="@null" />
+
+        <RadioButton
+            android:id="@+id/filterDirect"
+            style="@style/Widget.Modo.ChipRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:saveEnabled="false"
+            android:text="@string/chat_filter_direct"
+            app:buttonCompat="@null" />
+    </RadioGroup>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false">
+
+        <LinearLayout
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/gap_xl" />
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

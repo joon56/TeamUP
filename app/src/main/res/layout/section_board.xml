@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 보드: 할 일 / 진행 중 / 완료 세 열을 가로로 넘겨 봄 (열 너비는 화면의 84%, 손을 떼면 가까운 열에 맞춤) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:id="@+id/boardScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/gap_l"
+        android:paddingTop="@dimen/gap_m"
+        android:paddingEnd="@dimen/gap_l"
+        android:paddingBottom="@dimen/gap_m"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/columns"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/screen_padding"
+        android:contentDescription="@string/add_task"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/on_primary" />
+</FrameLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 홈 "진행 중인 프로젝트" 가로 카드 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Modo.Card"
+    android:layout_width="236dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/gap_m"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_icon_box"
+            android:importantForAccessibility="no"
+            android:padding="8dp"
+            android:src="@drawable/ic_folder" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/mode"
+            style="@style/Widget.Modo.Pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="오늘 중심" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_m"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+        tools:text="데이터분석 팀플" />
+
+    <TextView
+        android:id="@+id/subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Modo.Caption"
+        tools:text="데이터분석 · D-5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_m"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress"
+            style="@style/Widget.Modo.Progress.Linear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:textAppearance="@style/TextAppearance.Modo.Small"
+            tools:text="75%" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_s"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Modo.Small"
+        tools:text="다음 회의 화 19:00" />
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_skip">Skip</string>
+
+    <!-- Availability -->
+    <string name="avail_title">Availability</string>
+    <string name="avail_title_onboarding">When are you usually free?</string>
+    <string name="avail_title_member">%1$s\'s availability</string>
+    <string name="avail_help">Tap or drag to paint the times you can meet. Start on a painted cell to erase.</string>
+    <string name="avail_help_onboarding">Used to match meeting times with your team. Drag to paint — you can change it later in My info.</string>
+    <string name="avail_scope_project">Applies to \'%1$s\' only</string>
+    <string name="avail_preset_evenings">Weekday evenings</string>
+    <string name="avail_preset_default">My default</string>
+    <string name="avail_preset_clear">Clear</string>
+    <string name="avail_selected_none">Nothing painted yet</string>
+    <string name="avail_apply_all">Also apply to my projects</string>
+    <string name="avail_saved">Availability saved</string>
+    <string name="avail_save_start">Save and start</string>
+    <string name="avail_default_empty">You haven\'t set a default yet</string>
+    <string name="avail_grid_desc">Weekly availability grid in 30-minute slots</string>
+    <string name="avail_only_self">Only they can change their times</string>
+    <string name="member_availability_none">Not entered yet</string>
+    <string name="avail_profile_loading">Setting up your profile. Please try again in a moment.</string>
+
+    <!-- Meeting finder -->
+    <string name="finder_title">Find a meeting time</string>
+    <string name="finder_status">%2$d of %1$d have entered times</string>
+    <string name="finder_status_hint">Tap a name to enter your times, or times for a member who doesn\'t use the app.</string>
+    <string name="finder_edit_mine">Enter my times</string>
+    <string name="finder_edit_mine_done">Edit my times</string>
+    <string name="finder_request">Ask the team</string>
+    <string name="finder_request_message">%1$s is picking a meeting time. %2$s please enter your availability!</string>
+    <string name="finder_requested">Request sent in team chat</string>
+    <string name="finder_length">Meeting length</string>
+    <string name="finder_recommend">Suggested times</string>
+    <string name="finder_recommend_help">Times most people can make come first; ties prefer weekday evenings.</string>
+    <string name="finder_rank">#%1$d</string>
+    <string name="finder_range">%1$s %2$s – %3$s</string>
+    <string name="finder_available">%2$d of %1$d available</string>
+    <string name="finder_unavailable">Can\'t make it: %1$s</string>
+    <string name="finder_everyone">Everyone can make it</string>
+    <string name="finder_set_regular">Set as regular meeting</string>
+    <string name="finder_current">Current regular meeting</string>
+    <string name="finder_confirm_title">Meet every %1$s?</string>
+    <string name="finder_confirm_body">A %1$d-minute meeting. The team will be told in chat, and weeks will be split by the meeting day.</string>
+    <string name="finder_set_done">Regular meeting set</string>
+    <string name="finder_set_message">%1$s set the regular meeting to every %2$s (%3$d min)</string>
+    <string name="finder_empty">No one has entered availability yet. Start with yours.</string>
+    <string name="finder_heatmap">Overview</string>
+    <string name="finder_legend_few">Fewer</string>
+    <string name="finder_legend_many">More</string>
+    <string name="finder_cell">%1$s · %3$d of %2$d free</string>
+    <string name="finder_cell_who">Free: %1$s</string>
+    <string name="finder_cell_nobody">No one is free at this time</string>
+    <string name="finder_cell_hint">Tap a cell to see who is free then.</string>
+
+    <!-- Notifications -->
+    <string name="notif_meeting">Suggested meeting time changed in \'%1$s\'</string>
+    <string name="notif_meeting_sub">Top pick %1$s · %2$d of %3$d free</string>
+</resources>

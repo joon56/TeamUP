@@ -1,6 +1,6 @@
 <resources>
     <!-- 앱 전체 테마. 색상은 values/colors.xml(라이트), values-night/colors.xml(다크)에서 자동 선택 -->
-    <style name="Base.Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Modo" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/primary_container</item>
@@ -31,46 +31,64 @@
         <item name="android:fontFamily">@font/pretendard</item>
         <item name="fontFamily">@font/pretendard</item>
 
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.TeamUp.Dialog</item>
-        <item name="android:datePickerDialogTheme">@style/ThemeOverlay.TeamUp.Picker</item>
-        <item name="android:timePickerDialogTheme">@style/ThemeOverlay.TeamUp.Picker</item>
-        <item name="materialButtonStyle">@style/Widget.TeamUp.Button.Primary</item>
-        <item name="textInputStyle">@style/Widget.TeamUp.Input</item>
-        <item name="checkboxStyle">@style/Widget.TeamUp.CheckBox</item>
-        <item name="radioButtonStyle">@style/Widget.TeamUp.Radio</item>
-        <item name="bottomNavigationStyle">@style/Widget.TeamUp.BottomNav</item>
-        <item name="snackbarStyle">@style/Widget.TeamUp.Snackbar</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Modo.Dialog</item>
+        <item name="android:datePickerDialogTheme">@style/ThemeOverlay.Modo.Picker</item>
+        <item name="android:timePickerDialogTheme">@style/ThemeOverlay.Modo.Picker</item>
+        <item name="materialButtonStyle">@style/Widget.Modo.Button.Primary</item>
+        <item name="textInputStyle">@style/Widget.Modo.Input</item>
+        <item name="checkboxStyle">@style/Widget.Modo.CheckBox</item>
+        <item name="radioButtonStyle">@style/Widget.Modo.Radio</item>
+        <item name="bottomNavigationStyle">@style/Widget.Modo.BottomNav</item>
+        <item name="snackbarStyle">@style/Widget.Modo.Snackbar</item>
+        <!-- 롱프레스 메뉴·멘션 목록: 배경과 구분되는 둥근 카드 -->
+        <item name="popupMenuBackground">@drawable/bg_popup</item>
     </style>
 
-    <style name="Theme.TeamUp" parent="Base.Theme.TeamUp" />
+    <style name="Theme.Modo" parent="Base.Theme.Modo" />
 
-    <style name="ThemeOverlay.TeamUp.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+    <style name="ThemeOverlay.Modo.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorSurface">@color/surface</item>
         <item name="colorSurfaceContainerHigh">@color/surface</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="android:fontFamily">@font/pretendard</item>
         <item name="fontFamily">@font/pretendard</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.TeamUp.Dialog</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Modo.Dialog</item>
     </style>
 
     <!-- 날짜·시간 선택창 (DatePickerDialog / TimePickerDialog): 머리글을 보라색으로 -->
-    <style name="ThemeOverlay.TeamUp.Picker" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="ThemeOverlay.Modo.Picker" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:colorAccent">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
         <item name="colorPrimary">@color/primary</item>
-        <item name="android:datePickerStyle">@style/Widget.TeamUp.DatePicker</item>
-        <item name="android:timePickerStyle">@style/Widget.TeamUp.TimePicker</item>
+        <item name="android:datePickerStyle">@style/Widget.Modo.DatePicker</item>
+        <item name="android:timePickerStyle">@style/Widget.Modo.TimePicker</item>
     </style>
 
-    <style name="Widget.TeamUp.DatePicker" parent="android:Widget.Material.DatePicker">
+    <style name="Widget.Modo.DatePicker" parent="android:Widget.Material.DatePicker">
         <item name="android:headerBackground">@color/primary</item>
     </style>
 
-    <style name="Widget.TeamUp.TimePicker" parent="android:Widget.Material.TimePicker">
+    <style name="Widget.Modo.TimePicker" parent="android:Widget.Material.TimePicker">
         <item name="android:headerBackground">@color/primary</item>
     </style>
 
-    <style name="ShapeAppearance.TeamUp.Dialog" parent="">
+    <!-- 위에서 내려오는 전환 시트 -->
+    <style name="ThemeOverlay.Modo.TopSheet" parent="Theme.Modo">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.55</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Modo.TopSheet</item>
+    </style>
+
+    <style name="Animation.Modo.TopSheet" parent="">
+        <item name="android:windowEnterAnimation">@anim/slide_down_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_up_out</item>
+    </style>
+
+    <style name="ShapeAppearance.Modo.Dialog" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>
     </style>

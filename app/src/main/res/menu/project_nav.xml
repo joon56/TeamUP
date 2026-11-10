@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 워크스페이스 모드(시안 3) 하단 탭 5개 -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pnav_board"
+        android:icon="@drawable/ic_board"
+        android:title="@string/tab_board" />
+    <item
+        android:id="@+id/pnav_schedule"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/tab_schedule" />
+    <item
+        android:id="@+id/pnav_minutes"
+        android:icon="@drawable/ic_minutes"
+        android:title="@string/tab_minutes" />
+    <item
+        android:id="@+id/pnav_chat"
+        android:icon="@drawable/ic_forum"
+        android:title="@string/tab_chat_notice" />
+    <item
+        android:id="@+id/pnav_more"
+        android:icon="@drawable/ic_grid"
+        android:title="@string/tab_more" />
+</menu>

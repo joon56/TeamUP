@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_me">Me</string>
+    <string name="desc_switcher">Switch project</string>
+    <string name="desc_chat">Chats</string>
+    <string name="desc_prev_week">Previous week</string>
+    <string name="desc_next_week">Next week</string>
+    <string name="desc_prev_month">Previous month</string>
+    <string name="desc_next_month">Next month</string>
+
+    <string name="time_just_now">Just now</string>
+    <string name="time_minutes_ago">%1$d min ago</string>
+    <string name="time_yesterday">Yesterday</string>
+    <string name="msg_coming_soon">Coming soon</string>
+
+    <string name="switcher_all_home">All projects</string>
+    <string name="switcher_all_home_desc">See every active project at a glance</string>
+    <string name="switcher_ongoing">Active projects</string>
+    <string name="switcher_finished">Finished projects (%1$d)</string>
+    <string name="switcher_new_project">New project</string>
+    <string name="switcher_empty">You haven\'t joined any project yet</string>
+
+    <string name="mode_today">Today</string>
+    <string name="mode_progress">Progress</string>
+    <string name="mode_workspace">Workspace</string>
+    <string name="mode_chat">Chat</string>
+    <string name="mode_today_desc">Opens with your tasks for today and upcoming deadlines in this project.</string>
+    <string name="mode_progress_desc">Opens with progress, each member\'s status and recent activity.</string>
+    <string name="mode_workspace_desc">Goes straight to the board. Move around with the bottom tabs.</string>
+    <string name="mode_chat_desc">The team chat comes first. Open tasks, schedule and minutes from the top toolbar.</string>
+
+    <string name="home_hello">Hi, %1$s</string>
+    <string name="home_today_count">%1$d due today · %2$d in progress</string>
+    <string name="home_today_free">Nothing is due today</string>
+    <string name="pattern_month_short">MMM</string>
+    <string name="pattern_month">MMMM yyyy</string>
+    <string name="week_of_month">%1$s · Week %2$d</string>
+    <string name="action_this_week">This week</string>
+    <string name="action_this_month">This month</string>
+    <string name="attention_title">Due soon</string>
+    <string name="attention_more">%1$d more</string>
+    <string name="home_projects_title">Active projects</string>
+    <string name="home_add_project">New project\nJoin with code</string>
+    <string name="home_first_title">Start your first project</string>
+    <string name="home_first_body">Create one or join with an invite code. When a teammate invites your tag (%1$s), it shows up in notifications.</string>
+    <string name="next_meeting_format">Next meeting %1$s</string>
+    <string name="meeting_undecided">Meeting time TBD</string>
+    <string name="day_schedule_title">%1$s</string>
+    <string name="day_schedule_empty">Nothing scheduled for this day</string>
+    <string name="meeting_with_project">%1$s meeting</string>
+
+    <string name="seg_todo">To do %1$d</string>
+    <string name="seg_in_progress">Doing %1$d</string>
+    <string name="seg_overdue">Overdue %1$d</string>
+    <string name="seg_done">Done %1$d</string>
+    <string name="group_this_week">This week</string>
+    <string name="group_after">Next week and later</string>
+    <string name="group_overdue_by">%1$d day(s) late</string>
+    <string name="group_recent_done">Recently completed</string>
+    <string name="tasks_empty_todo">Nothing to do</string>
+    <string name="tasks_empty_in_progress">Nothing in progress</string>
+    <string name="tasks_empty_overdue">No overdue tasks. Nice work!</string>
+    <string name="tasks_empty_done">No completed tasks yet</string>
+
+    <string name="schedule_upcoming">Coming up</string>
+
+    <string name="me_edit_profile">Edit profile</string>
+    <string name="me_tag_copied">Tag copied</string>
+    <string name="me_tag_pending">Issuing your tag…</string>
+    <string name="me_tag_help">Teammates find you by this tag or your sign-up email when inviting you.</string>
+    <string name="me_availability">Availability</string>
+    <string name="me_availability_none">Not set yet. Add it and MODO will suggest meeting times.</string>
+    <string name="me_availability_summary">%1$s hours a week</string>
+    <string name="me_school_none">No school added</string>
+    <string name="hint_school">School (optional)</string>
+    <string name="label_avatar_color">Avatar color</string>
+    <string name="profile_dialog_title">Edit profile</string>
+    <string name="error_name_chars">Names can\'t contain / or #</string>
+</resources>

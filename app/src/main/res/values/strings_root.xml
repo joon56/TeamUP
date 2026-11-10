@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 루트(전체 홈) · 상단 바 · 전환 시트 · 내 정보 -->
+<resources>
+    <string name="nav_me">내 정보</string>
+    <string name="desc_switcher">프로젝트 전환</string>
+    <string name="desc_chat">채팅</string>
+    <string name="desc_prev_week">지난주</string>
+    <string name="desc_next_week">다음 주</string>
+    <string name="desc_prev_month">지난달</string>
+    <string name="desc_next_month">다음 달</string>
+
+    <string name="time_just_now">방금</string>
+    <string name="time_minutes_ago">%1$d분 전</string>
+    <string name="time_yesterday">어제</string>
+    <string name="msg_coming_soon">곧 제공돼요</string>
+
+    <!-- 전환 시트 -->
+    <string name="switcher_all_home">전체 홈</string>
+    <string name="switcher_all_home_desc">진행 중인 모든 프로젝트 한눈에 보기</string>
+    <string name="switcher_ongoing">진행 중인 프로젝트</string>
+    <string name="switcher_finished">끝난 프로젝트 %1$d</string>
+    <string name="switcher_new_project">새 프로젝트</string>
+    <string name="switcher_empty">아직 참여한 프로젝트가 없어요</string>
+
+    <!-- 화면 모드 (플로우 시안 1~4) -->
+    <string name="mode_today">오늘 중심</string>
+    <string name="mode_progress">진행률 중심</string>
+    <string name="mode_workspace">워크스페이스</string>
+    <string name="mode_chat">소통 중심</string>
+    <string name="mode_today_desc">첫 화면에 이 프로젝트의 내 오늘 할 일과 임박한 마감을 먼저 보여줘요.</string>
+    <string name="mode_progress_desc">첫 화면에 진행률과 팀원별 현황, 최근 활동을 보여줘요.</string>
+    <string name="mode_workspace_desc">별도 개요 없이 보드로 바로 들어가요. 아래 탭으로 이동해요.</string>
+    <string name="mode_chat_desc">팀 채팅이 첫 화면이에요. 업무·일정·회의록은 위 툴바에서 열어요.</string>
+
+    <!-- 홈 -->
+    <string name="home_hello">%1$s님, 안녕하세요</string>
+    <string name="home_today_count">오늘 마감 %1$d개 · 진행 중 %2$d개</string>
+    <string name="home_today_free">오늘 마감인 업무가 없어요</string>
+    <string name="pattern_month_short">M월</string>
+    <string name="pattern_month">yyyy년 M월</string>
+    <string name="week_of_month">%1$s %2$d주차</string>
+    <string name="action_this_week">이번 주</string>
+    <string name="action_this_month">이번 달</string>
+    <string name="attention_title">마감 임박</string>
+    <string name="attention_more">%1$d개 더 보기</string>
+    <string name="home_projects_title">진행 중인 프로젝트</string>
+    <string name="home_add_project">새 프로젝트\n코드로 참여</string>
+    <string name="home_first_title">첫 프로젝트를 시작해 보세요</string>
+    <string name="home_first_body">새로 만들거나 받은 초대 코드로 참여하세요. 팀원이 내 태그(%1$s)로 초대하면 알림에 떠요.</string>
+    <string name="next_meeting_format">다음 회의 %1$s</string>
+    <string name="meeting_undecided">회의 시간 미정</string>
+    <string name="day_schedule_title">%1$s 일정</string>
+    <string name="day_schedule_empty">이날은 일정이 없어요</string>
+    <string name="meeting_with_project">%1$s 정기 회의</string>
+
+    <!-- 할 일 탭 -->
+    <string name="seg_todo">할 일 %1$d</string>
+    <string name="seg_in_progress">진행 중 %1$d</string>
+    <string name="seg_overdue">지연 %1$d</string>
+    <string name="seg_done">완료 %1$d</string>
+    <string name="group_this_week">이번 주</string>
+    <string name="group_after">다음 주 이후</string>
+    <string name="group_overdue_by">%1$d일 지남</string>
+    <string name="group_recent_done">최근 완료</string>
+    <string name="tasks_empty_todo">할 일이 없어요</string>
+    <string name="tasks_empty_in_progress">진행 중인 업무가 없어요</string>
+    <string name="tasks_empty_overdue">지연된 업무가 없어요. 잘하고 있어요!</string>
+    <string name="tasks_empty_done">완료한 업무가 없어요</string>
+
+    <!-- 일정 탭 -->
+    <string name="schedule_upcoming">다가오는 일정</string>
+
+    <!-- 내 정보 -->
+    <string name="me_edit_profile">프로필 수정</string>
+    <string name="me_tag_copied">태그를 복사했어요</string>
+    <string name="me_tag_pending">태그 발급 중…</string>
+    <string name="me_tag_help">팀원이 나를 초대할 때 이 태그나 가입 이메일로 찾아요.</string>
+    <string name="me_availability">가능 시간</string>
+    <string name="me_availability_none">아직 입력하지 않았어요. 입력해 두면 회의 시간을 자동으로 추천해 줘요.</string>
+    <string name="me_availability_summary">일주일에 %1$s시간 가능</string>
+    <string name="me_school_none">학교 미입력</string>
+    <string name="hint_school">학교 (선택)</string>
+    <string name="label_avatar_color">아바타 색</string>
+    <string name="profile_dialog_title">프로필 수정</string>
+    <string name="error_name_chars">이름에는 / 와 # 를 쓸 수 없어요</string>
+</resources>

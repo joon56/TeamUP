@@ -2,7 +2,7 @@
 <!-- 프로젝트 카드 (홈 "내 프로젝트") -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.TeamUp.Card"
+    style="@style/Widget.Modo.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/gap_s"
@@ -12,7 +12,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        style="@style/Widget.TeamUp.IconBox"
+        style="@style/Widget.Modo.IconBox"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_folder" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,11 +43,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                android:textAppearance="@style/TextAppearance.Modo.Caption" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress"
-                style="@style/Widget.TeamUp.Progress.Linear"
+                style="@style/Widget.Modo.Progress.Linear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/gap_s"
@@ -58,7 +58,7 @@
 
     <ImageButton
         android:id="@+id/more"
-        style="@style/Widget.TeamUp.IconButton"
+        style="@style/Widget.Modo.IconButton"
         android:contentDescription="@string/action_more"
         android:src="@drawable/ic_more"
         app:tint="@color/text_tertiary" />

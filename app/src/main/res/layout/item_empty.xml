@@ -6,4 +6,4 @@
     android:background="@drawable/bg_card"
     android:gravity="center"
     android:padding="@dimen/gap_xl"
-    android:textAppearance="@style/TextAppearance.TeamUp.BodySecondary" />
+    android:textAppearance="@style/TextAppearance.Modo.BodySecondary" />

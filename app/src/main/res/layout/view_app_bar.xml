@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    모든 화면 공통 상단 바
+    왼쪽: 전환 버튼 (루트에선 로고·MODO, 프로젝트에선 색 점·프로젝트명) → 전환 시트
+    오른쪽: 알림 · 채팅 (안 읽은 수 배지). 배지는 아이콘 상자 안쪽에 두어 잘리지 않게 함
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/gap_s"
+    android:paddingEnd="@dimen/gap_xs">
+
+    <ImageButton
+        android:id="@+id/back"
+        style="@style/Widget.Modo.IconButton"
+        android:contentDescription="@string/action_back"
+        android:src="@drawable/ic_back"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/switcher"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_switcher"
+        android:clickable="true"
+        android:contentDescription="@string/desc_switcher"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/gap_s"
+        android:paddingEnd="@dimen/gap_s">
+
+        <FrameLayout
+            android:layout_width="28dp"
+            android:layout_height="28dp">
+
+            <ImageView
+                android:id="@+id/switcherLogo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_logo" />
+
+            <ImageView
+                android:id="@+id/switcherIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_icon_box"
+                android:importantForAccessibility="no"
+                android:padding="5dp"
+                android:src="@drawable/ic_folder"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- 화살표는 글자 끝 그림으로: 제목이 길면 글자만 줄고 화살표는 남음 -->
+        <TextView
+            android:id="@+id/switcherTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:drawablePadding="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.Modo.Title"
+            app:drawableEndCompat="@drawable/ic_expand_more"
+            app:drawableTint="@color/text_secondary"
+            tools:text="데이터분석 팀플" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/action1"
+        style="@style/Widget.Modo.IconButton"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/bellBox"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:clipChildren="false">
+
+        <ImageButton
+            android:id="@+id/bell"
+            style="@style/Widget.Modo.IconButton"
+            android:contentDescription="@string/desc_notifications"
+            android:src="@drawable/ic_bell" />
+
+        <TextView
+            android:id="@+id/bellBadge"
+            style="@style/Widget.Modo.CountBadge"
+            tools:text="16"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/chatBox"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:clipChildren="false">
+
+        <ImageButton
+            android:id="@+id/chat"
+            style="@style/Widget.Modo.IconButton"
+            android:contentDescription="@string/desc_chat"
+            android:src="@drawable/ic_chat" />
+
+        <TextView
+            android:id="@+id/chatBadge"
+            style="@style/Widget.Modo.CountBadge"
+            tools:text="3"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/more"
+        style="@style/Widget.Modo.IconButton"
+        android:contentDescription="@string/action_more"
+        android:src="@drawable/ic_more_vert"
+        android:visibility="gone" />
+</LinearLayout>

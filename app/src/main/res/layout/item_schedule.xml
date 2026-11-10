@@ -2,7 +2,7 @@
 <!-- 일정 항목 (정기 회의 / 업무 마감 / 프로젝트 마감) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.TeamUp.Card"
+    style="@style/Widget.Modo.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/gap_s"
@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        style="@style/Widget.TeamUp.IconBox"
+        style="@style/Widget.Modo.IconBox"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_calendar" />
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -37,7 +37,7 @@
             android:layout_marginTop="2dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+            android:textAppearance="@style/TextAppearance.Modo.Caption" />
     </LinearLayout>
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gap_s"
-        android:textAppearance="@style/TextAppearance.TeamUp.Small" />
+        android:textAppearance="@style/TextAppearance.Modo.Small" />
 
     <ImageView
         android:layout_width="@dimen/icon_m"

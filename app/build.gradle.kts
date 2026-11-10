@@ -5,17 +5,17 @@ plugins {
 }
 
 android {
-    namespace = "com.teamup.app"
+    namespace = "com.modo.app"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.teamup.app"
+        applicationId = "com.modo.app"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
     }
 
     buildTypes {
@@ -44,11 +44,17 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.material)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    // 회의록 AI 요약 (Firebase AI Logic · Gemini Developer API). App Check 필수 → 개발용 디버그 공급자
+    implementation(libs.firebase.ai)
+    implementation(libs.firebase.appcheck.debug)
 
     testImplementation(libs.junit)
+    // 단위 테스트에서 진짜 org.json 사용 (안드로이드 jar의 org.json은 빈 껍데기)
+    testImplementation(libs.org.json)
 }

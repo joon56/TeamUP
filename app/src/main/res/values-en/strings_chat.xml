@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chat_title">Chats</string>
+    <string name="chat_filter_all">All</string>
+    <string name="chat_filter_team">Teams</string>
+    <string name="chat_filter_direct">Direct</string>
+    <string name="chat_empty">No chats yet. Each project gets a team chat room.</string>
+    <string name="chat_new">New chat</string>
+    <string name="chat_pick_person">Chat with</string>
+    <string name="chat_no_people">No one to chat with yet. You can message app users in your projects.</string>
+    <string name="chat_members">%1$d members</string>
+    <string name="chat_hint">Message</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_attach">Attach file</string>
+    <string name="chat_load_more">Load earlier messages</string>
+    <string name="chat_room_empty">Say hello to start the conversation</string>
+    <string name="chat_last_image">Photo</string>
+    <string name="chat_last_file">File · %1$s</string>
+    <string name="chat_last_notice">Notice · %1$s</string>
+    <string name="chat_last_poll">Poll · %1$s</string>
+    <string name="chat_last_task">Task added · %1$s</string>
+    <string name="chat_sender_prefix">%1$s: %2$s</string>
+    <string name="chat_unknown_person">Unknown</string>
+    <string name="chat_copy">Copy</string>
+    <string name="chat_to_task">Make it a task</string>
+    <string name="chat_delete">Delete message</string>
+    <string name="chat_copied">Message copied</string>
+    <string name="chat_task_created">Added as a task · %1$s</string>
+    <string name="chat_mention_pick">Mention</string>
+    <string name="chat_pattern_day">EEEE, MMMM d</string>
+    <string name="chat_open_notices">Notices %1$d</string>
+
+    <string name="notices_title">Notices</string>
+    <string name="notices_empty">No notices yet</string>
+    <string name="notice_write">New notice</string>
+    <string name="notice_hint_title">Title (optional)</string>
+    <string name="notice_hint_body">Message</string>
+    <string name="notice_pin">Pin to the top of the chat</string>
+    <string name="notice_add_poll">Add a poll</string>
+    <string name="notice_poll_question">Question</string>
+    <string name="notice_poll_option">Option %1$d</string>
+    <string name="notice_poll_add_option">Add option</string>
+    <string name="notice_poll_multiple">Allow multiple choices</string>
+    <string name="notice_pinned">Pinned</string>
+    <string name="notice_unpin">Unpin</string>
+    <string name="notice_pin_action">Pin</string>
+    <string name="notice_vote">Vote</string>
+    <string name="notice_votes">%1$d vote(s)</string>
+    <string name="notice_voters">%1$d voted</string>
+    <string name="notice_my_vote">My choice</string>
+    <string name="error_notice_body">Write a message</string>
+    <string name="error_poll_options">Add at least 2 options</string>
+    <string name="confirm_delete_notice">Delete this notice?</string>
+</resources>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    프로젝트 화면 = 플로우 시안별 "화면 모드" 셸
+    모드 1·2: 상단 탭(TabLayout) 6개 / 모드 3: 하단 탭 5개 / 모드 4: 위 띠 + 칩 툴바, 첫 화면 채팅
+    섹션 화면은 content(FrameLayout)에 처음 열 때 붙이고, 선택된 것만 보이게 함
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/view_app_bar" />
+
+    <!-- 모드 4: 오늘 할 일 · 가장 가까운 D-day 띠 -->
+    <LinearLayout
+        android:id="@+id/chatBand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_padding"
+        android:layout_marginEnd="@dimen/screen_padding"
+        android:layout_marginBottom="@dimen/gap_s"
+        android:background="@drawable/bg_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/gap_m"
+        android:paddingTop="@dimen/gap_s"
+        android:paddingEnd="@dimen/gap_m"
+        android:paddingBottom="@dimen/gap_s"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_today"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:id="@+id/bandToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:background="?attr/selectableItemBackground"
+            android:textAppearance="@style/TextAppearance.Modo.Label"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="@dimen/gap_m"
+            android:layout_marginEnd="@dimen/gap_m"
+            android:background="@color/outline_strong" />
+
+        <TextView
+            android:id="@+id/bandDday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Modo.Label" />
+    </LinearLayout>
+
+    <!-- 모드 1·2: 상단 탭 -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/topTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:visibility="gone"
+        app:tabGravity="start"
+        app:tabIndicatorColor="@color/primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="14dp"
+        app:tabPaddingStart="14dp"
+        app:tabSelectedTextColor="@color/text_primary"
+        app:tabTextAppearance="@style/TextAppearance.Modo.Tab"
+        app:tabTextColor="@color/text_tertiary" />
+
+    <!-- 모드 4: 칩 툴바 -->
+    <HorizontalScrollView
+        android:id="@+id/toolbarScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/screen_padding"
+        android:paddingBottom="@dimen/gap_s"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/topDivider"
+        style="@style/Widget.Modo.Divider"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:id="@+id/bottomDivider"
+        style="@style/Widget.Modo.Divider"
+        android:visibility="gone" />
+
+    <!-- 모드 3: 워크스페이스 하단 탭 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/bottom_nav_min_height"
+        android:visibility="gone"
+        app:menu="@menu/project_nav" />
+</LinearLayout>

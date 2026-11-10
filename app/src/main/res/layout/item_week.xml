@@ -17,7 +17,7 @@
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
 
         <TextView
             android:id="@+id/currentBadge"
@@ -31,7 +31,7 @@
             android:paddingEnd="8dp"
             android:paddingBottom="2dp"
             android:text="@string/week_current"
-            android:textAppearance="@style/TextAppearance.TeamUp.Small"
+            android:textAppearance="@style/TextAppearance.Modo.Small"
             android:textColor="@color/on_primary_container"
             android:visibility="gone" />
 
@@ -42,18 +42,18 @@
             android:layout_marginStart="@dimen/gap_s"
             android:layout_weight="1"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.TeamUp.Small" />
+            android:textAppearance="@style/TextAppearance.Modo.Small" />
 
         <TextView
             android:id="@+id/rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+            android:textAppearance="@style/TextAppearance.Modo.Caption" />
     </LinearLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress"
-        style="@style/Widget.TeamUp.Progress.Linear"
+        style="@style/Widget.Modo.Progress.Linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"

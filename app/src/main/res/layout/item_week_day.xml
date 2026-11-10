@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 주간 캘린더의 하루 칸: 요일 · 날짜 · 표시 점(회의/마감) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/gap_s"
+    android:paddingBottom="@dimen/gap_s">
+
+    <TextView
+        android:id="@+id/weekday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/bg_dot"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/bg_dot"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

@@ -12,6 +12,7 @@
 *.apk
 # 팀원 배포용 APK만 저장소에 포함 (GUIDE.md에서 링크)
 !release/TeamUp-*.apk
+!release/MODO-*.apk
 *.aab
 firebase-debug.log*
 .firebase/

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 가능 시간 입력 · 회의 시간 찾기 (when2meet 방식) -->
+<resources>
+    <string name="action_skip">건너뛰기</string>
+
+    <!-- 가능 시간 -->
+    <string name="avail_title">가능 시간</string>
+    <string name="avail_title_onboarding">보통 언제 시간이 되나요?</string>
+    <string name="avail_title_member">%1$s님의 가능 시간</string>
+    <string name="avail_help">칸을 누르거나 끌어서 회의할 수 있는 시간을 칠하세요. 칠한 칸에서 시작하면 지워져요.</string>
+    <string name="avail_help_onboarding">팀원과 회의 시간을 맞출 때 써요. 칸을 끌어서 칠하고, 나중에 내 정보에서 바꿀 수 있어요.</string>
+    <string name="avail_scope_project">\'%1$s\'에만 적용돼요</string>
+    <string name="avail_preset_evenings">평일 저녁</string>
+    <string name="avail_preset_default">내 기본값</string>
+    <string name="avail_preset_clear">모두 지우기</string>
+    <string name="avail_selected_none">아직 칠한 칸이 없어요</string>
+    <string name="avail_apply_all">참여 중인 프로젝트에도 적용</string>
+    <string name="avail_saved">가능 시간을 저장했어요</string>
+    <string name="avail_save_start">저장하고 시작하기</string>
+    <string name="avail_default_empty">내 기본 가능 시간이 아직 없어요</string>
+    <string name="avail_grid_desc">요일별 30분 단위 가능 시간 표</string>
+    <string name="avail_only_self">본인만 바꿀 수 있어요</string>
+    <string name="member_availability_none">아직 입력하지 않았어요</string>
+    <string name="avail_profile_loading">프로필을 준비하고 있어요. 잠시 후 다시 눌러 주세요.</string>
+
+    <!-- 회의 시간 찾기 -->
+    <string name="finder_title">회의 시간 찾기</string>
+    <string name="finder_status">%1$d명 중 %2$d명이 입력했어요</string>
+    <string name="finder_status_hint">이름을 누르면 내 시간이나 앱을 안 쓰는 팀원의 시간을 입력할 수 있어요.</string>
+    <string name="finder_edit_mine">내 시간 입력</string>
+    <string name="finder_edit_mine_done">내 시간 수정</string>
+    <string name="finder_request">입력 요청</string>
+    <string name="finder_request_message">%1$s님이 회의 시간을 정하려고 해요. %2$s 가능 시간을 입력해 주세요!</string>
+    <string name="finder_requested">팀 채팅에 요청을 보냈어요</string>
+    <string name="finder_length">회의 길이</string>
+    <string name="finder_recommend">추천 시간</string>
+    <string name="finder_recommend_help">가장 많은 팀원이 되는 시간부터, 같으면 평일 저녁을 먼저 보여 줘요.</string>
+    <string name="finder_rank">%1$d순위</string>
+    <string name="finder_range">%1$s %2$s – %3$s</string>
+    <string name="finder_available">%1$d명 중 %2$d명 가능</string>
+    <string name="finder_unavailable">어려운 사람: %1$s</string>
+    <string name="finder_everyone">모두 가능</string>
+    <string name="finder_set_regular">정기 회의로 지정</string>
+    <string name="finder_current">현재 정기 회의</string>
+    <string name="finder_confirm_title">매주 %1$s에 회의할까요?</string>
+    <string name="finder_confirm_body">%1$d분 회의로 정하고 팀 채팅에 알려요. 주차는 회의 요일 기준으로 다시 나뉘어요.</string>
+    <string name="finder_set_done">정기 회의를 정했어요</string>
+    <string name="finder_set_message">%1$s님이 정기 회의를 매주 %2$s(%3$d분)로 정했어요</string>
+    <string name="finder_empty">아직 가능 시간을 입력한 팀원이 없어요. 내 시간부터 입력해 보세요.</string>
+    <string name="finder_heatmap">한눈에 보기</string>
+    <string name="finder_legend_few">적음</string>
+    <string name="finder_legend_many">많음</string>
+    <string name="finder_cell">%1$s · %2$d명 중 %3$d명 가능</string>
+    <string name="finder_cell_who">가능: %1$s</string>
+    <string name="finder_cell_nobody">이 시간에 되는 팀원이 없어요</string>
+    <string name="finder_cell_hint">칸을 누르면 그 시간에 누가 되는지 보여 줘요.</string>
+
+    <!-- 알림 -->
+    <string name="notif_meeting">\'%1$s\' 회의 추천 시간이 바뀌었어요</string>
+    <string name="notif_meeting_sub">1순위 %1$s · %3$d명 중 %2$d명 가능</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 시간 선택: 시·분 스크롤 휠 (NumberPicker 두 개). 시계 모양 대신 (회의 피드백 7) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/gap_m"
+    android:paddingBottom="@dimen/gap_s">
+
+    <NumberPicker
+        android:id="@+id/hour"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/desc_hour"
+        android:descendantFocusability="blocksDescendants"
+        android:selectionDividerHeight="1dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_m"
+        android:layout_marginEnd="@dimen/gap_m"
+        android:text=":"
+        android:textAppearance="@style/TextAppearance.Modo.Display" />
+
+    <NumberPicker
+        android:id="@+id/minute"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/desc_minute"
+        android:descendantFocusability="blocksDescendants"
+        android:selectionDividerHeight="1dp" />
+</LinearLayout>

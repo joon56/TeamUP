@@ -11,7 +11,7 @@
 
     <ImageButton
         android:id="@+id/back"
-        style="@style/Widget.TeamUp.IconButton"
+        style="@style/Widget.Modo.IconButton"
         android:contentDescription="@string/action_back"
         android:src="@drawable/ic_back" />
 
@@ -23,21 +23,21 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+        android:textAppearance="@style/TextAppearance.Modo.Section" />
 
     <ImageButton
         android:id="@+id/action1"
-        style="@style/Widget.TeamUp.IconButton"
+        style="@style/Widget.Modo.IconButton"
         android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/action2"
-        style="@style/Widget.TeamUp.IconButton"
+        style="@style/Widget.Modo.IconButton"
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/textAction"
-        style="@style/Widget.TeamUp.Button.Text"
+        style="@style/Widget.Modo.Button.Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

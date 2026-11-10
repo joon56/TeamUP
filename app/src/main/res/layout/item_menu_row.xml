@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 설정·더보기 목록 한 줄 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="56dp"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/gap_l"
+    android:paddingEnd="@dimen/gap_m">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:importantForAccessibility="no"
+        app:tint="@color/text_secondary" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_l"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.Modo.Body" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_s"
+        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/gap_xs"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_chevron_right"
+        app:tint="@color/text_tertiary" />
+</LinearLayout>

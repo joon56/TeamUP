@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알림: 받은 초대(수락·거절) → 마감 임박·지연 · 공지 · 멘션 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false">
+
+        <LinearLayout
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingEnd="@dimen/screen_padding"
+            android:paddingBottom="@dimen/gap_xl" />
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

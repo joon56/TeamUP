@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:55280275863:android:fd5034092cd8f4a6d4b4d2",
+        "android_client_info": {
+          "package_name": "com.modo.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCARsOChgLpRncPlhuskDGWj4SBIj8gnDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:55280275863:android:602f27e2e7f80a47d4b4d2",
         "android_client_info": {
           "package_name": "com.teamup.app"

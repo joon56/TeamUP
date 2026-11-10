@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 날짜 칸 아래 작은 점. 색은 코드에서 backgroundTintList 로 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="@android:color/white" />
+    <size android:width="5dp" android:height="5dp" />
+</shape>

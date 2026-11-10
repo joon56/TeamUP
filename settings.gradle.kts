@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TeamUp"
+rootProject.name = "MODO"
 include(":app")

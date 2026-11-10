@@ -18,7 +18,7 @@
 
         <ImageButton
             android:id="@+id/back"
-            style="@style/Widget.TeamUp.IconButton"
+            style="@style/Widget.Modo.IconButton"
             android:contentDescription="@string/action_back"
             android:src="@drawable/ic_back" />
 
@@ -53,7 +53,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.TeamUp.Body"
+                android:textAppearance="@style/TextAppearance.Modo.Body"
                 android:textColorHint="@color/text_tertiary" />
 
             <ImageButton

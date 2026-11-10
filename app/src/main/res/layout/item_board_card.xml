@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 보드 카드: 우선순위 막대 · 제목 · 담당자 · D-day (길게 누르면 옮기기 메뉴) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gap_s"
+    android:background="@drawable/bg_card"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/priorityBar"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/gap_m"
+        android:layout_marginBottom="@dimen/gap_m"
+        android:background="@drawable/bg_priority_bar" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/gap_m">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+            tools:text="자료 조사 정리" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_s"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/avatar"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_avatar"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="민" />
+
+            <TextView
+                android:id="@+id/assignee"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.Modo.Small"
+                tools:text="민수" />
+
+            <ImageView
+                android:id="@+id/attachIcon"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="6dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_attach"
+                android:visibility="gone"
+                app:tint="@color/text_tertiary" />
+
+            <TextView
+                android:id="@+id/dday"
+                style="@style/Widget.Modo.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="D-2" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 프로젝트 화면 (모드 4종 · 섹션) -->
+<resources>
+    <string name="tab_board">보드</string>
+    <string name="tab_schedule">일정</string>
+    <string name="tab_minutes">회의록</string>
+    <string name="tab_chat_notice">채팅·공지</string>
+    <string name="tab_chat">채팅</string>
+    <string name="tab_notices">공지</string>
+    <string name="tab_more">더보기</string>
+    <string name="tab_files">파일</string>
+
+    <!-- 개요 (오늘 중심) -->
+    <string name="overview_today_title">오늘 내 할 일</string>
+    <string name="overview_today_empty">오늘 할 일이 없어요</string>
+    <string name="overview_due_soon">임박한 마감</string>
+    <string name="overview_due_soon_empty">3일 안에 마감되는 업무가 없어요</string>
+    <string name="overview_week_range">%1$d주차 · %2$s</string>
+    <string name="overview_pinned">고정 공지</string>
+    <string name="overview_next_meeting">다음 회의</string>
+    <string name="overview_find_meeting">회의 시간 찾기</string>
+    <string name="overview_no_meeting">남은 회의가 없어요</string>
+
+    <!-- 개요 (진행률 중심) -->
+    <string name="progress_hero_week">이번 주</string>
+    <string name="progress_hero_overall">전체 %1$s</string>
+    <string name="progress_remaining">남은 업무 %1$d개</string>
+    <string name="progress_members">팀원별 진행률</string>
+    <string name="progress_activity">최근 활동</string>
+    <string name="activity_notice">%1$s님이 공지를 올렸어요 · %2$s</string>
+    <string name="activity_minutes">회의록이 작성됐어요 · %1$s</string>
+    <string name="activity_task_done">%1$s님이 완료했어요 · %2$s</string>
+    <string name="activity_task_done_noname">업무 완료 · %1$s</string>
+    <string name="activity_joined">%1$s님이 합류했어요</string>
+    <string name="activity_empty">아직 활동이 없어요</string>
+
+    <!-- 보드 -->
+    <string name="board_add">업무 추가</string>
+    <string name="board_move_to">%1$s(으)로 옮기기</string>
+    <string name="board_empty_column">비어 있어요</string>
+    <string name="board_open">열기</string>
+
+    <!-- 일정 -->
+    <string name="schedule_meeting_regular">매주 %1$s · %2$d분</string>
+    <string name="schedule_meeting_undecided_title">아직 회의 시간을 정하지 않았어요</string>
+    <string name="schedule_meeting_undecided_body">팀원들의 가능 시간을 모아 가장 많이 겹치는 시간을 추천해 드려요.</string>
+    <string name="schedule_this_project">이 프로젝트 일정</string>
+
+    <!-- 팀원 -->
+    <string name="members_invite">팀원 초대</string>
+    <string name="members_leader">팀장</string>
+    <string name="members_guest">앱 미사용</string>
+    <string name="members_pending">보낸 초대</string>
+    <string name="members_cancel_invite">초대 취소</string>
+    <string name="members_count">팀원 %1$d명</string>
+    <string name="members_code_help">코드를 받은 사람은 [코드로 참여]로 바로 들어올 수 있어요.</string>
+
+    <!-- 더보기 (워크스페이스 모드) -->
+    <string name="more_files">파일함</string>
+    <string name="more_settings">프로젝트 설정</string>
+    <string name="more_mode">화면 모드</string>
+    <string name="more_share_code">초대 코드 공유</string>
+
+    <!-- 소통 중심 모드 위 띠 -->
+    <string name="chat_band_today">오늘 할 일 %1$d</string>
+    <string name="chat_band_dday">%1$s %2$s</string>
+    <string name="chat_band_none">임박한 마감 없음</string>
+
+    <!-- 화면 모드 -->
+    <string name="mode_dialog_title">화면 모드</string>
+    <string name="mode_changed">\'%1$s\' 모드로 바꿨어요</string>
+    <string name="mode_help">팀 전체에 적용돼요. 언제든 다시 바꿀 수 있어요.</string>
+
+    <!-- 프로젝트 만들기·설정 -->
+    <string name="hint_subject">과목 (선택)</string>
+    <string name="meeting_mode_direct">직접 정하기</string>
+    <string name="meeting_mode_collect">팀원 시간 모아서</string>
+    <string name="meeting_collect_help">팀원들이 가능 시간을 입력하면 가장 많이 겹치는 시간을 추천해 드려요. 정하기 전까지 주차는 시작일 요일 기준으로 나눠요.</string>
+    <string name="label_duration">회의 길이</string>
+    <string name="duration_format">%1$d분</string>
+
+    <!-- 시간 선택 휠 -->
+    <string name="time_dialog_title">시간 선택</string>
+    <string name="desc_hour">시</string>
+    <string name="desc_minute">분</string>
+
+    <!-- 아직 만들지 않은 섹션 -->
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 루트(전체 홈): 공통 상단 바 + 탭 4개(FrameLayout에 겹쳐 두고 선택된 것만 보임) + 하단 탭 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/view_app_bar" />
+
+    <FrameLayout
+        android:id="@+id/tabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/home"
+            layout="@layout/tab_home" />
+
+        <include
+            android:id="@+id/tasks"
+            layout="@layout/tab_tasks"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/schedule"
+            layout="@layout/tab_schedule"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/me"
+            layout="@layout/tab_me"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <View style="@style/Widget.Modo.Divider" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/bottom_nav_min_height"
+        app:menu="@menu/root_nav" />
+</LinearLayout>

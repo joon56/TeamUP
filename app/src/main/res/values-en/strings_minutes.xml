@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="minutes_write">Write minutes</string>
+    <string name="minutes_search_hint">Search minutes (title, notes, decisions)</string>
+    <string name="minutes_empty">No minutes yet. After a meeting, keep notes or a recording here.</string>
+    <string name="minutes_no_match">No results</string>
+    <string name="minutes_meta">%1$s · %2$d attended · %3$s</string>
+    <string name="minutes_badge_ai">AI summary</string>
+    <string name="minutes_badge_actions">%1$d to-dos</string>
+    <string name="minutes_badge_transcript">Transcript</string>
+
+    <string name="minutes_new">New minutes</string>
+    <string name="minutes_title_screen">Minutes</string>
+    <string name="minutes_default_title">Week %1$d meeting</string>
+    <string name="minutes_hint_title">Title</string>
+    <string name="minutes_date">Meeting date</string>
+    <string name="minutes_attendees">Attendees</string>
+    <string name="minutes_notes">Notes</string>
+    <string name="minutes_notes_hint">Decisions, to-dos, next agenda…</string>
+    <string name="minutes_saved">Minutes saved</string>
+    <string name="minutes_delete_confirm">Delete these minutes?</string>
+    <string name="minutes_title_required">Enter a title</string>
+
+    <string name="minutes_transcript">Transcript</string>
+    <string name="minutes_transcript_hint">Record and what is said appears here. You can fix mistakes yourself.</string>
+    <string name="minutes_record_start">Record</string>
+    <string name="minutes_record_stop">Stop</string>
+    <string name="minutes_listening">Listening…</string>
+    <string name="minutes_mic_denied">Microphone permission is needed for dictation</string>
+    <string name="minutes_stt_unavailable">Speech recognition isn\'t available on this device</string>
+    <string name="minutes_stt_language">Korean speech recognition isn\'t available. Check the device\'s speech language.</string>
+
+    <string name="minutes_ai">AI summary</string>
+    <string name="minutes_ai_help">Turns your notes and transcript into a summary, decisions and to-dos.</string>
+    <string name="minutes_ai_button">Summarize</string>
+    <string name="minutes_ai_again">Summarize again</string>
+    <string name="minutes_ai_running">Summarizing…</string>
+    <string name="minutes_ai_need_text">Add notes or a transcript first</string>
+    <string name="minutes_ai_failed">Couldn\'t summarize. Check AI Logic and App Check in the Firebase console.</string>
+    <string name="minutes_ai_quota">Too many AI requests. Try again in a moment.</string>
+    <string name="minutes_ai_notice_title">About AI summaries</string>
+    <string name="minutes_ai_notice_body">Your notes and transcript are sent to Google Gemini. On the free tier they may be used to improve Google products, so leave out personal information.</string>
+    <string name="minutes_ai_notice_ok">Agree and summarize</string>
+    <string name="minutes_decisions">Decisions</string>
+    <string name="minutes_actions">Suggested to-dos</string>
+    <string name="minutes_actions_help">Checked items become tasks on the board. You can change assignees and dates later.</string>
+    <string name="minutes_add_tasks">Add %1$d to board</string>
+    <string name="minutes_tasks_added">Added %1$d tasks to the board</string>
+    <string name="minutes_action_added">On the board</string>
+    <string name="minutes_no_assignee">No assignee</string>
+    <string name="minutes_task_source">From minutes \'%1$s\'</string>
+    <string name="bullet_item">• %1$s</string>
+</resources>

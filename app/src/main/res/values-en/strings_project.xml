@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_board">Board</string>
+    <string name="tab_schedule">Schedule</string>
+    <string name="tab_minutes">Minutes</string>
+    <string name="tab_chat_notice">Chat</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_notices">Notices</string>
+    <string name="tab_more">More</string>
+    <string name="tab_files">Files</string>
+
+    <string name="overview_today_title">My tasks today</string>
+    <string name="overview_today_empty">Nothing to do today</string>
+    <string name="overview_due_soon">Due soon</string>
+    <string name="overview_due_soon_empty">Nothing due in the next 3 days</string>
+    <string name="overview_week_range">Week %1$d · %2$s</string>
+    <string name="overview_pinned">Pinned notice</string>
+    <string name="overview_next_meeting">Next meeting</string>
+    <string name="overview_find_meeting">Find a meeting time</string>
+    <string name="overview_no_meeting">No more meetings</string>
+
+    <string name="progress_hero_week">This week</string>
+    <string name="progress_hero_overall">Overall %1$s</string>
+    <string name="progress_remaining">%1$d tasks left</string>
+    <string name="progress_members">Progress by member</string>
+    <string name="progress_activity">Recent activity</string>
+    <string name="activity_notice">%1$s posted a notice · %2$s</string>
+    <string name="activity_minutes">Minutes written · %1$s</string>
+    <string name="activity_task_done">%1$s completed · %2$s</string>
+    <string name="activity_task_done_noname">Completed · %1$s</string>
+    <string name="activity_joined">%1$s joined</string>
+    <string name="activity_empty">No activity yet</string>
+
+    <string name="board_add">Add task</string>
+    <string name="board_move_to">Move to %1$s</string>
+    <string name="board_empty_column">Empty</string>
+    <string name="board_open">Open</string>
+
+    <string name="schedule_meeting_regular">Every %1$s · %2$d min</string>
+    <string name="schedule_meeting_undecided_title">Meeting time not set yet</string>
+    <string name="schedule_meeting_undecided_body">Collect everyone\'s availability and MODO will suggest the time that suits the most people.</string>
+    <string name="schedule_this_project">Project schedule</string>
+
+    <string name="members_invite">Invite</string>
+    <string name="members_leader">Leader</string>
+    <string name="members_guest">No app</string>
+    <string name="members_pending">Sent invites</string>
+    <string name="members_cancel_invite">Cancel invite</string>
+    <string name="members_count">%1$d members</string>
+    <string name="members_code_help">Anyone with this code can join via [Join with Code].</string>
+
+    <string name="more_files">Files</string>
+    <string name="more_settings">Project settings</string>
+    <string name="more_mode">Screen mode</string>
+    <string name="more_share_code">Share invite code</string>
+
+    <string name="chat_band_today">%1$d to do today</string>
+    <string name="chat_band_dday">%1$s %2$s</string>
+    <string name="chat_band_none">Nothing due soon</string>
+
+    <string name="mode_dialog_title">Screen mode</string>
+    <string name="mode_changed">Switched to \'%1$s\'</string>
+    <string name="mode_help">Applies to the whole team. You can change it any time.</string>
+
+    <string name="hint_subject">Course (optional)</string>
+    <string name="meeting_mode_direct">Set it myself</string>
+    <string name="meeting_mode_collect">Collect availability</string>
+    <string name="meeting_collect_help">When teammates enter their availability, MODO suggests the time that suits the most people. Until then, weeks start on the project\'s start weekday.</string>
+    <string name="label_duration">Duration</string>
+    <string name="duration_format">%1$d min</string>
+
+    <string name="time_dialog_title">Pick a time</string>
+    <string name="desc_hour">Hour</string>
+    <string name="desc_minute">Minute</string>
+</resources>

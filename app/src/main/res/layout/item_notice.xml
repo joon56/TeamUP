@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 공지 카드: 고정 표시 · 제목 · 본문 · 투표 · 작성자/시간 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Modo.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/gap_m"
+    android:foreground="@null"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/pinIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_pin_filled"
+            android:visibility="gone"
+            app:tint="@color/primary" />
+
+        <ImageView
+            android:id="@+id/pollIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_poll"
+            android:visibility="gone"
+            app:tint="@color/info" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+            tools:text="중간발표 준비" />
+
+        <ImageButton
+            android:id="@+id/more"
+            style="@style/Widget.Modo.IconButton.Small"
+            android:contentDescription="@string/action_more"
+            android:src="@drawable/ic_more_vert" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_xs"
+        android:autoLink="web"
+        android:textAppearance="@style/TextAppearance.Modo.BodySecondary"
+        tools:text="목요일까지 자료 올려 주세요" />
+
+    <LinearLayout
+        android:id="@+id/poll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_m"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_m"
+        android:textAppearance="@style/TextAppearance.Modo.Small"
+        tools:text="유진 · 3분 전 · 3명 참여" />
+</LinearLayout>

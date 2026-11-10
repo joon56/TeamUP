@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ===== 글자 스타일 ===== -->
-    <style name="TextAppearance.TeamUp" parent="TextAppearance.Material3.BodyLarge">
+    <style name="TextAppearance.Modo" parent="TextAppearance.Material3.BodyLarge">
         <item name="android:fontFamily">@font/pretendard</item>
         <item name="fontFamily">@font/pretendard</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">0</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Display">
+    <style name="TextAppearance.Modo.Display">
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:letterSpacing">-0.01</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Title">
+    <style name="TextAppearance.Modo.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Section">
+    <style name="TextAppearance.Modo.Section">
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.BodyStrong">
+    <style name="TextAppearance.Modo.BodyStrong">
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/pretendard_semibold</item>
         <item name="fontFamily">@font/pretendard_semibold</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Body">
+    <style name="TextAppearance.Modo.Body">
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.BodySecondary">
+    <style name="TextAppearance.Modo.BodySecondary">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Caption">
+    <style name="TextAppearance.Modo.Caption">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Small">
+    <style name="TextAppearance.Modo.Small">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/text_tertiary</item>
         <item name="android:fontFamily">@font/pretendard_medium</item>
         <item name="fontFamily">@font/pretendard_medium</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Number">
+    <style name="TextAppearance.Modo.Number">
         <item name="android:textSize">26sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.Button">
+    <style name="TextAppearance.Modo.Button">
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/pretendard_semibold</item>
         <item name="fontFamily">@font/pretendard_semibold</item>
@@ -65,13 +65,13 @@
     </style>
 
     <!-- ===== 카드 / 컨테이너 ===== -->
-    <style name="Widget.TeamUp.Card" parent="">
+    <style name="Widget.Modo.Card" parent="">
         <item name="android:background">@drawable/bg_card</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:padding">@dimen/card_padding</item>
     </style>
 
-    <style name="Widget.TeamUp.IconBox" parent="">
+    <style name="Widget.Modo.IconBox" parent="">
         <item name="android:layout_width">@dimen/icon_box</item>
         <item name="android:layout_height">@dimen/icon_box</item>
         <item name="android:background">@drawable/bg_icon_box</item>
@@ -79,7 +79,7 @@
         <item name="android:scaleType">fitCenter</item>
     </style>
 
-    <style name="Widget.TeamUp.IconButton" parent="">
+    <style name="Widget.Modo.IconButton" parent="">
         <item name="android:layout_width">@dimen/touch_target</item>
         <item name="android:layout_height">@dimen/touch_target</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
@@ -88,51 +88,51 @@
         <item name="tint">@color/text_primary</item>
     </style>
 
-    <style name="Widget.TeamUp.Divider" parent="">
+    <style name="Widget.Modo.Divider" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/outline</item>
     </style>
 
     <!-- ===== 버튼 ===== -->
-    <style name="Widget.TeamUp.Button.Primary" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/primary</item>
-        <item name="android:textColor">@color/on_primary</item>
-        <item name="iconTint">@color/on_primary</item>
+    <style name="Widget.Modo.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/selector_button_primary_bg</item>
+        <item name="android:textColor">@color/selector_button_primary_text</item>
+        <item name="iconTint">@color/selector_button_primary_text</item>
         <item name="cornerRadius">14dp</item>
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.TeamUp.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Modo.Button</item>
     </style>
 
-    <style name="Widget.TeamUp.Button.Tonal" parent="Widget.Material3.Button">
+    <style name="Widget.Modo.Button.Tonal" parent="Widget.Material3.Button">
         <item name="backgroundTint">@color/surface_high</item>
-        <item name="android:textColor">@color/text_primary</item>
-        <item name="iconTint">@color/text_primary</item>
+        <item name="android:textColor">@color/selector_button_tonal_text</item>
+        <item name="iconTint">@color/selector_button_tonal_text</item>
         <item name="strokeColor">@color/outline</item>
         <item name="strokeWidth">1dp</item>
         <item name="cornerRadius">14dp</item>
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:textAppearance">@style/TextAppearance.TeamUp.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Modo.Button</item>
     </style>
 
-    <style name="Widget.TeamUp.Button.Text" parent="Widget.Material3.Button.TextButton">
+    <style name="Widget.Modo.Button.Text" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/primary</item>
         <item name="iconTint">@color/primary</item>
-        <item name="android:textAppearance">@style/TextAppearance.TeamUp.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Modo.Button</item>
     </style>
 
-    <style name="Widget.TeamUp.Button.Danger" parent="Widget.Material3.Button.TextButton">
+    <style name="Widget.Modo.Button.Danger" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/danger</item>
         <item name="iconTint">@color/danger</item>
-        <item name="android:textAppearance">@style/TextAppearance.TeamUp.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Modo.Button</item>
     </style>
 
     <!-- ===== 입력 ===== -->
-    <style name="Widget.TeamUp.Input" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+    <style name="Widget.Modo.Input" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
@@ -144,19 +144,19 @@
     </style>
 
     <!-- ===== 선택 위젯 ===== -->
-    <style name="Widget.TeamUp.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+    <style name="Widget.Modo.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="buttonTint">@color/selector_check</item>
         <item name="android:textColor">@color/text_primary</item>
     </style>
 
-    <style name="Widget.TeamUp.Radio" parent="Widget.Material3.CompoundButton.RadioButton">
+    <style name="Widget.Modo.Radio" parent="Widget.Material3.CompoundButton.RadioButton">
         <item name="buttonTint">@color/selector_check</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:minHeight">@dimen/touch_target</item>
     </style>
 
     <!-- RadioButton을 둥근 칩 모양으로 (필터, 우선순위, 상태 선택) -->
-    <style name="Widget.TeamUp.ChipRadio" parent="">
+    <style name="Widget.Modo.ChipRadio" parent="">
         <item name="android:button">@null</item>
         <!-- AppCompat RadioButton은 buttonCompat으로 원을 따로 그리므로 함께 지움 -->
         <item name="buttonCompat">@null</item>
@@ -173,7 +173,7 @@
     </style>
 
     <!-- ===== 진행률 ===== -->
-    <style name="Widget.TeamUp.Progress.Linear" parent="Widget.Material3.LinearProgressIndicator">
+    <style name="Widget.Modo.Progress.Linear" parent="Widget.Material3.LinearProgressIndicator">
         <item name="trackThickness">@dimen/progress_track</item>
         <item name="trackCornerRadius">3dp</item>
         <item name="trackColor">@color/surface_highest</item>
@@ -182,7 +182,7 @@
         <item name="trackStopIndicatorSize">0dp</item>
     </style>
 
-    <style name="Widget.TeamUp.Progress.Circular" parent="Widget.Material3.CircularProgressIndicator">
+    <style name="Widget.Modo.Progress.Circular" parent="Widget.Material3.CircularProgressIndicator">
         <item name="indicatorSize">@dimen/ring_size</item>
         <item name="trackThickness">@dimen/ring_thickness</item>
         <item name="trackCornerRadius">6dp</item>
@@ -192,26 +192,87 @@
     </style>
 
     <!-- ===== 하단 탭 ===== -->
-    <style name="Widget.TeamUp.BottomNav" parent="Widget.Material3.BottomNavigationView">
+    <style name="Widget.Modo.BottomNav" parent="Widget.Material3.BottomNavigationView">
         <item name="backgroundTint">@color/nav_bg</item>
         <item name="itemIconTint">@color/selector_nav_item</item>
         <item name="itemTextColor">@color/selector_nav_item</item>
-        <item name="itemActiveIndicatorStyle">@style/Widget.TeamUp.BottomNav.Indicator</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Modo.BottomNav.Indicator</item>
         <item name="labelVisibilityMode">labeled</item>
-        <item name="itemTextAppearanceActive">@style/TextAppearance.TeamUp.NavLabel</item>
-        <item name="itemTextAppearanceInactive">@style/TextAppearance.TeamUp.NavLabel</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Modo.NavLabel</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.Modo.NavLabel</item>
         <item name="android:elevation">0dp</item>
     </style>
 
-    <style name="Widget.TeamUp.BottomNav.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+    <style name="Widget.Modo.BottomNav.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/primary_container</item>
     </style>
 
-    <style name="TextAppearance.TeamUp.NavLabel" parent="TextAppearance.Material3.LabelMedium">
+    <style name="TextAppearance.Modo.NavLabel" parent="TextAppearance.Material3.LabelMedium">
         <item name="android:fontFamily">@font/pretendard_medium</item>
         <item name="fontFamily">@font/pretendard_medium</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="Widget.TeamUp.Snackbar" parent="Widget.Material3.Snackbar" />
+    <style name="Widget.Modo.Snackbar" parent="Widget.Material3.Snackbar" />
+
+    <!-- ===== v0.2 추가 ===== -->
+
+    <!-- 아이콘 위 숫자 배지. 아이콘 상자(48dp) 안쪽 오른쪽 위에 두어 두 자리여도 잘리지 않음 -->
+    <style name="Widget.Modo.CountBadge" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_gravity">top|end</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:background">@drawable/bg_notif_dot</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:minWidth">18dp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- 작은 알약 라벨 (D-day, 모드, 역할). 색은 코드에서 backgroundTintList -->
+    <style name="Widget.Modo.Pill" parent="">
+        <item name="android:background">@drawable/bg_badge</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TextAppearance.Modo.Label">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="fontFamily">@font/pretendard_semibold</item>
+    </style>
+
+    <style name="TextAppearance.Modo.Tab" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- 작은 아이콘 버튼 (주·달 넘기기) -->
+    <style name="Widget.Modo.IconButton.Small">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:padding">7dp</item>
+        <item name="tint">@color/text_secondary</item>
+    </style>
 </resources>

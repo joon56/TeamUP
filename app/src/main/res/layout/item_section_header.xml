@@ -4,4 +4,4 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/gap_l"
     android:paddingBottom="@dimen/gap_s"
-    android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+    android:textAppearance="@style/TextAppearance.Modo.Section" />

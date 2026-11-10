@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 루트 "내 정보" 탭: 프로필(태그) · 가능 시간 · 테마/언어(RadioGroup) · 시연 · 로그아웃 · 앱 정보 -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:defaultFocusHighlightEnabled="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/screen_padding"
+        android:paddingBottom="@dimen/gap_xxl">
+
+        <!-- ===== 프로필 ===== -->
+        <LinearLayout
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@null"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/gap_xl">
+
+            <TextView
+                android:id="@+id/avatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_avatar"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Modo.Display"
+                tools:text="유" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:textAppearance="@style/TextAppearance.Modo.Title"
+                tools:text="유진" />
+
+            <LinearLayout
+                android:id="@+id/handleRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:background="@drawable/bg_switcher"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/gap_s"
+                android:paddingTop="@dimen/gap_xs"
+                android:paddingEnd="@dimen/gap_s"
+                android:paddingBottom="@dimen/gap_xs">
+
+                <TextView
+                    android:id="@+id/handle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+                    android:textColor="@color/primary"
+                    tools:text="유진#4821" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="6dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_copy"
+                    app:tint="@color/primary" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                tools:text="yujin@modo.test" />
+
+            <TextView
+                android:id="@+id/school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                tools:text="모프대학교" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:gravity="center"
+                android:text="@string/me_tag_help"
+                android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editProfile"
+                style="@style/Widget.Modo.Button.Tonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/me_edit_profile"
+                app:icon="@drawable/ic_edit"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+        <!-- ===== 가능 시간 ===== -->
+        <LinearLayout
+            android:id="@+id/availabilityCard"
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/Widget.Modo.IconBox"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_event_available"
+                app:tint="@color/primary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_m"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/me_availability"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                <TextView
+                    android:id="@+id/availabilitySummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/TextAppearance.Modo.Caption" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/icon_m"
+                android:layout_height="@dimen/icon_m"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_tertiary" />
+        </LinearLayout>
+
+        <!-- ===== 설정: 테마 · 언어 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:text="@string/settings_title"
+            android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+        <LinearLayout
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:foreground="@null"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_dark_mode"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_s"
+                    android:text="@string/settings_theme"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+            </LinearLayout>
+
+            <!-- 상태는 Prefs가 기준이라 화면 상태 저장은 끔(saveEnabled=false) -->
+            <RadioGroup
+                android:id="@+id/themeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/themeDark"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:saveEnabled="false"
+                    android:text="@string/theme_dark"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/themeLight"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:saveEnabled="false"
+                    android:text="@string/theme_light"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/themeSystem"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:text="@string/theme_system"
+                    app:buttonCompat="@null" />
+            </RadioGroup>
+
+            <View
+                style="@style/Widget.Modo.Divider"
+                android:layout_marginTop="@dimen/gap_l"
+                android:layout_marginBottom="@dimen/gap_l" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_language"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_s"
+                    android:text="@string/settings_language"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/languageGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/langKo"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:saveEnabled="false"
+                    android:text="@string/lang_ko"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/langEn"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:saveEnabled="false"
+                    android:text="@string/lang_en"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/langSystem"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:saveEnabled="false"
+                    android:text="@string/lang_system"
+                    app:buttonCompat="@null" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- ===== 시연 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:text="@string/settings_demo"
+            android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+        <LinearLayout
+            android:id="@+id/sampleCard"
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/Widget.Modo.IconBox"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_sparkle"
+                app:tint="@color/primary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_m"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_sample"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                <TextView
+                    android:id="@+id/sampleDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/settings_sample_desc"
+                    android:textAppearance="@style/TextAppearance.Modo.Caption" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== 계정 ===== -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout"
+            style="@style/Widget.Modo.Button.Danger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:text="@string/settings_logout"
+            app:icon="@drawable/ic_logout"
+            app:iconGravity="textStart" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_l"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xs"
+            android:gravity="center"
+            android:text="@string/about_credits"
+            android:textAppearance="@style/TextAppearance.Modo.Small" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

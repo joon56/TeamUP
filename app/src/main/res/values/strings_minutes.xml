@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 회의록 · 받아쓰기 · AI 요약 -->
+<resources>
+    <string name="minutes_write">회의록 작성</string>
+    <string name="minutes_search_hint">회의록 검색 (제목·내용·결정 사항)</string>
+    <string name="minutes_empty">아직 회의록이 없어요. 회의가 끝나면 메모나 녹음으로 남겨 보세요.</string>
+    <string name="minutes_no_match">검색 결과가 없어요</string>
+    <string name="minutes_meta">%1$s · 참석 %2$d명 · %3$s</string>
+    <string name="minutes_badge_ai">AI 요약</string>
+    <string name="minutes_badge_actions">할 일 %1$d</string>
+    <string name="minutes_badge_transcript">받아쓰기</string>
+
+    <string name="minutes_new">새 회의록</string>
+    <string name="minutes_title_screen">회의록</string>
+    <string name="minutes_default_title">%1$d주차 회의</string>
+    <string name="minutes_hint_title">제목</string>
+    <string name="minutes_date">회의 날짜</string>
+    <string name="minutes_attendees">참석자</string>
+    <string name="minutes_notes">회의 메모</string>
+    <string name="minutes_notes_hint">정한 것, 할 일, 다음 회의 안건…</string>
+    <string name="minutes_saved">회의록을 저장했어요</string>
+    <string name="minutes_delete_confirm">회의록을 삭제할까요?</string>
+    <string name="minutes_title_required">제목을 입력해 주세요</string>
+
+    <string name="minutes_transcript">녹음 받아쓰기</string>
+    <string name="minutes_transcript_hint">녹음하면 말한 내용이 여기에 받아써져요. 틀린 글자는 직접 고칠 수 있어요.</string>
+    <string name="minutes_record_start">녹음</string>
+    <string name="minutes_record_stop">중지</string>
+    <string name="minutes_listening">듣고 있어요…</string>
+    <string name="minutes_mic_denied">마이크 권한이 있어야 받아쓸 수 있어요</string>
+    <string name="minutes_stt_unavailable">이 기기에서는 음성 인식을 쓸 수 없어요</string>
+    <string name="minutes_stt_language">한국어 음성 인식을 쓸 수 없어요. 기기의 음성 인식 언어를 확인해 주세요.</string>
+
+    <string name="minutes_ai">AI 요약</string>
+    <string name="minutes_ai_help">메모와 받아쓰기로 요약·결정 사항·할 일 후보를 만들어요.</string>
+    <string name="minutes_ai_button">요약하기</string>
+    <string name="minutes_ai_again">다시 요약</string>
+    <string name="minutes_ai_running">요약하는 중…</string>
+    <string name="minutes_ai_need_text">메모나 받아쓰기가 있어야 요약할 수 있어요</string>
+    <string name="minutes_ai_failed">AI 요약을 하지 못했어요. Firebase 콘솔의 AI Logic·App Check 설정을 확인해 주세요.</string>
+    <string name="minutes_ai_quota">AI 요청이 많아요. 잠시 후 다시 시도해 주세요.</string>
+    <string name="minutes_ai_notice_title">AI 요약 안내</string>
+    <string name="minutes_ai_notice_body">회의 메모와 받아쓰기가 Google Gemini로 전송돼요. 무료 요금제에서는 Google 제품 개선에 쓰일 수 있으니 개인정보는 빼고 요약해 주세요.</string>
+    <string name="minutes_ai_notice_ok">동의하고 요약</string>
+    <string name="minutes_decisions">결정 사항</string>
+    <string name="minutes_actions">할 일 후보</string>
+    <string name="minutes_actions_help">체크한 일을 보드에 업무로 등록해요. 담당자·마감은 등록한 뒤 바꿀 수 있어요.</string>
+    <string name="minutes_add_tasks">보드에 %1$d개 등록</string>
+    <string name="minutes_tasks_added">업무 %1$d개를 보드에 등록했어요</string>
+    <string name="minutes_action_added">보드에 있음</string>
+    <string name="minutes_no_assignee">담당자 미정</string>
+    <string name="minutes_task_source">회의록 \'%1$s\'에서 나온 일</string>
+    <string name="bullet_item">• %1$s</string>
+</resources>

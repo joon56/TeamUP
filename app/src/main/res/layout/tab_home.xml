@@ -1,339 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 홈 대시보드 (레퍼런스 화면). 루트 배치는 ConstraintLayout, 통계는 GridLayout -->
-<androidx.core.widget.NestedScrollView android:defaultFocusHighlightEnabled="false" xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    루트 홈 (회의 피드백 2: 간결하게)
+    인사 한 줄 → 주간 캘린더 한 줄 → 마감 임박 띠 → 진행 중 프로젝트(가로 카드) → 선택한 날 일정
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:defaultFocusHighlightEnabled="false"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/screen_padding"
-        android:paddingTop="@dimen/gap_s"
-        android:paddingEnd="@dimen/screen_padding"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/gap_xs"
         android:paddingBottom="@dimen/gap_xl">
-
-        <!-- ===== 상단 바: 로고 · 검색 · 알림 ===== -->
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_logo"
-            app:layout_constraintBottom_toBottomOf="@id/bellBox"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bellBox" />
-
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/gap_s"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.TeamUp.Title"
-            app:layout_constraintBottom_toBottomOf="@id/logo"
-            app:layout_constraintStart_toEndOf="@id/logo"
-            app:layout_constraintTop_toTopOf="@id/logo" />
-
-        <FrameLayout
-            android:id="@+id/bellBox"
-            android:layout_width="@dimen/touch_target"
-            android:layout_height="@dimen/touch_target"
-            android:layout_marginEnd="-12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/bell"
-                style="@style/Widget.TeamUp.IconButton"
-                android:contentDescription="@string/desc_notifications"
-                android:src="@drawable/ic_bell" />
-
-            <!-- 알림 개수 배지: 아이콘 위에 겹쳐서 표시 -->
-            <TextView
-                android:id="@+id/bellBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_gravity="top|end"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="@drawable/bg_notif_dot"
-                android:gravity="center"
-                android:minWidth="18dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="#FFFFFFFF"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </FrameLayout>
-
-        <ImageButton
-            android:id="@+id/search"
-            style="@style/Widget.TeamUp.IconButton"
-            android:contentDescription="@string/desc_search"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@id/bellBox"
-            app:layout_constraintEnd_toStartOf="@id/bellBox"
-            app:layout_constraintTop_toTopOf="@id/bellBox" />
 
         <!-- ===== 인사 ===== -->
         <TextView
             android:id="@+id/greeting"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_xl"
-            android:textAppearance="@style/TextAppearance.TeamUp.Display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bellBox" />
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:textAppearance="@style/TextAppearance.Modo.Display"
+            tools:text="유진님, 안녕하세요" />
 
         <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="0dp"
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
             android:layout_marginTop="@dimen/gap_xs"
-            android:text="@string/home_subtitle"
-            android:textAppearance="@style/TextAppearance.TeamUp.BodySecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/greeting" />
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:textAppearance="@style/TextAppearance.Modo.BodySecondary"
+            tools:text="오늘 마감 2개 · 진행 중 3개" />
 
-        <!-- ===== 큰 버튼 2개 ===== -->
+        <!-- ===== 주간 캘린더 한 줄 ===== -->
         <LinearLayout
-            android:id="@+id/actionNew"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/action_button_height"
-            android:layout_marginTop="@dimen/gap_xl"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_primary_action"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@id/actionJoin"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtitle">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_add"
-                app:tint="#FFFFFFFF" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="@string/home_new_project"
-                android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong"
-                android:textColor="#FFFFFFFF" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/actionJoin"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/action_button_height"
-            android:layout_marginStart="6dp"
-            android:background="@drawable/bg_secondary_action"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/actionNew"
-            app:layout_constraintTop_toTopOf="@id/actionNew">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_code" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="@string/home_join_code"
-                android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
-        </LinearLayout>
-
-        <!-- ===== 통계 2×2 (GridLayout) ===== -->
-        <GridLayout
-            android:id="@+id/stats"
-            android:layout_width="0dp"
+            android:id="@+id/weekCard"
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-4dp"
+            android:layout_marginStart="@dimen/screen_padding"
             android:layout_marginTop="@dimen/gap_l"
-            android:layout_marginEnd="-4dp"
-            android:columnCount="2"
-            android:rowCount="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/actionNew">
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:foreground="@null"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/gap_m"
+            android:paddingTop="@dimen/gap_s"
+            android:paddingEnd="@dimen/gap_xs"
+            android:paddingBottom="@dimen/gap_m">
 
             <LinearLayout
-                style="@style/Widget.TeamUp.Card"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:foreground="@null"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/gap_xs">
 
                 <TextView
-                    android:id="@+id/statTotal"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/weekLabel"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Number" />
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+                    tools:text="11월 2주차" />
 
-                <TextView
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/thisWeek"
+                    style="@style/Widget.Modo.Button.Text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stat_total"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                    android:layout_height="36dp"
+                    android:minHeight="36dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/action_this_week"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/prevWeek"
+                    style="@style/Widget.Modo.IconButton.Small"
+                    android:contentDescription="@string/desc_prev_week"
+                    android:src="@drawable/ic_chevron_left" />
+
+                <ImageButton
+                    android:id="@+id/nextWeek"
+                    style="@style/Widget.Modo.IconButton.Small"
+                    android:contentDescription="@string/desc_next_week"
+                    android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/Widget.TeamUp.Card"
-                android:layout_width="0dp"
+            <com.modo.app.ui.common.WeekStripView
+                android:id="@+id/weekStrip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:foreground="@null"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/gap_xs"
+                android:layout_marginEnd="@dimen/gap_s" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/statDone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Number"
-                    android:textColor="@color/success" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stat_done"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/Widget.TeamUp.Card"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:foreground="@null"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/statInProgress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Number"
-                    android:textColor="@color/info" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stat_in_progress"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/Widget.TeamUp.Card"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:foreground="@null"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/statOverdue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Number"
-                    android:textColor="@color/danger" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stat_overdue"
-                    android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
-            </LinearLayout>
-        </GridLayout>
-
-        <!-- ===== 내 프로젝트 ===== -->
-        <TextView
-            android:id="@+id/projectsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_xl"
-            android:text="@string/home_my_projects"
-            android:textAppearance="@style/TextAppearance.TeamUp.Section"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stats" />
-
-        <TextView
-            android:id="@+id/projectsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/gap_s"
-            android:textAppearance="@style/TextAppearance.TeamUp.Caption"
-            app:layout_constraintBaseline_toBaselineOf="@id/projectsTitle"
-            app:layout_constraintStart_toEndOf="@id/projectsTitle" />
-
-        <TextView
-            android:id="@+id/filterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:drawablePadding="2dp"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/touch_target"
-            android:paddingStart="@dimen/gap_s"
-            android:text="@string/filter_active"
-            android:textAppearance="@style/TextAppearance.TeamUp.Caption"
-            app:drawableEndCompat="@drawable/ic_expand_more"
-            app:drawableTint="@color/text_secondary"
-            app:layout_constraintBottom_toBottomOf="@id/projectsTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/projectsTitle" />
-
+        <!-- ===== 마감 임박 띠 ===== -->
         <LinearLayout
-            android:id="@+id/projectList"
-            android:layout_width="0dp"
+            android:id="@+id/attentionCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/gap_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:background="@drawable/bg_attention"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/gap_l"
+            android:paddingTop="@dimen/gap_m"
+            android:paddingEnd="@dimen/gap_m"
+            android:paddingBottom="@dimen/gap_s"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/danger" />
+
+                <TextView
+                    android:id="@+id/attentionTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+                    android:textColor="@color/danger"
+                    tools:text="마감 임박 3" />
+
+                <TextView
+                    android:id="@+id/attentionMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/gap_xs"
+                    android:textAppearance="@style/TextAppearance.Modo.Label"
+                    android:textColor="@color/danger"
+                    android:visibility="gone"
+                    tools:text="2개 더 보기"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/attentionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <!-- ===== 진행 중인 프로젝트 ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_projects_title"
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+            <TextView
+                android:id="@+id/projectCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_s"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                tools:text="4" />
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/projectScroll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/gap_m"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/projectsTitle" />
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingEnd="@dimen/gap_s"
+            android:scrollbars="none">
 
-        <!-- 프로젝트가 하나도 없을 때 -->
+            <LinearLayout
+                android:id="@+id/projectRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <!-- 진행 중인 프로젝트가 없을 때: 만들기 · 코드로 참여 -->
         <LinearLayout
-            android:id="@+id/emptyState"
-            style="@style/Widget.TeamUp.Card"
-            android:layout_width="0dp"
+            android:id="@+id/emptyProjects"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foreground="@null"
+            android:layout_marginStart="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/gap_m"
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:background="@drawable/bg_card_dashed"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="@dimen/gap_xl"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/projectList">
+            android:visibility="gone">
 
             <ImageView
-                style="@style/Widget.TeamUp.IconBox"
+                style="@style/Widget.Modo.IconBox"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_folder"
                 app:tint="@color/primary" />
@@ -342,68 +231,60 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_m"
-                android:text="@string/home_empty_title"
-                android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+                android:text="@string/home_first_title"
+                android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
 
             <TextView
+                android:id="@+id/emptyBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xs"
                 android:gravity="center"
-                android:text="@string/home_empty_body"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                android:textAppearance="@style/TextAppearance.Modo.Caption" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/sampleButton"
-                style="@style/Widget.TeamUp.Button.Tonal"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_l"
-                android:text="@string/home_empty_sample"
-                app:icon="@drawable/ic_sparkle" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/emptyNew"
+                    style="@style/Widget.Modo.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/switcher_new_project" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/emptyJoin"
+                    style="@style/Widget.Modo.Button.Tonal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:text="@string/home_join_code" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- ===== 다가오는 일정 ===== -->
+        <!-- ===== 선택한 날 일정 ===== -->
         <TextView
-            android:id="@+id/nextUpTitle"
-            android:layout_width="wrap_content"
+            android:id="@+id/dayTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
             android:layout_marginTop="@dimen/gap_xl"
-            android:text="@string/home_next_up"
-            android:textAppearance="@style/TextAppearance.TeamUp.Section"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emptyState"
-            app:layout_goneMarginTop="@dimen/gap_l" />
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:textAppearance="@style/TextAppearance.Modo.Section"
+            tools:text="오늘 · 11월 11일 (수)" />
 
         <LinearLayout
-            android:id="@+id/nextUpList"
-            android:layout_width="0dp"
+            android:id="@+id/dayList"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_padding"
             android:layout_marginTop="@dimen/gap_m"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nextUpTitle" />
-
-        <!-- ===== 최근 변경된 업무 ===== -->
-        <TextView
-            android:id="@+id/recentTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_l"
-            android:text="@string/home_recent"
-            android:textAppearance="@style/TextAppearance.TeamUp.Section"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nextUpList" />
-
-        <LinearLayout
-            android:id="@+id/recentList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_m"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recentTitle" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginEnd="@dimen/screen_padding"
+            android:orientation="vertical" />
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

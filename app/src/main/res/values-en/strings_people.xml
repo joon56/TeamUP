@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="invite_title">Invite teammates</string>
+    <string name="invite_search_label">Find by tag or email</string>
+    <string name="invite_search_hint">name#1234 or sign-up email</string>
+    <string name="invite_search_help">Only exact matches are shown. They join once they accept.</string>
+    <string name="invite_find">Find</string>
+    <string name="invite_send">Invite</string>
+    <string name="invite_sent">Invitation sent to %1$s</string>
+    <string name="invite_not_found">No match. Check the tag (name#1234) or email again</string>
+    <string name="invite_invalid">Enter name#1234 or an email address</string>
+    <string name="invite_self">You can\'t invite yourself</string>
+    <string name="invite_already_member">Already a member of this project</string>
+    <string name="invite_already_invited">Already invited. They join once they accept</string>
+    <string name="invite_other_ways">Other ways</string>
+    <string name="invite_guest_title">Add a teammate without the app</string>
+    <string name="invite_guest_body">Teammates who can\'t install the app (e.g. iPhone users) can be added by name so you can assign tasks and count their progress. They can\'t log in or check tasks.</string>
+    <string name="invite_status_member">Member</string>
+    <string name="invite_status_pending">Invited</string>
+
+    <string name="member_direct_chat">Message</string>
+    <string name="member_transfer_lead">Make leader</string>
+    <string name="member_kick">Remove</string>
+    <string name="confirm_transfer_title">Make %1$s the leader?</string>
+    <string name="confirm_transfer_body">They\'ll be able to delete the project and remove members.</string>
+    <string name="confirm_kick_title">Remove %1$s?</string>
+    <string name="confirm_kick_body">They lose access to this project and their tasks become unassigned.</string>
+    <string name="msg_transferred">%1$s is now the leader</string>
+
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_empty">No new notifications</string>
+    <string name="notif_invite">%1$s invited you to \'%2$s\'</string>
+    <string name="notif_accept">Accept</string>
+    <string name="notif_decline">Decline</string>
+    <string name="notif_accepted">Joined \'%1$s\'</string>
+    <string name="notif_deadline_overdue">%1$d day(s) overdue</string>
+    <string name="notif_deadline_today">Due today</string>
+    <string name="notif_deadline_soon">Due in %1$d day(s)</string>
+    <string name="notif_notice">Notice · %1$s</string>
+    <string name="notif_mention">%1$s mentioned you</string>
+    <string name="notif_group_invites">Invitations</string>
+    <string name="notif_group_recent">Recent</string>
+
+    <string name="signup_title">Get started with MODO</string>
+    <string name="signup_subtitle">The tag next to your name (name#1234) lets teammates find and invite exactly you.</string>
+</resources>

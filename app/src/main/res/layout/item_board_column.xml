@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 보드 한 열 (너비는 코드에서) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/gap_m"
+    android:background="@drawable/bg_card_high"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/gap_m">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/gap_l"
+        android:paddingEnd="@dimen/gap_m">
+
+        <View
+            android:id="@+id/dot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_dot" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
+            tools:text="할 일" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.Modo.Caption"
+            tools:text="3" />
+
+        <ImageButton
+            android:id="@+id/add"
+            style="@style/Widget.Modo.IconButton.Small"
+            android:contentDescription="@string/board_add"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/cards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/gap_s"
+            android:paddingTop="@dimen/gap_s"
+            android:paddingEnd="@dimen/gap_s"
+            android:paddingBottom="88dp" />
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

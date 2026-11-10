@@ -58,12 +58,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/gap_s"
                     android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong"
+                    android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
                     android:textColor="@color/danger" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/postponeButton"
-                    style="@style/Widget.TeamUp.Button.Text"
+                    style="@style/Widget.Modo.Button.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action_postpone"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_l"
                 android:text="@string/label_project"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/overdueBanner"
                 app:layout_goneMarginTop="@dimen/gap_s" />
@@ -120,7 +120,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.TeamUp.BodyStrong" />
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
                 </LinearLayout>
 
                 <!-- 업무 탭에서 새 업무를 만들 때: 프로젝트 선택 드롭다운 -->
@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/gap_xs"
                 android:layout_marginTop="@dimen/gap_xs"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_l"
                 android:text="@string/label_priority"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/weekHint" />
 
@@ -271,7 +271,7 @@
 
                 <RadioButton
                     android:id="@+id/priorityHigh"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_s"
@@ -282,7 +282,7 @@
 
                 <RadioButton
                     android:id="@+id/priorityMedium"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_s"
@@ -294,7 +294,7 @@
 
                 <RadioButton
                     android:id="@+id/priorityLow"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -310,7 +310,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_l"
                 android:text="@string/label_status"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/priorityGroup" />
 
@@ -326,7 +326,7 @@
 
                 <RadioButton
                     android:id="@+id/statusTodo"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_s"
@@ -338,7 +338,7 @@
 
                 <RadioButton
                     android:id="@+id/statusInProgress"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_s"
@@ -349,7 +349,7 @@
 
                 <RadioButton
                     android:id="@+id/statusDone"
-                    style="@style/Widget.TeamUp.ChipRadio"
+                    style="@style/Widget.Modo.ChipRadio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -361,7 +361,7 @@
             <!-- ===== 삭제 (수정 모드에서만) ===== -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteButton"
-                style="@style/Widget.TeamUp.Button.Danger"
+                style="@style/Widget.Modo.Button.Danger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xl"
@@ -385,7 +385,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
-            style="@style/Widget.TeamUp.Button.Primary"
+            style="@style/Widget.Modo.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_save" />

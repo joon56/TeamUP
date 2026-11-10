@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 마감 임박 띠의 한 줄: D-day 알약 · 업무 · 프로젝트 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/gap_xs"
+    android:paddingBottom="@dimen/gap_xs">
+
+    <TextView
+        android:id="@+id/dday"
+        style="@style/Widget.Modo.Pill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="52dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_m"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+        <TextView
+            android:id="@+id/project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Modo.Small" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_chevron_right"
+        app:tint="@color/text_tertiary" />
+</LinearLayout>

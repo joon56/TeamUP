@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 최근 활동 한 줄 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/gap_s"
+    android:paddingBottom="@dimen/gap_s">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bg_icon_box"
+        android:importantForAccessibility="no"
+        android:padding="7dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_m"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.Modo.Body"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_s"
+        android:textAppearance="@style/TextAppearance.Modo.Small" />
+</LinearLayout>

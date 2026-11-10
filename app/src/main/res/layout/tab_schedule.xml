@@ -1,33 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 일정 탭: 지연 / 오늘 / 다가오는 7일 / 이후 로 묶은 타임라인 (항목은 코드에서 추가) -->
-<androidx.core.widget.NestedScrollView android:defaultFocusHighlightEnabled="false" xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scheduleScroll"
+<!-- 루트 "일정" 탭: 월간 달력(GridLayout) + 선택한 날 + 다가오는 일정 -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:defaultFocusHighlightEnabled="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/screen_padding"
-        android:paddingTop="@dimen/gap_s"
         android:paddingEnd="@dimen/screen_padding"
         android:paddingBottom="@dimen/gap_xl">
 
-        <TextView
-            android:id="@+id/scheduleTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:minHeight="@dimen/touch_target"
-            android:text="@string/schedule_title"
-            android:textAppearance="@style/TextAppearance.TeamUp.Title" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/monthLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Modo.Display"
+                tools:text="2026년 11월" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/thisMonth"
+                style="@style/Widget.Modo.Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:minHeight="40dp"
+                android:text="@string/action_this_month"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/prevMonth"
+                style="@style/Widget.Modo.IconButton.Small"
+                android:contentDescription="@string/desc_prev_month"
+                android:src="@drawable/ic_chevron_left" />
+
+            <ImageButton
+                android:id="@+id/nextMonth"
+                style="@style/Widget.Modo.IconButton.Small"
+                android:contentDescription="@string/desc_next_month"
+                android:src="@drawable/ic_chevron_right" />
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/scheduleList"
+            style="@style/Widget.Modo.Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:foreground="@null"
+            android:orientation="vertical"
+            android:padding="@dimen/gap_s">
+
+            <com.modo.app.ui.common.MonthCalendarView
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dayTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:textAppearance="@style/TextAppearance.Modo.Section"
+            tools:text="11월 11일 (수)" />
+
+        <LinearLayout
+            android:id="@+id/dayList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:text="@string/schedule_upcoming"
+            android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+        <LinearLayout
+            android:id="@+id/upcomingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
             android:orientation="vertical" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

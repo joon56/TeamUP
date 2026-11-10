@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 프로젝트 일정: 다음 회의(미정이면 회의 시간 찾기) → 이 프로젝트 월간 달력 → 선택한 날 -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:defaultFocusHighlightEnabled="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingTop="@dimen/gap_l"
+        android:paddingEnd="@dimen/screen_padding"
+        android:paddingBottom="@dimen/gap_xl">
+
+        <LinearLayout
+            android:id="@+id/meetingCard"
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@null"
+            android:orientation="vertical"
+            android:padding="@dimen/gap_l">
+
+            <TextView
+                android:id="@+id/meetingLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/overview_next_meeting"
+                android:textAppearance="@style/TextAppearance.Modo.Label" />
+
+            <TextView
+                android:id="@+id/meetingWhen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:textAppearance="@style/TextAppearance.Modo.Title"
+                tools:text="오늘 19:00" />
+
+            <TextView
+                android:id="@+id/meetingRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:textAppearance="@style/TextAppearance.Modo.Caption"
+                tools:text="매주 수 19:00 · 60분" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/findMeeting"
+                style="@style/Widget.Modo.Button.Tonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:text="@string/overview_find_meeting"
+                app:icon="@drawable/ic_event_available"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/monthLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Modo.Section"
+                tools:text="2026년 11월" />
+
+            <ImageButton
+                android:id="@+id/prevMonth"
+                style="@style/Widget.Modo.IconButton.Small"
+                android:contentDescription="@string/desc_prev_month"
+                android:src="@drawable/ic_chevron_left" />
+
+            <ImageButton
+                android:id="@+id/nextMonth"
+                style="@style/Widget.Modo.IconButton.Small"
+                android:contentDescription="@string/desc_next_month"
+                android:src="@drawable/ic_chevron_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Widget.Modo.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_s"
+            android:foreground="@null"
+            android:padding="@dimen/gap_s">
+
+            <com.modo.app.ui.common.MonthCalendarView
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dayTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+        <LinearLayout
+            android:id="@+id/dayList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_s"
+            android:orientation="vertical" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

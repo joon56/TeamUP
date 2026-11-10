@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 주 버튼 배경: 비활성이면 회색 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/surface_highest" android:state_enabled="false" />
+    <item android:color="@color/primary" />
+</selector>

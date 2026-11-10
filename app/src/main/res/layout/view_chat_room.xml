@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 채팅방 본문 (채팅방 화면과 프로젝트 화면의 채팅 탭이 함께 씀): 고정 공지 · 메시지 · 입력창 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 고정 공지 + 공지 목록 열기 -->
+    <LinearLayout
+        android:id="@+id/pinnedBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_m"
+        android:layout_marginTop="@dimen/gap_xs"
+        android:layout_marginEnd="@dimen/gap_m"
+        android:layout_marginBottom="@dimen/gap_xs"
+        android:background="@drawable/bg_pinned_banner"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/gap_m"
+        android:paddingTop="@dimen/gap_s"
+        android:paddingEnd="@dimen/gap_m"
+        android:paddingBottom="@dimen/gap_s"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_pin_filled"
+            app:tint="@color/on_primary_container" />
+
+        <TextView
+            android:id="@+id/pinnedText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Modo.Label"
+            android:textColor="@color/on_primary_container"
+            tools:text="중간발표 자료는 목요일까지 올려 주세요" />
+
+        <TextView
+            android:id="@+id/noticeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_s"
+            android:textAppearance="@style/TextAppearance.Modo.Small"
+            android:textColor="@color/on_primary_container"
+            tools:text="공지 3" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/msgScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/gap_m"
+            android:paddingTop="@dimen/gap_s"
+            android:paddingEnd="@dimen/gap_m"
+            android:paddingBottom="@dimen/gap_m">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loadMore"
+                style="@style/Widget.Modo.Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/chat_load_more"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/emptyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xxl"
+                android:gravity="center"
+                android:text="@string/chat_room_empty"
+                android:textAppearance="@style/TextAppearance.Modo.BodySecondary"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/msgList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <View style="@style/Widget.Modo.Divider" />
+
+    <!-- 입력창: 첨부 · 글 · 보내기 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/gap_s"
+        android:paddingTop="@dimen/gap_s"
+        android:paddingEnd="@dimen/gap_s"
+        android:paddingBottom="@dimen/gap_s">
+
+        <ImageButton
+            android:id="@+id/attach"
+            style="@style/Widget.Modo.IconButton"
+            android:contentDescription="@string/chat_attach"
+            android:src="@drawable/ic_add"
+            app:tint="@color/text_secondary" />
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_xs"
+            android:layout_marginEnd="@dimen/gap_s"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input"
+            android:hint="@string/chat_hint"
+            android:imeOptions="actionSend|flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="4"
+            android:minHeight="44dp"
+            android:paddingStart="@dimen/gap_l"
+            android:paddingTop="10dp"
+            android:paddingEnd="@dimen/gap_l"
+            android:paddingBottom="10dp"
+            android:textAppearance="@style/TextAppearance.Modo.Body"
+            android:textColorHint="@color/text_tertiary" />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_send"
+            android:contentDescription="@string/chat_send"
+            android:enabled="false"
+            android:padding="11dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_send"
+            app:tint="@color/on_primary" />
+    </LinearLayout>
+</LinearLayout>

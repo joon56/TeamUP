@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 프로젝트 만들기 / 수정 -->
+<!-- 프로젝트 만들기 / 설정: 이름·과목·설명 → 화면 모드(시안 1~4) → 기간 → 색 → 정기 회의(직접 / 팀원 시간 모아서) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
@@ -12,11 +12,12 @@
         android:id="@+id/topBar"
         layout="@layout/view_top_bar" />
 
-    <ScrollView android:defaultFocusHighlightEnabled="false"
+    <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false"
         android:fillViewport="true">
 
         <LinearLayout
@@ -28,7 +29,7 @@
             android:paddingEnd="@dimen/screen_padding"
             android:paddingBottom="@dimen/gap_xl">
 
-            <!-- ===== 이름·설명 ===== -->
+            <!-- ===== 이름·과목·설명 ===== -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameLayout"
                 android:layout_width="match_parent"
@@ -41,6 +42,23 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="textCapSentences"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subjectLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:hint="@string/hint_subject"
+                app:startIconDrawable="@drawable/ic_school">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/subjectInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,13 +79,41 @@
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- ===== 화면 모드 (플로우 시안 1~4) ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xl"
+                android:text="@string/mode_dialog_title"
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:scrollbars="none">
+
+                <RadioGroup
+                    android:id="@+id/modeGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/modeDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:textAppearance="@style/TextAppearance.Modo.Caption" />
+
             <!-- ===== 기간 ===== -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xl"
                 android:text="@string/label_period"
-                android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
 
             <!-- 날짜 칸은 직접 입력하지 않고 누르면 달력(DatePickerDialog)이 열림 -->
             <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xl"
                 android:text="@string/label_color"
-                android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -137,48 +183,109 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xl"
                 android:text="@string/label_meeting"
-                android:textAppearance="@style/TextAppearance.TeamUp.Section" />
+                android:textAppearance="@style/TextAppearance.Modo.Section" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_xs"
                 android:text="@string/meeting_help"
-                android:textAppearance="@style/TextAppearance.TeamUp.Caption" />
+                android:textAppearance="@style/TextAppearance.Modo.Caption" />
+
+            <RadioGroup
+                android:id="@+id/meetingModeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/meetingDirect"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_s"
+                    android:layout_weight="1"
+                    android:saveEnabled="false"
+                    android:text="@string/meeting_mode_direct"
+                    app:buttonCompat="@null" />
+
+                <RadioButton
+                    android:id="@+id/meetingCollect"
+                    style="@style/Widget.Modo.ChipRadio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:saveEnabled="false"
+                    android:text="@string/meeting_mode_collect"
+                    app:buttonCompat="@null" />
+            </RadioGroup>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_l"
-                android:text="@string/label_meeting_day"
-                android:textAppearance="@style/TextAppearance.TeamUp.Small" />
-
-            <!-- 요일 칩 7개 (RadioGroup, 코드에서 생성) -->
-            <RadioGroup
-                android:id="@+id/dayGroup"
+                android:id="@+id/meetingCollectHelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_s"
-                android:orientation="horizontal" />
+                android:layout_marginTop="@dimen/gap_m"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/gap_l"
+                android:text="@string/meeting_collect_help"
+                android:textAppearance="@style/TextAppearance.Modo.BodySecondary"
+                android:visibility="gone" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/timeLayout"
+            <LinearLayout
+                android:id="@+id/meetingDirectBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_l"
-                android:hint="@string/label_meeting_time"
-                app:startIconDrawable="@drawable/ic_schedule">
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/timeInput"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_l"
+                    android:text="@string/label_meeting_day"
+                    android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+                <!-- 요일 칩 7개 (RadioGroup, 코드에서 생성) -->
+                <RadioGroup
+                    android:id="@+id/dayGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="@dimen/gap_s"
+                    android:orientation="horizontal" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/timeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_l"
+                    android:hint="@string/label_meeting_time"
+                    app:startIconDrawable="@drawable/ic_schedule">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/timeInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_l"
+                    android:text="@string/label_duration"
+                    android:textAppearance="@style/TextAppearance.Modo.Small" />
+
+                <RadioGroup
+                    android:id="@+id/durationGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_s"
+                    android:orientation="horizontal" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
