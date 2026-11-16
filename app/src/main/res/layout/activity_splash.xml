@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 스플래시(시작 화면). RelativeLayout: 가운데 묶음은 부모 한가운데, 아래 묶음은 부모 바닥에 붙임 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:paddingStart="@dimen/screen_padding"
+    android:paddingEnd="@dimen/screen_padding"
+    android:paddingBottom="56dp">
+
+    <LinearLayout
+        android:id="@+id/center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- 로고 타일: PNG 그림. 화면 밀도(mdpi ~ xxxhdpi)마다 알맞은 크기의 파일을 drawable-…dpi 폴더에 넣어 두면
+             기기에 맞는 것이 자동으로 골라져 흐려지지 않는다 -->
+        <ImageView
+            android:id="@+id/logoTile"
+            android:layout_width="@dimen/splash_tile_width"
+            android:layout_height="@dimen/splash_tile_height"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_tile" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/splash_gap"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/splash_tagline"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- 점 3개: 부모 바닥 · 가로 가운데. 글자는 점 묶음 아래 -->
+    <LinearLayout
+        android:id="@+id/dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/status"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_splash_dot" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="6dp"
+            android:alpha="0.25"
+            android:background="@drawable/bg_splash_dot" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="6dp"
+            android:alpha="0.25"
+            android:background="@drawable/bg_splash_dot" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/splash_checking"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+</RelativeLayout>

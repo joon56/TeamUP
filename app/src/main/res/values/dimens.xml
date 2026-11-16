@@ -27,10 +27,17 @@
     <dimen name="action_button_height">96dp</dimen>
     <dimen name="top_bar_height">56dp</dimen>
     <dimen name="progress_track">6dp</dimen>
-    <dimen name="ring_size">132dp</dimen>
-    <dimen name="ring_thickness">12dp</dimen>
     <dimen name="priority_bar">4dp</dimen>
     <dimen name="color_swatch">36dp</dimen>
     <dimen name="fab_bottom_space">96dp</dimen>
     <dimen name="bottom_nav_min_height">80dp</dimen>
+
+    <!-- 스플래시 · 알람 화면 -->
+    <dimen name="splash_tile_width">115dp</dimen>
+    <dimen name="splash_tile_height">121dp</dimen>
+    <dimen name="splash_gap">72dp</dimen>
+    <dimen name="alarm_circle">264dp</dimen>
+
+    <!-- 보드: 화면 너비 중 한 칸(열)이 차지하는 비율(%). 넓은 화면일수록 여러 칸이 한 번에 보임 -->
+    <integer name="board_column_percent">82</integer>
 </resources>

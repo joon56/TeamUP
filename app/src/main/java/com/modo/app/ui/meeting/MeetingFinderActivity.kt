@@ -14,7 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.ChatRepository
@@ -35,6 +35,7 @@ import com.modo.app.ui.common.applySystemBarsPadding
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.set
 import com.modo.app.ui.common.tintOf
 import com.modo.app.ui.common.toast
 
@@ -201,8 +202,7 @@ class MeetingFinderActivity : AppCompatActivity() {
                 Fmt.time(this, WeekAvailability.slotTime(slot.start)), Fmt.time(this, WeekAvailability.slotTime(slot.end)),
             )
             row.count.text = getString(R.string.finder_available, rec.total, rec.availableIds.size)
-            row.ratio.max = rec.total
-            row.ratio.progress = rec.availableIds.size
+            row.ratio.set(rec.availableIds.size, max = rec.total)
             row.detail.text = if (rec.unavailableIds.isEmpty()) getString(R.string.finder_everyone)
             else getString(R.string.finder_unavailable, rec.unavailableIds.mapNotNull { names[it] }.joinToString(", "))
             val current = project.meetingDecided && project.meetingDay == slot.day &&
@@ -235,7 +235,7 @@ class MeetingFinderActivity : AppCompatActivity() {
         val time = WeekAvailability.slotTime(slot.start)
         val whenText = Fmt.dayTime(this, slot.day, time)
         val minutes = durationMin
-        MaterialAlertDialogBuilder(this)
+        AlertDialog.Builder(this)
             .setTitle(getString(R.string.finder_confirm_title, whenText))
             .setMessage(getString(R.string.finder_confirm_body, minutes))
             .setNegativeButton(R.string.action_cancel, null)

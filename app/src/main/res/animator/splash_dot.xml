@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 스플래시 점 3개: 투명도가 진해졌다 옅어지기를 반복 (점마다 시작 시각만 다르게 줌) -->
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="450"
+    android:propertyName="alpha"
+    android:repeatCount="infinite"
+    android:repeatMode="reverse"
+    android:valueFrom="0.25"
+    android:valueTo="1"
+    android:valueType="floatType" />

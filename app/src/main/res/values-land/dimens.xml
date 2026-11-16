@@ -2,4 +2,5 @@
 <!-- 가로 모드: 세로 공간이 좁으므로 하단 탭을 낮게 -->
 <resources>
     <dimen name="bottom_nav_min_height">56dp</dimen>
+    <dimen name="splash_gap">20dp</dimen>
 </resources>

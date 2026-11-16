@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.ChatRepository
@@ -23,9 +23,11 @@ import com.modo.app.ui.common.Dialogs
 import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.applySystemBarsPadding
+import com.modo.app.ui.common.changeTaskStatus
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.set
 import com.modo.app.ui.common.tintOf
 import com.modo.app.ui.common.toast
 import com.modo.app.ui.meeting.AvailabilityActivity
@@ -76,7 +78,7 @@ class MemberDetailActivity : AppCompatActivity() {
             val member = currentMember() ?: return@setOnClickListener
             if (member.isAppUser) {
                 // 앱 사용자 내보내기 (팀장만)
-                MaterialAlertDialogBuilder(this)
+                AlertDialog.Builder(this)
                     .setTitle(getString(R.string.confirm_kick_title, member.name))
                     .setMessage(R.string.confirm_kick_body)
                     .setNegativeButton(R.string.action_cancel, null)
@@ -104,7 +106,7 @@ class MemberDetailActivity : AppCompatActivity() {
             val member = currentMember() ?: return@setOnClickListener
             val project = TeamRepository.current.project(projectId) ?: return@setOnClickListener
             val newOwner = member.uid ?: return@setOnClickListener
-            MaterialAlertDialogBuilder(this)
+            AlertDialog.Builder(this)
                 .setTitle(getString(R.string.confirm_transfer_title, member.name))
                 .setMessage(R.string.confirm_transfer_body)
                 .setNegativeButton(R.string.action_cancel, null)
@@ -180,8 +182,7 @@ class MemberDetailActivity : AppCompatActivity() {
         binding.statAssigned.text = tasks.size.toString()
         binding.statDone.text = done.toString()
         binding.statRate.text = if (rate == null) DASH else getString(R.string.percent, rate)
-        binding.progress.setIndicatorColor(color)
-        binding.progress.setProgressCompat(rate ?: 0, true)
+        binding.progress.set(rate ?: 0, color)
 
         // 앱 안 쓰는 팀원은 누구나 삭제, 앱 사용자는 팀장만 내보내기 (팀장 자신·나는 제외)
         binding.remove.isVisible = !isMe && !memberIsLeader && (!appUser || iAmLeader)
@@ -193,11 +194,7 @@ class MemberDetailActivity : AppCompatActivity() {
         for (task in TaskRules.sortForList(tasks)) {
             Items.addTask(
                 binding.taskList, task, data, today, showProject = false,
-                onToggle = { checked ->
-                    TeamRepository.setTaskStatus(
-                        task, if (checked) TaskStatus.DONE else TaskStatus.TODO, failureToast(),
-                    )
-                },
+                onToggle = { checked -> changeTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO) },
                 onClick = { TaskEditActivity.start(this, projectId, task.id) },
             )
         }

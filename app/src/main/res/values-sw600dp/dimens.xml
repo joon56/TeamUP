@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 가장 짧은 변이 600dp 이상인 기기(태블릿): 여백과 큰 요소를 키움 (sw = smallest width) -->
+<resources>
+    <dimen name="screen_padding">32dp</dimen>
+    <dimen name="alarm_circle">320dp</dimen>
+    <dimen name="splash_tile_width">138dp</dimen>
+    <dimen name="splash_tile_height">146dp</dimen>
+    <integer name="board_column_percent">38</integer>
+</resources>

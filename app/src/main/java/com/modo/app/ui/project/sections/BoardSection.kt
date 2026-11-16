@@ -8,8 +8,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
 import com.modo.app.R
@@ -17,15 +17,15 @@ import com.modo.app.data.AppData
 import com.modo.app.data.Project
 import com.modo.app.data.Task
 import com.modo.app.data.TaskStatus
-import com.modo.app.data.TeamRepository
 import com.modo.app.databinding.ItemBoardCardBinding
 import com.modo.app.databinding.ItemBoardColumnBinding
 import com.modo.app.databinding.SectionBoardBinding
 import com.modo.app.logic.TaskRules
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Labels
+import com.modo.app.ui.common.Screen
+import com.modo.app.ui.common.changeTaskStatus
 import com.modo.app.ui.common.colorOf
-import com.modo.app.ui.common.failureToast
 import com.modo.app.ui.common.tintOf
 import com.modo.app.ui.project.ProjectActivity
 import com.modo.app.ui.task.TaskEditActivity
@@ -47,7 +47,10 @@ class BoardSection(private val host: ProjectActivity, inflater: LayoutInflater, 
     private val columnGap: Int = host.resources.getDimensionPixelSize(R.dimen.gap_m)
 
     init {
-        columnWidth = (host.resources.displayMetrics.widthPixels * 0.84f).roundToInt()
+        // 한 열의 너비 = 화면 너비의 N%. N은 values / values-w600dp / values-sw600dp 에 따라 달라져
+        // 폰 세로에서는 한 열, 가로나 태블릿에서는 두세 열이 한 번에 보임
+        val percent = host.resources.getInteger(R.integer.board_column_percent)
+        columnWidth = (Screen.widthPx(host) * percent / 100f).roundToInt()
         columns = statuses.map { status ->
             val column = ItemBoardColumnBinding.inflate(inflater, b.columns, false)
             column.root.layoutParams = LinearLayout.LayoutParams(columnWidth, ViewGroup.LayoutParams.MATCH_PARENT).apply {
@@ -144,26 +147,24 @@ class BoardSection(private val host: ProjectActivity, inflater: LayoutInflater, 
         )
 
         card.root.setOnClickListener { TaskEditActivity.start(host, task.projectId, task.id) }
-        card.root.setOnLongClickListener { view ->
-            showMoveMenu(view, task)
+        card.root.setOnLongClickListener {
+            showMoveMenu(task)
             true
         }
         container.addView(card.root)
     }
 
-    private fun showMoveMenu(anchor: View, task: Task) {
-        val popup = PopupMenu(host, anchor)
-        for ((index, status) in statuses.withIndex()) {
-            if (status == task.status) continue
-            popup.menu.add(0, index, index, host.getString(R.string.board_move_to, host.getString(statusLabel(status))))
-        }
-        popup.menu.add(0, 99, 99, R.string.board_open)
-        popup.setOnMenuItemClickListener { item ->
-            if (item.itemId == 99) TaskEditActivity.start(host, task.projectId, task.id)
-            else TeamRepository.setTaskStatus(task, statuses[item.itemId], host.failureToast())
-            true
-        }
-        popup.show()
+    /** 카드를 길게 누르면: 다른 상태로 옮기기 / 열기 (목록에서 누르면 바로 실행되는 선택창) */
+    private fun showMoveMenu(task: Task) {
+        val targets = statuses.filter { it != task.status }
+        val items = targets.map { host.getString(R.string.board_move_to, host.getString(statusLabel(it))) } + host.getString(R.string.board_open)
+        AlertDialog.Builder(host)
+            .setTitle(task.title)
+            .setItems(items.toTypedArray()) { _, which ->
+                if (which < targets.size) host.changeTaskStatus(task, targets[which])
+                else TaskEditActivity.start(host, task.projectId, task.id)
+            }
+            .show()
     }
 
     private fun statusLabel(status: TaskStatus): Int = when (status) {

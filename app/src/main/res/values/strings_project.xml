@@ -80,9 +80,6 @@
     <string name="duration_format">%1$d분</string>
 
     <!-- 시간 선택 휠 -->
-    <string name="time_dialog_title">시간 선택</string>
-    <string name="desc_hour">시</string>
-    <string name="desc_minute">분</string>
 
     <!-- 아직 만들지 않은 섹션 -->
 </resources>

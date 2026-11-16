@@ -30,7 +30,7 @@
                 android:textAppearance="@style/TextAppearance.Modo.Section"
                 tools:text="팀원 4명" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/invite"
                 style="@style/Widget.Modo.Button.Primary"
                 android:layout_width="wrap_content"

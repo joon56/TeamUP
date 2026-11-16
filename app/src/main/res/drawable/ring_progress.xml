@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 진행률 고리: 바탕 고리 위에, level(0~10000)만큼만 그려지는 보라 고리를 겹침.
+     고리는 3시 방향에서 그리기 시작하므로 -90도 돌려 12시 방향에서 시작하게 함 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ring_track" />
+    <item android:id="@+id/ring_fill">
+        <rotate
+            android:fromDegrees="-90"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="-90">
+            <shape
+                android:innerRadiusRatio="2.45"
+                android:shape="ring"
+                android:thicknessRatio="11"
+                android:useLevel="true">
+                <solid android:color="@color/primary" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

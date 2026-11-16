@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알림 · 업무 알람 · 스플래시 · 알림 설정 -->
+<resources>
+    <!-- 알림 채널 (기기 설정 > 앱 > 알림에 보이는 이름) -->
+    <string name="channel_chat">채팅 메시지</string>
+    <string name="channel_chat_desc">새 메시지가 오면 화면 위에 배너로 알려요</string>
+    <string name="channel_alarm">업무 알람</string>
+    <string name="channel_alarm_desc">업무에 맞춰 둔 알람이 울릴 때 표시돼요</string>
+    <string name="channel_deadline">마감 알림</string>
+    <string name="channel_deadline_desc">매일 정한 시각에 오늘 · 내일 마감과 지연된 업무를 알려요</string>
+    <string name="channel_assign">업무 배정</string>
+    <string name="channel_assign_desc">나에게 새 업무가 배정되면 알려요</string>
+    <string name="channel_progress">진행 상황</string>
+    <string name="channel_progress_desc">파일 올리기처럼 진행 중인 일을 보여줘요</string>
+
+    <!-- 채팅 배너 -->
+    <string name="notif_me">나</string>
+    <string name="notif_reply">답장</string>
+    <string name="notif_reply_hint">메시지 입력</string>
+    <string name="notif_mark_read">읽음</string>
+    <string name="notif_reply_failed">답장을 보내지 못했어요. 앱에서 다시 보내 주세요</string>
+
+    <!-- 업무 배정 -->
+    <string name="notif_assign_title">새 업무가 배정됐어요</string>
+    <string name="notif_assign_summary">%1$s · %2$s 마감</string>
+
+    <!-- 아침 마감 알림 -->
+    <string name="notif_digest_today">오늘 마감 %1$d건</string>
+    <string name="notif_digest_overdue">지연 %1$d건</string>
+    <string name="notif_digest_tomorrow">내일 마감 %1$d건</string>
+    <string name="notif_digest_more">외 %1$d건</string>
+    <string name="notif_digest_line">[%1$s] %2$s · %3$s</string>
+
+    <!-- 진행 상황 -->
+    <string name="notif_upload_title">파일 올리는 중</string>
+    <string name="notif_upload_done">파일을 올렸어요</string>
+    <string name="notif_upload_failed">파일을 올리지 못했어요</string>
+
+    <!-- 업무 알람: 알림 · 알람 화면 -->
+    <string name="alarm_action_done">완료로 표시</string>
+    <string name="alarm_action_snooze">%1$d분 뒤 다시</string>
+    <string name="alarm_action_stop">알람 끄기</string>
+    <string name="alarm_open_task">업무 열기</string>
+    <string name="alarm_chip">MODO 알람 · %1$s</string>
+    <string name="alarm_label_min">마감 %1$d분 전</string>
+    <string name="alarm_label_hour">마감 %1$d시간 전</string>
+    <string name="alarm_label_custom">직접 설정한 알람</string>
+    <string name="alarm_due_line">%1$s · %2$s 마감</string>
+    <string name="alarm_missed_title">놓친 알람 · %1$s</string>
+    <string name="alarm_missed_repeat">완료 처리 전까지 %1$d분 뒤에 다시 울려요</string>
+    <string name="alarm_done_toast">업무를 완료로 표시했어요</string>
+    <string name="alarm_snoozed_toast">%1$d분 뒤에 다시 울려요</string>
+    <string name="alarm_playing">재생 중 · %1$s / %2$s</string>
+    <string name="alarm_sound_system">기본 알람음</string>
+    <string name="alarm_sound_modo">MODO 알람음</string>
+    <string name="alarm_sound_song">내 노래</string>
+    <string name="alarm_sound_song_named">내 노래 · %1$s</string>
+
+    <!-- 업무 알람: 설정 시트 -->
+    <string name="alarm_set_title">알람 설정</string>
+    <string name="alarm_set_subtitle">%1$s · 마감 %2$s</string>
+    <string name="alarm_when">언제 울릴까요?</string>
+    <string name="alarm_opt_30m">30분 전</string>
+    <string name="alarm_opt_1h">1시간 전</string>
+    <string name="alarm_opt_3h">3시간 전</string>
+    <string name="alarm_opt_custom">직접 설정</string>
+    <string name="alarm_at">%1$s에 울려요</string>
+    <string name="alarm_pick_first">울릴 시각을 골라 주세요</string>
+    <string name="alarm_sound_title">알람 소리</string>
+    <string name="alarm_sound_song_hint">%1$d초 동안 재생 · 눌러서 다른 곡 고르기</string>
+    <string name="alarm_sound_song_pick">눌러서 기기의 음악 고르기</string>
+    <string name="alarm_preview">미리 듣기</string>
+    <string name="alarm_preview_stop">미리 듣기 멈춤</string>
+    <string name="alarm_repeat">완료 처리 전까지 반복</string>
+    <string name="alarm_repeat_desc">%1$d분 간격 · 최대 %2$d회</string>
+    <string name="alarm_save">%1$s 알람 저장</string>
+    <string name="alarm_save_plain">알람 저장</string>
+    <string name="alarm_remove">알람 해제</string>
+    <string name="alarm_past">이미 지난 시각이에요. 다른 시각을 골라 주세요</string>
+    <string name="alarm_after_due">마감 이후로는 맞출 수 없어요</string>
+    <string name="alarm_song_failed">이 파일은 재생할 수 없어요</string>
+    <string name="alarm_saved">%1$s에 알람이 울려요</string>
+    <string name="alarm_removed">알람을 해제했어요</string>
+    <string name="alarm_no_notif_permission">알림이 꺼져 있어 소리만 울려요. 내 정보에서 알림을 켤 수 있어요</string>
+    <string name="alarm_inexact">이 기기에서는 알람이 몇 분 늦게 울릴 수 있어요</string>
+
+    <!-- 업무 화면의 마감 시간 · 알람 줄 -->
+    <string name="task_due_time_hint">마감 시간</string>
+    <string name="task_due_time_clear">마감 시간 지우기</string>
+    <string name="task_alarm_label">알람</string>
+    <string name="task_alarm_none">알람 없음</string>
+    <string name="task_alarm_set">%1$s · %2$s</string>
+    <string name="task_alarm_done_hint">완료한 업무에는 알람을 맞출 수 없어요</string>
+    <string name="task_alarm_past_hint">마감이 지난 업무에는 알람을 맞출 수 없어요</string>
+    <string name="task_alarm_lost">마감이 바뀌어 알람 시각이 지났어요. 알람을 해제했어요</string>
+
+    <!-- 저장 안 한 변경 확인 (버튼 3개) -->
+    <string name="msg_leave_title">저장하지 않은 변경이 있어요</string>
+    <string name="msg_leave_body">저장하고 나갈까요? [나가기]를 누르면 입력한 내용이 사라져요.</string>
+    <string name="action_keep_editing">계속 작성</string>
+
+    <!-- 회의 녹음: 화면 꺼짐 · 배터리 -->
+    <string name="minutes_record_resumed">화면이 꺼져 멈췄던 녹음을 다시 시작했어요</string>
+    <string name="minutes_battery_low">배터리가 %1$d%% 남았어요. 회의가 길어질 것 같으면 충전기를 연결해 주세요</string>
+    <string name="minutes_battery_low_now">배터리가 부족해요. 받아쓴 내용을 저장해 두고 충전기를 연결해 주세요</string>
+
+    <!-- 직접 만든 퍼미션 (기기 설정의 앱 권한 설명) -->
+    <string name="perm_internal_label">MODO 내부 알림 전달</string>
+    <string name="perm_internal_desc">MODO 앱 안에서만 알람 · 업무 완료 신호를 주고받는 데 씁니다.</string>
+
+    <!-- 스플래시 -->
+    <string name="splash_tagline">팀플을 모두, 한 곳에서</string>
+    <string name="splash_checking">자동 로그인 확인 중</string>
+
+    <!-- 내 정보 > 알림 -->
+    <string name="settings_alerts_title">알림</string>
+    <string name="settings_alert_kinds">받을 알림</string>
+    <string name="settings_alert_kinds_all">모두 받는 중</string>
+    <string name="settings_alert_kinds_none">모두 꺼짐</string>
+    <string name="settings_alert_deadline">마감 알림</string>
+    <string name="settings_alert_chat">채팅 메시지</string>
+    <string name="settings_alert_assign">업무 배정</string>
+    <string name="settings_digest_time">마감 알림 시각</string>
+    <string name="settings_digest_time_value">매일 %1$s</string>
+    <string name="settings_alarm_sound">기본 알람음</string>
+    <string name="settings_done_feedback">완료 효과음 · 진동</string>
+    <string name="settings_notif_off_title">기기에서 알림이 꺼져 있어요</string>
+    <string name="settings_notif_off_body">알림을 허용해야 채팅 배너와 마감 알림, 업무 알람을 받을 수 있어요.</string>
+    <string name="settings_notif_allow">알림 허용</string>
+    <string name="settings_notif_open">기기 설정 열기</string>
+
+    <!-- 앱 권한 -->
+    <string name="perm_row_title">앱 권한</string>
+    <string name="perm_summary">알림 %1$s · 마이크 %2$s</string>
+    <string name="perm_on">허용됨</string>
+    <string name="perm_off">꺼짐</string>
+    <string name="perm_all_granted">필요한 권한이 모두 허용돼 있어요</string>
+    <string name="perm_some_denied">허용하지 않은 권한이 있어요</string>
+
+    <!-- 프로필 사진 -->
+    <string name="photo_title">프로필 사진</string>
+    <string name="photo_take">사진 찍기</string>
+    <string name="photo_remove">사진 지우기</string>
+    <string name="photo_no_camera">카메라 앱을 찾을 수 없어요</string>
+
+    <!-- 첨부 · 연락처 -->
+    <string name="attach_title">첨부하기</string>
+    <string name="attach_camera">사진 찍기</string>
+    <string name="member_from_contacts">연락처에서 이름 가져오기</string>
+    <string name="member_no_contacts">연락처 앱을 찾을 수 없어요</string>
+
+    <!-- 알림 권한 -->
+    <string name="perm_notif_title">알림을 켤까요?</string>
+    <string name="perm_notif_body">새 채팅 메시지, 마감 알림, 업무 알람을 받으려면 알림 허용이 필요해요.</string>
+    <string name="perm_notif_later">나중에</string>
+    <string name="perm_notif_denied">알림이 꺼져 있어요. 내 정보 > 알림에서 다시 켤 수 있어요</string>
+</resources>

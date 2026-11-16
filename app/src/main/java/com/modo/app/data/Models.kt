@@ -76,6 +76,8 @@ data class Task(
     /** 담당자 Member.id. 담당자 없으면 null */
     val assigneeId: String? = null,
     val dueDate: LocalDate,
+    /** 마감 시간. null이면 그날 끝(23:59)까지 */
+    val dueTime: LocalTime? = null,
     val priority: Priority = Priority.MEDIUM,
     val status: TaskStatus = TaskStatus.TODO,
     val createdBy: String = "",

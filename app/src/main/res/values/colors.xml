@@ -41,4 +41,8 @@
 
     <color name="launcher_start">#FF8F72FF</color>
     <color name="launcher_end">#FF5536D9</color>
+
+    <!-- 알람 화면 안쪽 원 (가운데 → 가장자리) -->
+    <color name="alarm_circle_mid">#FFCFC3FF</color>
+    <color name="alarm_circle_edge">#FFDCD3FF</color>
 </resources>

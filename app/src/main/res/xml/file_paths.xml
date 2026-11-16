@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FileProvider로 다른 앱에 넘길 수 있는 폴더: 원래 이름을 붙인 열기용 복사본만 -->
+<!-- FileProvider로 다른 앱에 넘길 수 있는 폴더: 원래 이름을 붙인 열기용 복사본 · 카메라 앱이 사진을 써 넣을 곳 -->
 <paths>
     <cache-path name="open" path="modo-open/" />
+    <cache-path name="camera" path="modo-camera/" />
 </paths>

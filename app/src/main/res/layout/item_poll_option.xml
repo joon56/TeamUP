@@ -42,11 +42,10 @@
             tools:text="3표" />
     </LinearLayout>
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <include
         android:id="@+id/bar"
-        style="@style/Widget.Modo.Progress.Linear"
+        layout="@layout/view_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:max="100" />
+        android:layout_height="@dimen/progress_track"
+        android:layout_marginTop="6dp" />
 </LinearLayout>

@@ -400,6 +400,7 @@ object TeamRepository {
             updatedAt = time,
             completedAt = if (task.status == TaskStatus.DONE) (task.completedAt ?: time) else null,
         )
+        DataHub.ownTaskWrites[ref.id] = time
         ref.set(FirestoreMapper.taskToMap(saved)).addOnFailureListener(logFailure("saveTask", onFailure))
         return ref.id
     }
@@ -415,6 +416,18 @@ object TeamRepository {
                 )
             )
             .addOnFailureListener(logFailure("setTaskStatus", onFailure))
+    }
+
+    /**
+     * 알림 버튼 · 알람 화면에서 완료 처리. 업무 목록을 아직 못 받은 상태(앱이 방금 켜짐)에서도 id만으로 쓴다.
+     * onDone: 서버에 반영됐거나 실패했을 때 (오프라인이면 기기에 저장해 뒀다가 나중에 보냄)
+     */
+    fun setTaskDone(projectId: String, taskId: String, onDone: () -> Unit = {}) {
+        val time = now()
+        tasksRef(projectId).document(taskId)
+            .update(mapOf("status" to TaskStatus.DONE.name, "updatedAt" to time, "completedAt" to time))
+            .addOnFailureListener { Log.w(TAG, "setTaskDone", it) }
+            .addOnCompleteListener { onDone() }
     }
 
     /** 다음 주로 미루기 → 새 마감일을 돌려줌 */

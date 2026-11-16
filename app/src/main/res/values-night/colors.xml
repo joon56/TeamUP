@@ -28,4 +28,7 @@
     <color name="danger_container">#FF3D1A1F</color>
     <color name="info">#FF4EA8FF</color>
     <color name="info_container">#FF142B42</color>
+
+    <color name="alarm_circle_mid">#FF45397C</color>
+    <color name="alarm_circle_edge">#FF382E66</color>
 </resources>

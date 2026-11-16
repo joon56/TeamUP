@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 설정: 아래에서 올라오는 시트. 바깥(어두운 부분)을 누르면 닫힘 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrim"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_sheet"
+        android:clickable="true"
+        android:focusable="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingTop="11dp"
+            android:paddingEnd="@dimen/screen_padding"
+            android:paddingBottom="@dimen/gap_l">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_sheet_handle" />
+
+            <!-- 제목 · 업무 이름과 마감 · 닫기 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/alarm_set_title"
+                        android:textAppearance="@style/TextAppearance.Modo.Title" />
+
+                    <TextView
+                        android:id="@+id/subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/close"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:background="@drawable/btn_flat"
+                    android:contentDescription="@string/action_close"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_close"
+                    app:tint="@color/text_primary" />
+            </LinearLayout>
+
+            <!-- 언제 울릴까요? (RadioGroup: 하나만 고를 수 있음) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/alarm_when"
+                android:textAppearance="@style/TextAppearance.Modo.Label" />
+
+            <RadioGroup
+                android:id="@+id/whenGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/when30m"
+                    style="@style/Widget.Modo.ChipRadio.Square"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="@string/alarm_opt_30m" />
+
+                <RadioButton
+                    android:id="@+id/when1h"
+                    style="@style/Widget.Modo.ChipRadio.Square"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="@string/alarm_opt_1h" />
+
+                <RadioButton
+                    android:id="@+id/when3h"
+                    style="@style/Widget.Modo.ChipRadio.Square"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="@string/alarm_opt_3h" />
+
+                <RadioButton
+                    android:id="@+id/whenCustom"
+                    style="@style/Widget.Modo.ChipRadio.Square"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/alarm_opt_custom" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/whenResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                app:drawableStartCompat="@drawable/ic_alarm"
+                app:drawableTint="@color/primary" />
+
+            <!-- 알람 소리 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:text="@string/alarm_sound_title"
+                android:textAppearance="@style/TextAppearance.Modo.Label" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="@dimen/gap_m"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/soundSystem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/alarm_sound_system"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/previewSystem"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_preview_button"
+                        android:contentDescription="@string/alarm_preview"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_play"
+                        app:tint="@color/selector_preview_icon" />
+                </LinearLayout>
+
+                <!-- 점선 구분선 (shape line). 점선은 소프트웨어로 그려야 모든 기기에서 점선으로 보임 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/divider_dashed"
+                    android:layerType="software" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/soundModo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/alarm_sound_modo"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/previewModo"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_preview_button"
+                        android:contentDescription="@string/alarm_preview"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_play"
+                        app:tint="@color/selector_preview_icon" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/divider_dashed"
+                    android:layerType="software" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/soundSong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="middle"
+                        android:maxLines="1"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/alarm_sound_song"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/previewSong"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_preview_button"
+                        android:contentDescription="@string/alarm_preview"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_play"
+                        app:tint="@color/selector_preview_icon" />
+                </LinearLayout>
+
+                <!-- 누르면 기기의 음악 파일을 고름 (이미 골랐으면 다른 곡으로 바꿈) -->
+                <TextView
+                    android:id="@+id/songHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="-6dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="6dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="6dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/alarm_sound_song_pick"
+                    android:textColor="@color/selector_link_text"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- 완료 처리 전까지 반복 (CheckBox) -->
+            <CheckBox
+                android:id="@+id/repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_s"
+                android:checked="true"
+                android:paddingStart="6dp"
+                android:paddingEnd="0dp"
+                android:text="@string/alarm_repeat"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/repeatDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="-8dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/save"
+                style="@style/Widget.Modo.Button.Raised"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:minHeight="@dimen/button_height"
+                android:text="@string/alarm_save_plain"
+                app:icon="@drawable/ic_alarm" />
+
+            <Button
+                android:id="@+id/remove"
+                style="@style/Widget.Modo.Button.Danger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_xs"
+                android:text="@string/alarm_remove"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

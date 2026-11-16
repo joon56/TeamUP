@@ -61,7 +61,7 @@
                     android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
                     android:textColor="@color/danger" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/postponeButton"
                     style="@style/Widget.Modo.Button.Text"
                     android:layout_width="wrap_content"
@@ -123,25 +123,22 @@
                         android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
                 </LinearLayout>
 
-                <!-- 업무 탭에서 새 업무를 만들 때: 프로젝트 선택 드롭다운 -->
+                <!-- 업무 탭에서 새 업무를 만들 때: 누르면 프로젝트 선택창 -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/projectPickerLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:boxBackgroundColor="@color/surface"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxStrokeColor="@color/selector_input_stroke"
+                    app:endIconDrawable="@drawable/ic_expand_more"
+                    app:endIconMode="custom"
                     app:startIconDrawable="@drawable/ic_folder">
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/projectPicker"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/projectInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:focusable="false"
                         android:inputType="none"
                         android:saveEnabled="false" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -186,47 +183,71 @@
                     android:minLines="3" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- ===== 담당자 ===== -->
+            <!-- ===== 담당자 (누르면 하나만 고르는 선택창) ===== -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/assigneeLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_m"
                 android:hint="@string/label_assignee"
-                app:boxBackgroundColor="@color/surface"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxStrokeColor="@color/selector_input_stroke"
+                app:endIconDrawable="@drawable/ic_expand_more"
+                app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descLayout"
                 app:startIconDrawable="@drawable/ic_person">
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/assigneePicker"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/assigneeInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
                     android:inputType="none"
                     android:saveEnabled="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- ===== 마감일 (누르면 달력) ===== -->
+            <!-- ===== 마감일(누르면 달력) · 마감 시간(누르면 시간 선택창) =====
+                 두 칸을 가로로 이어(chain) 3 : 2 비율로 나눔 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dueLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gap_m"
                 android:hint="@string/label_due"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/dueTimeLayout"
+                app:layout_constraintHorizontal_weight="3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/assigneeLayout"
                 app:startIconDrawable="@drawable/ic_calendar">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dueInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:saveEnabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dueTimeLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_s"
+                android:hint="@string/task_due_time_hint"
+                app:endIconContentDescription="@string/task_due_time_clear"
+                app:endIconDrawable="@drawable/ic_close"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@id/dueLayout"
+                app:layout_constraintTop_toTopOf="@id/dueLayout"
+                app:startIconDrawable="@drawable/ic_schedule">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dueTimeInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
@@ -246,7 +267,72 @@
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dueLayout" />
+                app:layout_constraintTop_toBottomOf="@id/dueBottom" />
+
+            <!-- 마감일 칸과 마감 시간 칸 중 더 아래까지 내려온 쪽의 아래 끝 -->
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/dueBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="dueLayout,dueTimeLayout" />
+
+            <!-- ===== 알람 (누르면 알람 설정 시트) ===== -->
+            <LinearLayout
+                android:id="@+id/alarmRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_m"
+                android:background="@drawable/bg_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/gap_m"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weekHint">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_icon_box"
+                    android:importantForAccessibility="no"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_alarm"
+                    app:tint="@color/primary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task_alarm_label"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+
+                    <TextView
+                        android:id="@+id/alarmValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/task_alarm_none"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
 
             <!-- ===== 우선순위 (RadioGroup) ===== -->
             <TextView
@@ -257,7 +343,7 @@
                 android:text="@string/label_priority"
                 android:textAppearance="@style/TextAppearance.Modo.Caption"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/weekHint" />
+                app:layout_constraintTop_toBottomOf="@id/alarmRow" />
 
             <RadioGroup
                 android:id="@+id/priorityGroup"
@@ -390,7 +476,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attachmentList" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/attachButton"
                 style="@style/Widget.Modo.Button.Tonal"
                 android:layout_width="0dp"
@@ -405,7 +491,7 @@
                 app:layout_constraintTop_toBottomOf="@id/attachStatus" />
 
             <!-- ===== 삭제 (수정 모드에서만) ===== -->
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/deleteButton"
                 style="@style/Widget.Modo.Button.Danger"
                 android:layout_width="wrap_content"
@@ -429,7 +515,7 @@
         android:paddingEnd="@dimen/screen_padding"
         android:paddingBottom="@dimen/gap_m">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/saveButton"
             style="@style/Widget.Modo.Button.Primary"
             android:layout_width="match_parent"

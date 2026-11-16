@@ -1,13 +1,16 @@
 package com.modo.app.ui.member
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
@@ -41,6 +44,28 @@ class InviteActivity : AppCompatActivity() {
     private lateinit var projectId: String
     private var found: PublicProfile? = null
 
+    /** 연락처에서 고른 이름을 받을 곳 (팀원 추가 창이 열려 있는 동안만) */
+    private var onContactName: ((String) -> Unit)? = null
+
+    /** 연락처 앱을 띄워 한 사람을 고르면 그 연락처의 주소(Uri)가 돌아옴. 고른 연락처 하나만 읽으므로 연락처 권한이 필요 없음 */
+    private val contactPicker = registerForActivityResult(ActivityResultContracts.PickContact()) { uri ->
+        if (uri == null) return@registerForActivityResult
+        var name: String? = null
+        contentResolver.query(uri, arrayOf(ContactsContract.Contacts.DISPLAY_NAME), null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) name = cursor.getString(0)
+        }
+        name?.takeIf { it.isNotBlank() }?.let { onContactName?.invoke(it) }
+    }
+
+    private fun openContacts(onName: (String) -> Unit) {
+        onContactName = onName
+        try {
+            contactPicker.launch(null)
+        } catch (e: ActivityNotFoundException) {
+            toast(R.string.member_no_contacts)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!ensureSignedIn()) return
@@ -69,7 +94,7 @@ class InviteActivity : AppCompatActivity() {
         binding.copyCode.setOnClickListener { DataHub.current.project(projectId)?.let { ProjectActions.copyInvite(this, it) } }
         binding.shareCode.setOnClickListener { DataHub.current.project(projectId)?.let { ProjectActions.shareInvite(this, it) } }
         binding.guestCard.setOnClickListener {
-            Dialogs.showMember(this, null) { name, role ->
+            Dialogs.showMember(this, null, pickContact = { onName -> openContacts(onName) }) { name, role ->
                 TeamRepository.addGuestMember(projectId, name, role, failureToast())
                 finish()
             }

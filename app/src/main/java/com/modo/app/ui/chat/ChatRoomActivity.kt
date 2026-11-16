@@ -15,6 +15,7 @@ import com.modo.app.ui.common.applySystemBarsPadding
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.nav.Nav
 import com.modo.app.ui.project.ProjectTab
+import com.modo.app.ui.root.RootActivity
 
 /** 채팅방 화면 (채팅 목록 · 알림 · 팀원 상세에서 열림). 본문 동작은 [ChatRoomController] */
 class ChatRoomActivity : AppCompatActivity() {
@@ -65,6 +66,12 @@ class ChatRoomActivity : AppCompatActivity() {
         if (::controller.isInitialized) controller.onResume()
     }
 
+    /** 알림을 눌러 이 화면만 떠 있는 경우(아래에 홈이 없음): 닫을 때 홈을 띄워 줌 */
+    override fun finish() {
+        if (isTaskRoot && ::controller.isInitialized) startActivity(Intent(this, RootActivity::class.java))
+        super.finish()
+    }
+
     override fun onDestroy() {
         if (::controller.isInitialized) controller.stop()
         super.onDestroy()
@@ -73,8 +80,12 @@ class ChatRoomActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_ROOM_ID = "roomId"
 
+        /** 명시적 인텐트: 열 화면(클래스)을 직접 지정하고 방 id를 부가 데이터로 담음 */
+        fun intent(context: Context, roomId: String): Intent =
+            Intent(context, ChatRoomActivity::class.java).putExtra(EXTRA_ROOM_ID, roomId)
+
         fun start(context: Context, roomId: String) {
-            context.startActivity(Intent(context, ChatRoomActivity::class.java).putExtra(EXTRA_ROOM_ID, roomId))
+            context.startActivity(intent(context, roomId))
         }
     }
 }

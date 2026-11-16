@@ -2,8 +2,38 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 회의록 녹음 받아쓰기 -->
+    <!-- 회의록 녹음 받아쓰기 (위험 권한: 실행 중에 사용자에게 허용을 받아야 함) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 알림: 채팅 배너 · 마감 알림 · 업무 알람. Android 13(API 33)부터는 실행 중에 허용을 받아야 함 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- 알람 진동 · 업무 완료 진동 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 재부팅 뒤 알람을 다시 예약 (부팅 완료 방송 받기) -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 정한 시각에 정확히 울리는 알람. Android 12(API 31~32)는 SCHEDULE_EXACT_ALARM, 13부터는 USE_EXACT_ALARM -->
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- 알람이 울리는 동안 소리를 내는 포그라운드 서비스 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <!-- 화면이 꺼져 있을 때 알람 화면을 바로 띄움 -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <!-- 직접 만든 퍼미션: 앱 안에서만 주고받는 방송(업무 완료 · 알람 멈춤)과 알림 버튼 리시버를 보호.
+         protectionLevel="signature" → 같은 키로 서명한 앱(= 이 앱)만 가질 수 있어 다른 앱은 보내지도 받지도 못함 -->
+    <permission
+        android:name="com.modo.app.permission.INTERNAL_EVENTS"
+        android:description="@string/perm_internal_desc"
+        android:label="@string/perm_internal_label"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.modo.app.permission.INTERNAL_EVENTS" />
+
+    <!-- 카메라가 없는 기기에도 설치할 수 있게 (사진 찍어 첨부는 카메라 앱을 불러서 처리) -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <!-- Android 11+: 음성 인식 서비스를 찾으려면 선언 필요 -->
     <queries>
@@ -21,15 +51,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Modo">
 
+        <!-- 시작 화면(인트로): 앱 아이콘을 누르면 가장 먼저 뜸 -->
         <activity
-            android:name=".ui.root.RootActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.Modo.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.root.RootActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.auth.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -57,6 +91,21 @@
         <activity android:name=".ui.meeting.MeetingFinderActivity" />
         <activity android:name=".ui.files.FilesActivity" />
 
+        <!-- 알람 설정 시트: 뒤 화면이 비쳐 보이는 반투명 화면 -->
+        <activity
+            android:name=".ui.alarm.AlarmSetActivity"
+            android:theme="@style/Theme.Modo.Sheet" />
+        <!-- 알람 화면: 잠금 화면 위에 뜨고 화면을 켬. 하나만 뜨며(singleTask) 최근 앱 목록에는 남기지 않음 -->
+        <activity
+            android:name=".ui.alarm.AlarmActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Modo.Alarm"
+            android:turnScreenOn="true" />
+
         <!-- 받은 첨부 파일을 다른 앱(사진·PDF 보기)으로 열 때 -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -75,6 +124,31 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" />
+
+        <!-- ===== 브로드캐스트 리시버 (정적 등록: 앱이 꺼져 있어도 받음) ===== -->
+        <!-- 예약한 시각에 시스템(AlarmManager)이 깨워 줌: 업무 알람 · 아침 마감 알림 -->
+        <receiver
+            android:name=".notify.AlarmReceiver"
+            android:exported="false" />
+        <!-- 부팅이 끝나면 알람을 다시 예약 -->
+        <receiver
+            android:name=".notify.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!-- 알림에 달린 버튼(완료 · 다시 알림 · 답장 · 읽음). android:permission으로 직접 만든 퍼미션을 가진 쪽만 보낼 수 있게 함 -->
+        <receiver
+            android:name=".notify.NotificationActionReceiver"
+            android:exported="false"
+            android:permission="com.modo.app.permission.INTERNAL_EVENTS" />
+
+        <!-- 알람이 울리는 동안 소리 · 진동을 내는 포그라운드 서비스 -->
+        <service
+            android:name=".notify.AlarmRingService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
 
         <!-- 앱 안에서 고른 언어를 Android 12 이하에서도 기억 -->
         <service

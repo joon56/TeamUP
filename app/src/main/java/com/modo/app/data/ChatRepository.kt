@@ -260,4 +260,17 @@ object ChatRepository {
         if (room.unreadFor(uid) == 0) return
         roomRef(roomId).update("unread.$uid", 0).addOnFailureListener { Log.w(TAG, "markRead", it) }
     }
+
+    /** 방의 가장 최근 메시지 한 개 (사진 메시지 알림에 사진을 넣을 때) */
+    fun latestMessage(roomId: String, onResult: (ChatMessage?) -> Unit) {
+        messagesRef(roomId).orderBy("createdAt", Query.Direction.DESCENDING).limit(1).get()
+            .addOnSuccessListener { snap ->
+                val doc = snap.documents.firstOrNull()
+                onResult(doc?.data?.let { FirestoreMapper.messageFromMap(doc.id, roomId, it) })
+            }
+            .addOnFailureListener {
+                Log.w(TAG, "latestMessage", it)
+                onResult(null)
+            }
+    }
 }

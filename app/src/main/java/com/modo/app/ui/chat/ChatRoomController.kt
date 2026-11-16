@@ -38,6 +38,7 @@ import com.modo.app.databinding.ItemMsgOtherBinding
 import com.modo.app.databinding.ViewChatRoomBinding
 import com.modo.app.logic.FileRules
 import com.modo.app.logic.MessageTask
+import com.modo.app.notify.AppNotifier
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.colorOf
@@ -111,11 +112,18 @@ class ChatRoomController(
         b.attach.setOnClickListener { picker.showMenu(it) }
     }
 
+    /** 이 방이 지금 화면에 보이는 중이면 방 id (새 메시지 배너를 띄울지 판단할 때 AppNotifier가 물어봄) */
+    private val viewer: () -> String? = {
+        if (activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) && b.root.isShown) roomId else null
+    }
+
     fun start() {
         if (listener == null) listen()
+        AppNotifier.addRoomViewer(viewer)
     }
 
     fun stop() {
+        AppNotifier.removeRoomViewer(viewer)
         listener?.remove()
         listener = null
         mentionPopup?.dismiss()

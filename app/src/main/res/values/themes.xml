@@ -32,6 +32,8 @@
         <item name="fontFamily">@font/pretendard</item>
 
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Modo.Dialog</item>
+        <!-- AlertDialog.Builder로 만드는 알림 창 -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.Modo.AlertDialog</item>
         <item name="android:datePickerDialogTheme">@style/ThemeOverlay.Modo.Picker</item>
         <item name="android:timePickerDialogTheme">@style/ThemeOverlay.Modo.Picker</item>
         <item name="materialButtonStyle">@style/Widget.Modo.Button.Primary</item>
@@ -66,8 +68,19 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Modo.Dialog</item>
     </style>
 
-    <!-- 날짜·시간 선택창 (DatePickerDialog / TimePickerDialog): 머리글을 보라색으로 -->
+    <!-- AlertDialog.Builder 알림 창: 앱 카드 색 배경 + 앱 글꼴 -->
+    <style name="ThemeOverlay.Modo.AlertDialog" parent="ThemeOverlay.Material3.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_window</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+        <item name="fontFamily">@font/pretendard</item>
+    </style>
+
+    <!-- 날짜·시간 선택창 (DatePickerDialog / TimePickerDialog).
+         창 배경을 직접 지정해야 다크 모드에서 흰 바탕에 흰 글씨가 되지 않음 -->
     <style name="ThemeOverlay.Modo.Picker" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_window</item>
         <item name="android:colorAccent">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
         <item name="colorPrimary">@color/primary</item>
@@ -75,11 +88,21 @@
         <item name="android:timePickerStyle">@style/Widget.Modo.TimePicker</item>
     </style>
 
+    <!-- 달력 머리글: 색 띠 없이 창 배경 그대로 두고 글자색만 앱 색으로 (라이트 · 다크 모두 잘 보이게) -->
     <style name="Widget.Modo.DatePicker" parent="android:Widget.Material.DatePicker">
-        <item name="android:headerBackground">@color/primary</item>
+        <item name="android:headerBackground">@android:color/transparent</item>
+        <item name="android:headerMonthTextAppearance">@style/TextAppearance.Modo.PickerHeader</item>
     </style>
 
+    <style name="TextAppearance.Modo.PickerHeader" parent="android:TextAppearance.Material.Headline">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 시간은 시계 대신 돌리는 휠(spinner)로 (회의 피드백) -->
     <style name="Widget.Modo.TimePicker" parent="android:Widget.Material.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
         <item name="android:headerBackground">@color/primary</item>
     </style>
 
@@ -97,6 +120,30 @@
     <style name="Animation.Modo.TopSheet" parent="">
         <item name="android:windowEnterAnimation">@anim/slide_down_in</item>
         <item name="android:windowExitAnimation">@anim/slide_up_out</item>
+    </style>
+
+    <!-- 아래에서 올라오는 시트 화면 (알람 설정). 뒤 화면이 어둡게 비쳐 보임 -->
+    <style name="Theme.Modo.Sheet" parent="Theme.Modo">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Modo.Sheet</item>
+    </style>
+
+    <style name="Animation.Modo.Sheet" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/sheet_up_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/sheet_down_out</item>
+    </style>
+
+    <!-- 스플래시(시작 화면): 앱이 뜨는 동안에도 앱 배경색이 보이게 -->
+    <style name="Theme.Modo.Splash" parent="Theme.Modo">
+        <item name="android:windowBackground">@color/bg</item>
+    </style>
+
+    <!-- 알람 화면: 잠금 화면 위에 뜨므로 배경을 불투명하게 -->
+    <style name="Theme.Modo.Alarm" parent="Theme.Modo">
+        <item name="android:windowBackground">@color/bg</item>
     </style>
 
     <style name="ShapeAppearance.Modo.Dialog" parent="">

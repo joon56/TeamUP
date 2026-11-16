@@ -48,7 +48,7 @@
                 android:textAppearance="@style/TextAppearance.Modo.Caption"
                 tools:text="매주 수 19:00 · 60분" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/findMeeting"
                 style="@style/Widget.Modo.Button.Tonal"
                 android:layout_width="match_parent"

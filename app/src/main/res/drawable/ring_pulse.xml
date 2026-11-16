@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 화면에서 바깥으로 퍼지는 고리. shape="ring": 가운데가 뚫린 원.
+     innerRadiusRatio = 너비 ÷ 안쪽 반지름, thicknessRatio = 너비 ÷ 두께.
+     useLevel=false 라야 처음부터 온전한 고리로 그려짐 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadiusRatio="2.08"
+    android:shape="ring"
+    android:thicknessRatio="52"
+    android:useLevel="false">
+    <solid android:color="@color/primary" />
+</shape>

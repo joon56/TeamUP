@@ -30,15 +30,12 @@
                 android:layout_width="112dp"
                 android:layout_height="112dp">
 
-                <com.google.android.material.progressindicator.CircularProgressIndicator
+                <View
                     android:id="@+id/ring"
-                    style="@style/Widget.Modo.Progress.Circular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:max="100"
-                    app:indicatorSize="112dp"
-                    app:trackThickness="10dp" />
+                    android:background="@drawable/ring_progress" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -76,13 +73,12 @@
                     android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
                     tools:text="전체 62%" />
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <include
                     android:id="@+id/overallBar"
-                    style="@style/Widget.Modo.Progress.Linear"
+                    layout="@layout/view_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap_s"
-                    android:max="100" />
+                    android:layout_height="@dimen/progress_track"
+                    android:layout_marginTop="@dimen/gap_s" />
 
                 <TextView
                     android:id="@+id/remainingText"

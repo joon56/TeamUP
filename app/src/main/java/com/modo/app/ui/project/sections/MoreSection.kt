@@ -15,6 +15,7 @@ import com.modo.app.logic.WeekCalculator
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.colorOf
+import com.modo.app.ui.common.setRing
 import com.modo.app.ui.files.FilesActivity
 import com.modo.app.ui.member.InviteActivity
 import com.modo.app.ui.project.ProjectActions
@@ -53,8 +54,7 @@ class MoreSection(private val host: ProjectActivity, inflater: LayoutInflater, p
         val tasks = data.tasksOf(project.id)
         val color = host.colorOf(Labels.projectColor(project.colorIndex))
         val weekRate = ProgressCalculator.weekRate(project, tasks, WeekCalculator.weekOf(project, today))
-        b.ring.setIndicatorColor(color)
-        b.ring.progress = weekRate ?: 0
+        b.ring.setRing(weekRate ?: 0, color)
         b.ringRate.text = if (weekRate == null) "–" else host.getString(R.string.percent, weekRate)
         b.summary1.text = host.getString(
             R.string.dot_join, host.getString(R.string.progress_this_week),

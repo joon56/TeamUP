@@ -1,10 +1,15 @@
 package com.modo.app.ui.minutes
 
 import android.Manifest
+import android.animation.Animator
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.os.BatteryManager
 import android.os.Bundle
+import android.os.SystemClock
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.ViewGroup
@@ -19,8 +24,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.ai.type.QuotaExceededException
 import com.modo.app.R
 import com.modo.app.data.AiSummarizer
@@ -45,6 +51,7 @@ import com.modo.app.ui.common.applySystemBarsPadding
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.setBusy
 import com.modo.app.ui.common.toast
 import com.modo.app.ui.files.AttachmentsEditor
 import java.time.LocalDate
@@ -73,10 +80,40 @@ class MinutesEditActivity : AppCompatActivity() {
 
     private var speech: SpeechSession? = null
     private var summarizing = false
+    private var aiAnimator: Animator? = null
     private lateinit var attachments: AttachmentsEditor
 
     private val micPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) startRecording() else toast(R.string.minutes_mic_denied)
+    }
+
+    /** 화면이 꺼지는 바람에 녹음이 멈췄는지 (다시 켜지면 이어서 녹음) */
+    private var pausedByScreenOff = false
+    private var stoppedInBackgroundAt = 0L
+
+    /**
+     * 기기 상태 방송을 받는 리시버 (동적 등록).
+     * 화면 켜짐 · 꺼짐과 배터리 방송은 매니페스트에 적어서는 받을 수 없고, 실행 중에 코드로 등록해야만 받는다.
+     */
+    private val deviceReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.action) {
+                // 화면이 꺼지면 마이크를 못 쓰므로 녹음이 멈춤 → 켜지면 이어서 하도록 표시해 둠
+                Intent.ACTION_SCREEN_OFF -> {
+                    val justStopped = SystemClock.elapsedRealtime() - stoppedInBackgroundAt < JUST_STOPPED_MS
+                    if (speech?.isRunning == true || justStopped) pausedByScreenOff = true
+                    stopRecording()
+                }
+                Intent.ACTION_SCREEN_ON -> resumeAfterScreenOn()
+                // 배터리 부족 · 회복 · 충전기 연결 · 분리
+                Intent.ACTION_BATTERY_LOW -> if (speech?.isRunning == true) {
+                    binding.batteryWarning.setText(R.string.minutes_battery_low_now)
+                    binding.batteryWarning.isVisible = true
+                }
+                Intent.ACTION_BATTERY_OKAY, Intent.ACTION_POWER_CONNECTED -> binding.batteryWarning.isVisible = false
+                Intent.ACTION_POWER_DISCONNECTED -> if (speech?.isRunning == true) checkBattery()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,15 +177,38 @@ class MinutesEditActivity : AppCompatActivity() {
                 renderSummary()
             }
         }
+
+        // 리시버 동적 등록. 화면이 꺼진 뒤(이 화면이 멈춘 뒤)에도 "다시 켜짐"을 받아야 해서
+        // onStart/onStop이 아니라 onCreate에서 등록하고 onDestroy에서 해제한다
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_OFF)
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_BATTERY_LOW)
+            addAction(Intent.ACTION_BATTERY_OKAY)
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+        ContextCompat.registerReceiver(this, deviceReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+        receiverRegistered = true
+    }
+
+    private var receiverRegistered = false
+
+    override fun onStart() {
+        super.onStart()
+        resumeAfterScreenOn() // 화면이 켜진 뒤에 이 화면이 다시 보이게 된 경우
     }
 
     override fun onStop() {
         super.onStop()
         // 백그라운드에서는 마이크를 못 쓰므로 멈춤
+        if (speech?.isRunning == true) stoppedInBackgroundAt = SystemClock.elapsedRealtime()
         stopRecording()
     }
 
     override fun onDestroy() {
+        if (receiverRegistered) unregisterReceiver(deviceReceiver) // 등록한 리시버는 꼭 해제
+        aiAnimator?.cancel()
         speech?.stop()
         if (::attachments.isInitialized) attachments.release()
         super.onDestroy()
@@ -250,6 +310,7 @@ class MinutesEditActivity : AppCompatActivity() {
         binding.recordButton.setIconResource(R.drawable.ic_stop)
         binding.partialText.isVisible = true
         binding.partialText.setText(R.string.minutes_listening)
+        checkBattery()
     }
 
     private fun stopRecording() {
@@ -259,6 +320,33 @@ class MinutesEditActivity : AppCompatActivity() {
         binding.recordButton.setText(R.string.minutes_record_start)
         binding.recordButton.setIconResource(R.drawable.ic_mic)
         binding.partialText.isVisible = false
+        binding.batteryWarning.isVisible = false
+    }
+
+    /** 화면이 꺼져 멈췄던 녹음을, 화면이 켜지고 이 화면이 다시 보이면 이어서 시작 */
+    private fun resumeAfterScreenOn() {
+        if (!pausedByScreenOff || !lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
+        pausedByScreenOff = false
+        toggleRecording()
+        if (speech?.isRunning == true) toast(R.string.minutes_record_resumed)
+    }
+
+    /**
+     * 지금 배터리 상태를 읽어, 충전 중이 아닌데 얼마 안 남았으면 알려 줌 (회의 녹음은 오래 걸리므로).
+     * ACTION_BATTERY_CHANGED는 마지막 값이 계속 남아 있는 방송(sticky)이라, 리시버 없이(null) 등록하면 그 값을 바로 돌려준다.
+     */
+    private fun checkBattery() {
+        val battery = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED)) ?: return
+        val level = battery.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)   // 지금 남은 양
+        val scale = battery.getIntExtra(BatteryManager.EXTRA_SCALE, -1)   // 가득 찼을 때의 값
+        val status = battery.getIntExtra(BatteryManager.EXTRA_STATUS, -1) // 충전 중 · 방전 중 · 가득 참
+        val plugged = battery.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) // 0이면 전원에 연결 안 됨 (AC · USB · 무선)
+        if (level < 0 || scale <= 0) return
+        val percent = level * 100 / scale
+        val charging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL || plugged != 0
+        val low = !charging && percent <= LOW_BATTERY_PERCENT
+        binding.batteryWarning.isVisible = low
+        if (low) binding.batteryWarning.text = getString(R.string.minutes_battery_low, percent)
     }
 
     /** 확정된 문장을 받아쓰기 끝에 이어 붙임 */
@@ -282,7 +370,7 @@ class MinutesEditActivity : AppCompatActivity() {
         }
         // 무료 요금제에서는 보낸 내용이 제품 개선에 쓰일 수 있어 처음 한 번 알림
         if (!Prefs.aiNoticeAccepted) {
-            MaterialAlertDialogBuilder(this)
+            AlertDialog.Builder(this)
                 .setTitle(R.string.minutes_ai_notice_title)
                 .setMessage(R.string.minutes_ai_notice_body)
                 .setNegativeButton(R.string.action_cancel, null)
@@ -324,7 +412,7 @@ class MinutesEditActivity : AppCompatActivity() {
 
     private fun setSummarizing(running: Boolean) {
         summarizing = running
-        binding.aiProgress.isVisible = running
+        aiAnimator = binding.aiProgress.setBusy(running, aiAnimator)
         binding.aiButton.isEnabled = !running
         if (running) binding.aiButton.setText(R.string.minutes_ai_running)
     }
@@ -476,6 +564,8 @@ class MinutesEditActivity : AppCompatActivity() {
         private const val TAG = "MinutesEdit"
         private const val EXTRA_PROJECT_ID = "project_id"
         private const val EXTRA_MINUTES_ID = "minutes_id"
+        private const val LOW_BATTERY_PERCENT = 20
+        private const val JUST_STOPPED_MS = 3_000L
 
         /** minutesId == null 이면 새 회의록 */
         fun start(context: Context, projectId: String, minutesId: String? = null) {

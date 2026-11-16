@@ -172,25 +172,6 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
-    <!-- ===== 진행률 ===== -->
-    <style name="Widget.Modo.Progress.Linear" parent="Widget.Material3.LinearProgressIndicator">
-        <item name="trackThickness">@dimen/progress_track</item>
-        <item name="trackCornerRadius">3dp</item>
-        <item name="trackColor">@color/surface_highest</item>
-        <item name="indicatorColor">@color/primary</item>
-        <item name="indicatorTrackGapSize">0dp</item>
-        <item name="trackStopIndicatorSize">0dp</item>
-    </style>
-
-    <style name="Widget.Modo.Progress.Circular" parent="Widget.Material3.CircularProgressIndicator">
-        <item name="indicatorSize">@dimen/ring_size</item>
-        <item name="trackThickness">@dimen/ring_thickness</item>
-        <item name="trackCornerRadius">6dp</item>
-        <item name="trackColor">@color/surface_highest</item>
-        <item name="indicatorColor">@color/primary</item>
-        <item name="indicatorTrackGapSize">0dp</item>
-    </style>
-
     <!-- ===== 하단 탭 ===== -->
     <style name="Widget.Modo.BottomNav" parent="Widget.Material3.BottomNavigationView">
         <item name="backgroundTint">@color/nav_bg</item>
@@ -266,6 +247,53 @@
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- ===== v0.3 추가 ===== -->
+
+    <!-- 입체 버튼: 배경이 9-patch 그림(btn_raised)이라 색 입히기(backgroundTint)를 끔.
+         parent로 기본 버튼 스타일을 물려받고 필요한 것만 바꿈 -->
+    <style name="Widget.Modo.Button.Raised" parent="Widget.Modo.Button.Primary">
+        <item name="android:background">@drawable/btn_raised</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="iconTint">@color/on_primary</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="iconGravity">textStart</item>
+    </style>
+
+    <!-- 회색 보조 버튼 (배경: 누름 · 포커스 상태가 있는 selector) -->
+    <style name="Widget.Modo.Button.Flat" parent="Widget.Modo.Button.Primary">
+        <item name="android:background">@drawable/btn_flat</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="iconTint">@color/text_primary</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <!-- 네모난 선택 칩 (알람 시각) -->
+    <style name="Widget.Modo.ChipRadio.Square">
+        <item name="android:background">@drawable/bg_chip_square</item>
+        <item name="android:textColor">@color/selector_chip_square_text</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+    </style>
+
+    <!-- 설정 목록의 한 줄 -->
+    <style name="Widget.Modo.SettingRow" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">@dimen/card_padding</item>
+        <item name="android:paddingEnd">@dimen/card_padding</item>
     </style>
 
     <!-- 작은 아이콘 버튼 (주·달 넘기기) -->

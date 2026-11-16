@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -20,9 +20,12 @@ import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.Priority
 import com.modo.app.data.ProjectMode
+import com.modo.app.data.Task
 import com.modo.app.data.TaskStatus
+import com.modo.app.data.TeamRepository
 import com.modo.app.logic.TaskCategory
 import com.modo.app.logic.TaskRules
+import com.modo.app.notify.Feedback
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.YearMonth
@@ -197,7 +200,8 @@ object Labels {
     }
 }
 
-fun Context.colorOf(@ColorRes res: Int): Int = ContextCompat.getColor(this, res)
+/** 색 리소스 읽기. 테마(라이트 · 다크)에 맞는 값이 나오도록 지금 화면의 테마를 함께 넘김 */
+fun Context.colorOf(@ColorRes res: Int): Int = ResourcesCompat.getColor(resources, res, theme)
 
 fun Context.tintOf(@ColorRes res: Int): ColorStateList = ColorStateList.valueOf(colorOf(res))
 
@@ -213,6 +217,14 @@ fun View.addPressEffect() {
         }
         false
     }
+}
+
+// ───────────────────────── 업무 상태 ─────────────────────────
+
+/** 업무 상태 바꾸기. 완료로 바꿨으면 효과음과 진동으로 알려 줌 */
+fun Context.changeTaskStatus(task: Task, status: TaskStatus) {
+    TeamRepository.setTaskStatus(task, status, failureToast())
+    if (status == TaskStatus.DONE && task.status != TaskStatus.DONE) Feedback.taskDone(this)
 }
 
 // ───────────────────────── 메시지 ─────────────────────────

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 안쪽 원: 가운데가 진하고 바깥으로 갈수록 옅어지는 방사형 그라데이션 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient
+        android:endColor="@color/alarm_circle_edge"
+        android:gradientRadius="100dp"
+        android:startColor="@color/alarm_circle_mid"
+        android:type="radial" />
+</shape>

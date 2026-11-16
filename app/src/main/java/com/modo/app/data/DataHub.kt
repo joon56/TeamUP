@@ -36,6 +36,9 @@ object DataHub {
     var roomsLoaded = false
     var mentions: List<ChatMessage> = emptyList()
 
+    /** 이 기기에서 방금 저장한 업무 id → 저장한 시각 (내가 나에게 배정한 업무는 알림을 띄우지 않으려고) */
+    val ownTaskWrites = mutableMapOf<String, Long>()
+
     private val handler = Handler(Looper.getMainLooper())
     private var scheduled = false
     private val publishRunnable = Runnable {
@@ -78,6 +81,7 @@ object DataHub {
         rooms = emptyList()
         roomsLoaded = false
         mentions = emptyList()
+        ownTaskWrites.clear()
         _data.value = AppData()
     }
 

@@ -19,6 +19,7 @@ import com.modo.app.data.DataHub
 import com.modo.app.data.FileStore
 import com.modo.app.data.TeamRepository
 import com.modo.app.logic.FileRules
+import com.modo.app.notify.Notifier
 import com.modo.app.ui.common.toast
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -72,14 +73,23 @@ object FileActions {
             activity.toast(R.string.file_upload_failed)
             return null
         }
+        val app = activity.applicationContext
         return try {
-            FileStore.upload(activity, picked.uri, key, picked.mime, picked.size, onProgress)
+            // 올리는 동안 알림에 진행 막대를 보여 줌 (다른 화면이나 앱 밖에서도 진행 상황이 보임)
+            Notifier.uploadProgress(app, picked.name, 0)
+            FileStore.upload(activity, picked.uri, key, picked.mime, picked.size) { percent ->
+                Notifier.uploadProgress(app, picked.name, percent)
+                onProgress(percent)
+            }
+            Notifier.uploadFinished(app, picked.name, success = true)
             val size = if (picked.size > 0) picked.size else FileStore.cached(key)?.length() ?: 0L
             Attachment(picked.name, size, picked.mime, key, DataHub.uid)
         } catch (e: CancellationException) {
+            Notifier.cancel(app, Notifier.ID_UPLOAD)
             throw e
         } catch (e: Exception) {
             Log.w(TAG, "upload", e)
+            Notifier.uploadFinished(app, picked.name, success = false)
             activity.toast(if ((e as? FileStore.StorageException)?.code == "EntityTooLarge") R.string.file_too_big else R.string.file_upload_failed)
             null
         }

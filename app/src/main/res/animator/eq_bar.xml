@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 화면 "재생 중" 막대: 세로로 늘었다 줄었다 반복 -->
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="360"
+    android:propertyName="scaleY"
+    android:repeatCount="infinite"
+    android:repeatMode="reverse"
+    android:valueFrom="0.35"
+    android:valueTo="1"
+    android:valueType="floatType" />

@@ -1,8 +1,9 @@
-# MODO — 팀 프로젝트 관리 앱 (v0.2.1)
+# MODO — 팀 프로젝트 관리 앱 (v0.3.0)
 
 팀원 각자가 자기 폰에서 맡은 업무를 체크하면, 모든 팀원 화면의 진행률이 실시간으로 바뀌는 팀 프로젝트 관리 앱입니다.
 v0.2에서는 이름을 **TeamUp → MODO**로 바꾸고, 회의 피드백에 따라 앱의 흐름을 다시 잡았습니다.
 v0.2.1에서는 **사진·파일 첨부(파일함)**와 **Google 로그인**을 더했습니다.
+v0.3.0에서는 **업무 알람 · 채팅 배너 · 마감 알림**을 넣고, 수업에서 배운 내용을 빠짐없이 반영했습니다.
 
 > **아이폰 사용자라면** → [GUIDE.md](GUIDE.md): PC에서 가상 안드로이드 폰으로 실행하는 방법
 
@@ -33,9 +34,25 @@ v0.2.1에서는 **사진·파일 첨부(파일함)**와 **Google 로그인**을 
 
 그 밖에: 회의록(검색, 녹음 받아쓰기, AI 요약 → 할 일 후보를 보드에 등록), 알림 화면(초대·마감·공지·멘션·회의 추천 변경), 가입 직후 "보통 되는 시간" 질문, 가로 화면 2단 홈, Google 계정으로 가입·로그인.
 
+### v0.3.0에서 더한 것
+
+| 기능 | 내용 |
+|---|---|
+| 업무 알람 | 업무 화면 → **알람** → 마감 30분 · 1시간 · 3시간 전 또는 직접 고른 시각. 소리는 기본 알람음 · MODO 알람음 · 내 노래(기기의 음악 파일). 완료 처리 전까지 10분 간격으로 최대 3번 다시 울림 |
+| 알람 화면 | 화면이 꺼져 있어도 켜지면서 뜸. 완료로 표시 / 10분 뒤 다시 / 알람 끄기 / 업무 열기. 알림에도 같은 버튼 |
+| 채팅 배너 | 새 메시지가 오면 화면 위에 배너. 배너에서 바로 **답장** · **읽음**. 사진 메시지는 펼치면 사진이 보임 |
+| 마감 · 배정 알림 | 매일 정한 시각(기본 08:00)에 오늘 · 내일 마감과 지연 업무 목록. 새 업무가 배정되면 알림 |
+| 업무 마감 시간 | 마감일에 시간을 붙일 수 있음 (없으면 그날 끝까지) |
+| 시작 화면 | 로고 → 로그인돼 있으면 홈, 아니면 로그인 |
+| 내 정보 > 알림 | 받을 알림 종류, 마감 알림 시각, 기본 알람음, 앱 권한, 완료 효과음 · 진동 |
+| 그 밖에 | 첨부 메뉴에 **사진 찍기**, 앱 안 쓰는 팀원 추가 때 연락처에서 이름 가져오기, 다크 모드에서 날짜 선택창이 하얗게 나오던 문제 수정 |
+
+- 채팅 배너는 앱이 직접 띄우는 알림입니다(서버 푸시 아님). **앱을 보고 있을 때만 옵니다**(다른 화면을 보는 중에 메시지가 오면 위에 배너). 홈 화면으로 나가 있거나 앱이 꺼져 있으면 오지 않고, 앱을 다시 열면 그때 최근 2분 안에 온 메시지가 뜹니다. 업무 알람과 마감 알림은 앱이 꺼져 있어도, 폰을 껐다 켠 뒤에도 옵니다.
+- 알람은 맞춘 그 폰에서만 울립니다 (다른 팀원 폰과 무관).
+
 ## 2. 바로 설치해서 써 보기 (APK)
 
-1. `release/MODO-v0.2.1.apk`를 안드로이드 폰으로 옮겨 설치합니다. 설치 중 "출처를 알 수 없는 앱"을 허용해야 합니다. iPhone에는 설치할 수 없습니다. 예전 버전(v0.2.0)이 깔려 있으면 그 위에 덮어 설치되고, 로그인·데이터는 그대로입니다.
+1. `release/MODO-v0.3.0.apk`를 안드로이드 폰으로 옮겨 설치합니다. 설치 중 "출처를 알 수 없는 앱"을 허용해야 합니다. iPhone에는 설치할 수 없습니다. 예전 버전(v0.2.x)이 깔려 있으면 그 위에 덮어 설치되고, 로그인·데이터는 그대로입니다. 처음 켜면 알림 허용을 묻습니다.
 2. 이메일로 회원가입하거나 **Google로 계속하기**를 누릅니다. 처음이면 "보통 언제 시간이 되나요?"가 먼저 나옵니다. 칠하거나 건너뛰면 됩니다.
 3. 프로젝트에 들어가는 방법
    - 팀원이 내 태그(내 정보에 표시)나 가입 이메일로 초대 → 알림에서 **수락**
@@ -61,7 +78,7 @@ v0.2.1에서는 **사진·파일 첨부(파일함)**와 **Google 로그인**을 
 
 > Kotlin 버전을 2.4.21로 올린 이유: Firebase BoM 35 라이브러리는 Kotlin 2.4로 빌드돼 있는데, AGP 9에 내장된 Kotlin 2.2로는 읽지 못해 컴파일 에러가 납니다.
 
-테스트 실행: `gradlew :app:testDebugUnitTest` — 104개 (업무 분류, 진행률, 주차, 회의 시간 추천·가능 시간 비트 연산, 태그·검색어, 주간·월간 캘린더, 알림·최근 활동, 회의록 AI 응답 해석·담당자 매칭, 메시지→할 일, 첨부 파일 경로·형식·크기, Firestore 변환)
+테스트 실행: `gradlew :app:testDebugUnitTest` — 120개 (업무 분류, 진행률, 주차, 회의 시간 추천·가능 시간 비트 연산, 태그·검색어, 주간·월간 캘린더, 알림·최근 활동, 회의록 AI 응답 해석·담당자 매칭, 메시지→할 일, 첨부 파일 경로·형식·크기, Firestore 변환, 알람 시각·반복·다시 알림 규칙, 알림을 띄울 조건, 알람 저장 형식)
 
 ## 4. 화면 구조
 
@@ -140,14 +157,19 @@ Firestore는 파일을 담을 수 없어서 사진·파일만 Supabase Storage�
 |---|---|
 | Google 로그인 실제 확인 | 구현 완료. 에뮬레이터에는 Google 계정이 없어 계정 추가 화면까지만 확인했습니다. 실기기에서 한 번 로그인해 보면 됩니다 |
 | AI 요약 실제 호출 | 코드 완료. 위 "AI 요약을 켜려면" 콘솔 설정 후 동작 |
-| 실제 녹음 받아쓰기 | 화면·권한·재시작 처리 완료. 에뮬레이터는 마이크 입력이 꺼져 있어 실기기에서 확인 필요 |
+| 실제 녹음 받아쓰기 | 화면·권한·재시작 처리 완료. 에뮬레이터는 마이크 입력이 꺼져 있어 실기기에서 확인 필요 (녹음 중 화면 꺼짐 · 배터리 경고도 같이) |
+| 알람 실기기 확인 | 에뮬레이터(API 36)에서 앱 종료 · 화면 꺼짐 · 재부팅 상태까지 확인. 제조사 절전 설정이 강한 폰에서는 한 번 확인 필요 |
+| 채팅 푸시 | 서버 푸시(FCM)는 넣지 않음. 앱을 보고 있지 않을 때도 채팅 알림을 받으려면 추가 필요 |
 
 ## 7. 규칙
 
 - **주간 진행률**: 주차는 정기 회의일부터 다음 회의 전날까지. 업무는 마감일이 속한 주차에 자동으로 들어갑니다.
 - **업무 분류**: 완료 → 완료, 마감이 지났으면 **지연**(할 일·진행 중 목록에 섞이지 않음), 나머지는 상태대로.
 - **회의 시간 추천**: 회의 길이만큼 연속으로 되는 팀원 수가 많은 순. 같으면 평일 → 저녁(18~22시) → 이른 요일·시간, 2순위부터는 다른 요일을 먼저. 가능 시간을 입력한 팀원만 셉니다.
-- **알림**: 서버 푸시 없이 받아 온 데이터에서 만듭니다(초대, 내 업무 마감, 최근 공지, 나를 멘션, 회의 추천 변경). 알림 화면을 본 뒤에 생긴 것만 배지에 셉니다.
+- **알림 화면**: 서버 푸시 없이 받아 온 데이터에서 만듭니다(초대, 내 업무 마감, 최근 공지, 나를 멘션, 회의 추천 변경). 알림 화면을 본 뒤에 생긴 것만 배지에 셉니다.
+- **업무 알람**: 울린 뒤 30초 동안 아무것도 누르지 않으면 멈추고, 완료 처리 전까지 10분 뒤 다시(최대 3회). 마감을 바꾸면 "마감 N분 전" 알람도 따라 옮기고, 옮긴 시각이 이미 지났으면 해제합니다. 업무를 완료하거나 지우면 알람도 사라집니다.
+- **채팅 배너**: 방금(2분 안에) 온 다른 사람의 메시지이고, 그 방을 보고 있지 않을 때만 띄웁니다.
+- **알림 묶음**: 앱의 알림은 한 묶음(대표 알림 1개 + 각 알림)으로 올립니다. 묶지 않으면 Android 16이 스스로 묶으면서 뒤에 오는 알림을 조용히 처리해, 다시 울리는 알람의 배너가 뜨지 않습니다.
 
 계산 코드는 `logic/` 폴더에 있고 단위 테스트로 검증합니다. 자세한 설계: [`docs/specs/2026-11-11-modo-v2-design.md`](docs/specs/2026-11-11-modo-v2-design.md)
 
@@ -155,13 +177,19 @@ Firestore는 파일을 담을 수 없어서 사진·파일만 Supabase Storage�
 
 ```
 app/src/main/java/com/modo/app
-├─ ModoApp.kt              테마 적용, App Check(디버그)
+├─ ModoApp.kt              테마 적용, App Check(디버그), 알림 감시 시작
 ├─ data/                   Models, DataHub(LiveData로 합침), Session, Profile·Team·Invite·Chat Repository,
 │                          FirestoreMapper, AiSummarizer, AuthService(이메일·Google), FileStore(Supabase), Prefs, SampleData
 ├─ logic/                  TaskRules, ProgressCalculator, WeekCalculator, Schedule, CalendarMath, Availability,
-│                          MeetingFinder, NotificationFeed, ActivityFeed, UserTag, MessageTask, MinutesAi, FileRules …
+│                          MeetingFinder, NotificationFeed, ActivityFeed, UserTag, MessageTask, MinutesAi, FileRules,
+│                          AlarmRules(알람 시각 · 반복), AlertRules(알림을 띄울 조건), AlarmCodec …
 │                          (안드로이드와 무관한 순수 Kotlin → app/src/test 에서 테스트)
+├─ notify/                 Notifier(채널 · 알림 만들기), AppNotifier(데이터를 보고 배너 · 배정 알림), AlarmScheduler(예약),
+│                          AlarmReceiver · BootReceiver · NotificationActionReceiver(리시버), AlarmRingService(소리 · 진동),
+│                          AlarmPlayer, AlarmActions, Feedback(진동 · 효과음), AppEvents(앱 내부 방송)
 └─ ui/
+   ├─ splash/              SplashActivity(시작 화면)
+   ├─ alarm/               AlarmSetActivity(알람 설정 시트), AlarmActivity(울릴 때 화면)
    ├─ root/                RootActivity(하단 탭) + HomeTab, TasksTab, ScheduleTab, MyInfoTab
    ├─ nav/                 AppBar(전환·알림·채팅 배지), SwitcherSheet, Nav
    ├─ project/             ProjectActivity(모드별 배치) + sections/(개요 2종·보드·일정·회의록·채팅·공지·팀원·더보기)
@@ -176,12 +204,16 @@ app/src/main/java/com/modo/app
 
 ## 9. 수업 내용 적용 위치
 
-자세한 표: [`docs/specs/2026-11-11-modo-v2-design.md` §7](docs/specs/2026-11-11-modo-v2-design.md)
+개념마다 어디에 들어갔는지 정리한 표: [`docs/specs/2026-11-16-course-coverage.md`](docs/specs/2026-11-16-course-coverage.md)
+(교안에 있지만 넣지 않은 것과 이유, 교안에 없는데 들어 있는 것도 같은 문서에 있습니다.)
 
-- **위젯:** TextView·EditText·Button·ImageView, CheckBox(업무 완료·할 일 후보), RadioGroup(모드·회의 길이·필터·테마·언어), NumberPicker(시간 휠)
-- **레이아웃:** LinearLayout, FrameLayout, GridLayout(월간 캘린더), ConstraintLayout(업무 수정), ScrollView·HorizontalScrollView
+- **위젯:** TextView·EditText·Button·ImageView, CheckBox(업무 완료·알람 반복·설정), RadioGroup(우선순위·상태·알람 시각·테마·언어)
+- **레이아웃:** LinearLayout(진행 막대는 weight로), RelativeLayout(업무 줄·시작 화면), FrameLayout(알람 화면 원 겹치기), GridLayout(월간 캘린더), ConstraintLayout(업무 수정·알람 화면)
 - **이벤트:** 클릭, 길게 누르기(메시지 → 할 일, 보드 카드 이동), **터치 끌기(가능 시간 격자 `onTouchEvent`)**, 키(Enter로 보내기·검색), 뒤로 가기(저장 안 한 변경 확인)
-- **리소스:** `values-en`(영어), `values-night`(다크), `layout-land`(가로 2단 홈), `font`(Pretendard), `mipmap`(앱 아이콘)
+- **리소스:** shape(rectangle·oval·ring·line), selector(pressed·focused·checked·enabled), 9.png(입체 버튼), `raw`(알람음), `animator`, `mipmap`·`drawable-…dpi`, `values-en`·`-night`·`-land`·`-sw600dp`·`-w600dp`·`-v31`
+- **다이얼로그·알림:** DatePickerDialog, TimePickerDialog, AlertDialog(setItems·단일·다중 선택·버튼 3개), 토스트 콜백, 알림 채널·스타일 4종·버튼·바로 답장·진행률, 소리(RingtoneManager·MediaPlayer)·진동, 권한(직접 만든 퍼미션 포함)
+- **액티비티:** 인텐트·결과 돌려받기(알람 시트), 연락처 고르기, 사진 찍기, 생명주기(onStart·onRestart·onRestoreInstanceState 포함), 코루틴
+- **브로드캐스트 리시버:** 정적 등록(알람·부팅 완료·알림 버튼), 동적 등록(알람 화면·회의 녹음), 화면 켜짐/꺼짐, 배터리, sendBroadcast
 
 ## 10. 라이선스 메모
 

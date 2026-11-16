@@ -29,7 +29,7 @@
                 android:textAppearance="@style/TextAppearance.Modo.Display"
                 tools:text="2026년 11월" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/thisMonth"
                 style="@style/Widget.Modo.Button.Text"
                 android:layout_width="wrap_content"

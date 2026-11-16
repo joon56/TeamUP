@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 화면의 고리가 커지면서 사라지기를 반복 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+    <objectAnimator android:duration="1400" android:propertyName="scaleX" android:repeatCount="infinite" android:valueFrom="0.72" android:valueTo="1.12" android:valueType="floatType" />
+    <objectAnimator android:duration="1400" android:propertyName="scaleY" android:repeatCount="infinite" android:valueFrom="0.72" android:valueTo="1.12" android:valueType="floatType" />
+    <objectAnimator android:duration="1400" android:propertyName="alpha" android:repeatCount="infinite" android:valueFrom="0.7" android:valueTo="0" android:valueType="floatType" />
+</set>

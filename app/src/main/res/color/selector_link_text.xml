@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 글자 링크: 누르거나 포커스가 가면 진한 색 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/primary_pressed" android:state_pressed="true" />
+    <item android:color="@color/primary_pressed" android:state_focused="true" />
+    <item android:color="@color/primary" />
+</selector>

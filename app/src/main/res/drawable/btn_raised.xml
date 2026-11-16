@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 입체 버튼. 흰색 9-patch(.9.png) 한 장에 색을 입혀(tint) 상태마다 다른 그림으로 씀.
+     9-patch라서 버튼이 길어져도 둥근 모서리와 아래 그림자는 늘어나지 않는다.
+     위에서부터 처음 맞는 상태가 쓰이므로 "사용 못 함 → 누름 → 포커스 → 기본" 순서로 적음 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <nine-patch android:src="@drawable/btn_raised_pressed_base" android:tint="@color/surface_highest" android:tintMode="multiply" />
+    </item>
+    <item android:state_pressed="true">
+        <nine-patch android:src="@drawable/btn_raised_pressed_base" android:tint="@color/primary_pressed" android:tintMode="multiply" />
+    </item>
+    <item android:state_focused="true">
+        <nine-patch android:src="@drawable/btn_raised_base" android:tint="@color/primary_pressed" android:tintMode="multiply" />
+    </item>
+    <item>
+        <nine-patch android:src="@drawable/btn_raised_base" android:tint="@color/primary" android:tintMode="multiply" />
+    </item>
+</selector>

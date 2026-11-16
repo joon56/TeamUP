@@ -78,7 +78,7 @@
                         android:textAppearance="@style/TextAppearance.Modo.BodyStrong"
                         tools:text="11월 2주차" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/thisWeek"
                         style="@style/Widget.Modo.Button.Text"
                         android:layout_width="wrap_content"
@@ -263,7 +263,7 @@
                     android:layout_marginTop="@dimen/gap_l"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/emptyNew"
                         style="@style/Widget.Modo.Button.Primary"
                         android:layout_width="0dp"
@@ -271,7 +271,7 @@
                         android:layout_weight="1"
                         android:text="@string/switcher_new_project" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/emptyJoin"
                         style="@style/Widget.Modo.Button.Tonal"
                         android:layout_width="0dp"

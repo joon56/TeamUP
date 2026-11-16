@@ -38,11 +38,11 @@
             android:textColor="@color/primary" />
     </LinearLayout>
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <include
         android:id="@+id/ratio"
-        style="@style/Widget.Modo.Progress.Linear"
+        layout="@layout/view_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/progress_track"
         android:layout_marginTop="@dimen/gap_m" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/gap_s"
         android:textAppearance="@style/TextAppearance.Modo.Caption" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/setButton"
         style="@style/Widget.Modo.Button.Tonal"
         android:layout_width="match_parent"

@@ -9,7 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.ChatRepository
@@ -150,10 +150,10 @@ class ChatListActivity : AppCompatActivity() {
             .distinctBy { it.uid }
             .sortedBy { it.name }
         if (people.isEmpty()) {
-            MaterialAlertDialogBuilder(this).setMessage(R.string.chat_no_people).setPositiveButton(R.string.action_ok, null).show()
+            AlertDialog.Builder(this).setMessage(R.string.chat_no_people).setPositiveButton(R.string.action_ok, null).show()
             return
         }
-        MaterialAlertDialogBuilder(this)
+        AlertDialog.Builder(this)
             .setTitle(R.string.chat_pick_person)
             .setItems(people.map { it.handle }.toTypedArray()) { _, which ->
                 val person = people[which]

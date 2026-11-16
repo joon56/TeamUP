@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 진행률 고리의 바탕 (회색 고리) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadiusRatio="2.45"
+    android:shape="ring"
+    android:thicknessRatio="11"
+    android:useLevel="false">
+    <solid android:color="@color/surface_highest" />
+</shape>

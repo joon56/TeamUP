@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12(API 31) 이상: 시스템이 먼저 보여 주는 시작 화면의 배경을 앱 배경색으로 맞춤.
+     이 속성은 API 31에서 생겼으므로 버전 한정자 폴더(values-v31)에 따로 둔다 -->
+<resources>
+    <style name="Theme.Modo.Splash" parent="Theme.Modo">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:windowSplashScreenBackground">@color/bg</item>
+    </style>
+</resources>

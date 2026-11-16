@@ -11,6 +11,7 @@ import androidx.annotation.StringRes
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
 import com.modo.app.R
+import com.modo.app.data.AlarmStore
 import com.modo.app.data.AppData
 import com.modo.app.data.Member
 import com.modo.app.data.Project
@@ -96,8 +97,7 @@ object Items {
             else -> context.getString(R.string.this_week_rate, rate)
         }
         b.meta.text = context.getString(R.string.dot_join, left, right)
-        b.progress.setIndicatorColor(color)
-        b.progress.progress = rate ?: 0
+        b.progress.set(rate ?: 0, color)
 
         b.root.setOnClickListener { onClick() }
         b.root.addPressEffect()
@@ -131,9 +131,14 @@ object Items {
         val parts = mutableListOf<String>()
         if (showProject) data.project(task.projectId)?.let { parts.add(it.name) }
         parts.add(Labels.assignee(context, data, task.projectId, task.assigneeId))
-        parts.add(context.getString(R.string.due_format, Fmt.relativeDay(context, task.dueDate, today)))
+        // 마감: 시간을 정한 업무는 시간까지 (오늘 18:00)
+        val due = Fmt.relativeDay(context, task.dueDate, today) + (task.dueTime?.let { " " + Fmt.time(context, it) }.orEmpty())
+        parts.add(context.getString(R.string.due_format, due))
         b.meta.text = parts.joinToString(" · ")
         b.meta.setTextColor(context.colorOf(if (overdue) R.color.danger else R.color.text_secondary))
+        // 이 기기에서 알람을 맞춘 업무는 작은 알람 그림을 앞에 붙임
+        val alarmIcon = if (!done && AlarmStore.has(task.id)) R.drawable.ic_alarm_small else 0
+        b.meta.setCompoundDrawablesRelativeWithIntrinsicBounds(alarmIcon, 0, 0, 0)
 
         b.statusBadge.text = Labels.status(context, task.status, overdue)
         b.statusBadge.setTextColor(context.colorOf(Labels.statusColor(task.status, overdue)))
@@ -182,8 +187,7 @@ object Items {
         }
         b.role.text = member.role
         b.role.isVisible = member.role.isNotBlank()
-        b.progress.setIndicatorColor(color)
-        b.progress.progress = stat.rate ?: 0
+        b.progress.set(stat.rate ?: 0, color)
         b.doneCount.text = context.getString(R.string.done_of_total, stat.done, stat.total)
 
         b.root.setOnClickListener { onClick() }
@@ -246,8 +250,7 @@ object Items {
         b.range.text = if (week.total == 0) range
         else context.getString(R.string.dot_join, range, context.getString(R.string.done_of_total, week.done, week.total))
         b.rate.text = Fmt.percent(context, week.rate)
-        b.progress.setIndicatorColor(color)
-        b.progress.progress = week.rate ?: 0
+        b.progress.set(week.rate ?: 0, color)
         excludeFromStateSaving(b.root)
         container.addView(b.root)
     }

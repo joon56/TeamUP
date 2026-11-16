@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 점선 구분선. shape="line"은 stroke(선)만 그리고, dashWidth · dashGap으로 점선을 만듦 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="line">
+    <stroke
+        android:width="1dp"
+        android:color="@color/outline_strong"
+        android:dashGap="4dp"
+        android:dashWidth="4dp" />
+</shape>

@@ -169,7 +169,7 @@
             android:textColor="@color/danger"
             android:visibility="gone" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/submit"
             style="@style/Widget.Modo.Button.Primary"
             android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                 android:background="@color/outline" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/google"
             style="@style/Widget.Modo.Button.Tonal"
             android:layout_width="match_parent"
@@ -219,7 +219,7 @@
             app:iconPadding="@dimen/gap_m"
             app:iconTint="@null" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/switchMode"
             style="@style/Widget.Modo.Button.Text"
             android:layout_width="match_parent"
@@ -227,7 +227,7 @@
             android:layout_marginTop="@dimen/gap_s"
             android:text="@string/login_switch_to_signup" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/forgot"
             style="@style/Widget.Modo.Button.Text"
             android:layout_width="match_parent"

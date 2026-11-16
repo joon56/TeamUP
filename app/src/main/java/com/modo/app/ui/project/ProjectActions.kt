@@ -13,7 +13,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.view.View
 import android.widget.PopupMenu
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.modo.app.R
 import com.modo.app.data.Project
 import com.modo.app.data.ProjectMode
@@ -83,7 +83,7 @@ object ProjectActions {
                 setSpan(ForegroundColorSpan(activity.colorOf(R.color.text_secondary)), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }.toTypedArray<CharSequence>()
-        MaterialAlertDialogBuilder(activity)
+        AlertDialog.Builder(activity)
             .setTitle(R.string.mode_dialog_title)
             .setSingleChoiceItems(items, modes.indexOf(project.mode)) { dialog, which ->
                 val mode = modes[which]

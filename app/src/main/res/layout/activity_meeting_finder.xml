@@ -74,7 +74,7 @@
                     android:paddingStart="@dimen/card_padding"
                     android:paddingEnd="@dimen/card_padding">
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/myButton"
                         style="@style/Widget.Modo.Button.Primary"
                         android:layout_width="0dp"
@@ -82,7 +82,7 @@
                         android:layout_weight="1"
                         android:text="@string/finder_edit_mine" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/requestButton"
                         style="@style/Widget.Modo.Button.Tonal"
                         android:layout_width="0dp"

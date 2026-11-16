@@ -26,14 +26,43 @@
             android:orientation="vertical"
             android:padding="@dimen/gap_xl">
 
-            <TextView
-                android:id="@+id/avatar"
+            <!-- 누르면 사진 찍기 메뉴. FrameLayout: 이니셜 위에 (있으면) 사진을 겹쳐 보여 줌 -->
+            <FrameLayout
+                android:id="@+id/avatarBox"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="@drawable/bg_avatar"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.Modo.Display"
-                tools:text="유" />
+                android:clickable="true"
+                android:contentDescription="@string/photo_title"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_avatar"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.Modo.Display"
+                    tools:text="유" />
+
+                <ImageView
+                    android:id="@+id/avatarPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_avatar"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/bg_circle"
+                    android:importantForAccessibility="no"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/on_primary_container" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/name"
@@ -98,7 +127,7 @@
                 android:text="@string/me_tag_help"
                 android:textAppearance="@style/TextAppearance.Modo.Small" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/editProfile"
                 style="@style/Widget.Modo.Button.Tonal"
                 android:layout_width="wrap_content"
@@ -152,6 +181,219 @@
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_chevron_right"
                 app:tint="@color/text_tertiary" />
+        </LinearLayout>
+
+        <!-- ===== 알림 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_xl"
+            android:text="@string/settings_alerts_title"
+            android:textAppearance="@style/TextAppearance.Modo.Section" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_m"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/alertKindsRow"
+                style="@style/Widget.Modo.SettingRow">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_bell"
+                    app:tint="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_alert_kinds"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <TextView
+                        android:id="@+id/alertKindsValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
+
+            <View
+                style="@style/Widget.Modo.Divider"
+                android:layout_marginStart="48dp" />
+
+            <LinearLayout
+                android:id="@+id/digestTimeRow"
+                style="@style/Widget.Modo.SettingRow">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_schedule"
+                    app:tint="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_digest_time"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <TextView
+                        android:id="@+id/digestTimeValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
+
+            <View
+                style="@style/Widget.Modo.Divider"
+                android:layout_marginStart="48dp" />
+
+            <LinearLayout
+                android:id="@+id/alarmSoundRow"
+                style="@style/Widget.Modo.SettingRow">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_music"
+                    app:tint="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_alarm_sound"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <TextView
+                        android:id="@+id/alarmSoundValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
+
+            <View
+                style="@style/Widget.Modo.Divider"
+                android:layout_marginStart="48dp" />
+
+            <LinearLayout
+                android:id="@+id/permissionRow"
+                style="@style/Widget.Modo.SettingRow">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_lock"
+                    app:tint="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/gap_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/perm_row_title"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <TextView
+                        android:id="@+id/permissionValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textAppearance="@style/TextAppearance.Modo.Caption" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/icon_m"
+                    android:layout_height="@dimen/icon_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/text_tertiary" />
+            </LinearLayout>
+
+            <View
+                style="@style/Widget.Modo.Divider"
+                android:layout_marginStart="48dp" />
+
+            <!-- 완료 효과음 · 진동 (CheckBox: 켜고 끄는 설정) -->
+            <CheckBox
+                android:id="@+id/doneFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/gap_s"
+                android:layout_marginEnd="@dimen/card_padding"
+                android:minHeight="56dp"
+                android:paddingStart="@dimen/gap_s"
+                android:paddingEnd="0dp"
+                android:saveEnabled="false"
+                android:text="@string/settings_done_feedback" />
         </LinearLayout>
 
         <!-- ===== 설정: 테마 · 언어 ===== -->
@@ -340,7 +582,7 @@
         </LinearLayout>
 
         <!-- ===== 계정 ===== -->
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/logout"
             style="@style/Widget.Modo.Button.Danger"
             android:layout_width="match_parent"

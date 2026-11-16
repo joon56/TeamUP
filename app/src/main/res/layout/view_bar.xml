@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 진행 막대. 가로 LinearLayout(바탕) 안의 View(채움) 너비를 layout_weight로 정함: weightSum 100 중 N = N%
+     색과 값은 코드(Bars.kt)에서 넣는다 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/progress_track"
+    android:background="@drawable/bg_bar_track"
+    android:orientation="horizontal"
+    android:weightSum="100">
+
+    <View
+        android:id="@+id/fill"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@drawable/bg_bar_fill" />
+</LinearLayout>

@@ -5,14 +5,13 @@ import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.Task
 import com.modo.app.data.TaskStatus
-import com.modo.app.data.TeamRepository
 import com.modo.app.databinding.TabTasksBinding
 import com.modo.app.logic.CalendarMath
 import com.modo.app.logic.ProgressCalculator
 import com.modo.app.logic.TaskFilter
 import com.modo.app.logic.TaskRules
 import com.modo.app.ui.common.Items
-import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.changeTaskStatus
 import com.modo.app.ui.search.SearchActivity
 import com.modo.app.ui.task.TaskEditActivity
 import java.time.LocalDate
@@ -105,9 +104,7 @@ class TasksTab(private val activity: RootActivity, private val b: TabTasksBindin
     private fun addTask(task: Task, today: LocalDate) {
         Items.addTask(
             b.list, task, data, today, showProject = true,
-            onToggle = { checked ->
-                TeamRepository.setTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO, activity.failureToast())
-            },
+            onToggle = { checked -> activity.changeTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO) },
             onClick = { TaskEditActivity.start(activity, task.projectId, task.id) },
         )
     }

@@ -10,7 +10,6 @@ import com.modo.app.data.AppData
 import com.modo.app.data.Project
 import com.modo.app.data.Task
 import com.modo.app.data.TaskStatus
-import com.modo.app.data.TeamRepository
 import com.modo.app.databinding.ItemAttentionBinding
 import com.modo.app.databinding.SectionOverviewTodayBinding
 import com.modo.app.logic.ProgressCalculator
@@ -21,8 +20,9 @@ import com.modo.app.logic.WeekCalculator
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.Labels
+import com.modo.app.ui.common.changeTaskStatus
 import com.modo.app.ui.common.colorOf
-import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.set
 import com.modo.app.ui.meeting.MeetingFinderActivity
 import com.modo.app.ui.project.ProjectActivity
 import com.modo.app.ui.task.TaskEditActivity
@@ -65,9 +65,7 @@ class OverviewTodaySection(private val host: ProjectActivity, inflater: LayoutIn
         for (task in mine) {
             Items.addTask(
                 b.todayList, task, data, today, showProject = false,
-                onToggle = { checked ->
-                    TeamRepository.setTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO, host.failureToast())
-                },
+                onToggle = { checked -> host.changeTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO) },
                 onClick = { TaskEditActivity.start(host, task.projectId, task.id) },
             )
         }
@@ -77,8 +75,7 @@ class OverviewTodaySection(private val host: ProjectActivity, inflater: LayoutIn
         val week = WeekCalculator.weekOf(project, today)
         val rate = ProgressCalculator.weekRate(project, tasks, week)
         b.weekRate.text = Fmt.percent(host, rate)
-        b.weekProgress.setIndicatorColor(host.colorOf(Labels.projectColor(project.colorIndex)))
-        b.weekProgress.progress = rate ?: 0
+        b.weekProgress.set(rate ?: 0, host.colorOf(Labels.projectColor(project.colorIndex)))
         val range = WeekCalculator.rangeOf(project, week)
         b.weekRange.text = host.getString(
             R.string.overview_week_range, week,

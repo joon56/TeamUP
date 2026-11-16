@@ -73,7 +73,7 @@
             android:paddingEnd="@dimen/gap_m"
             android:paddingBottom="@dimen/gap_m">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/loadMore"
                 style="@style/Widget.Modo.Button.Text"
                 android:layout_width="wrap_content"

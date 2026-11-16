@@ -29,7 +29,7 @@
                 android:text="@string/overview_today_title"
                 android:textAppearance="@style/TextAppearance.Modo.Section" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/addTask"
                 style="@style/Widget.Modo.Button.Text"
                 android:layout_width="wrap_content"
@@ -78,13 +78,12 @@
                     android:textAppearance="@style/TextAppearance.Modo.Number"
                     tools:text="75%" />
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <include
                     android:id="@+id/weekProgress"
-                    style="@style/Widget.Modo.Progress.Linear"
+                    layout="@layout/view_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/gap_s"
-                    android:max="100" />
+                    android:layout_height="@dimen/progress_track"
+                    android:layout_marginTop="@dimen/gap_s" />
 
                 <TextView
                     android:id="@+id/weekRange"

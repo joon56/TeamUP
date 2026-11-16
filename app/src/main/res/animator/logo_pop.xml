@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 스플래시 로고: 작게 시작해서 살짝 튀어나오며 나타남 (여러 속성을 동시에) -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/overshoot"
+    android:ordering="together">
+    <objectAnimator android:duration="420" android:propertyName="scaleX" android:valueFrom="0.7" android:valueTo="1" android:valueType="floatType" />
+    <objectAnimator android:duration="420" android:propertyName="scaleY" android:valueFrom="0.7" android:valueTo="1" android:valueType="floatType" />
+    <objectAnimator android:duration="260" android:propertyName="alpha" android:valueFrom="0" android:valueTo="1" android:valueType="floatType" />
+</set>

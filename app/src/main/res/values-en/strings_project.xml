@@ -69,7 +69,4 @@
     <string name="label_duration">Duration</string>
     <string name="duration_format">%1$d min</string>
 
-    <string name="time_dialog_title">Pick a time</string>
-    <string name="desc_hour">Hour</string>
-    <string name="desc_minute">Minute</string>
 </resources>

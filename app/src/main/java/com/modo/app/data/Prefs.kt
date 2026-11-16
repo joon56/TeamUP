@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
+import com.modo.app.logic.AlarmSoundKind
+import java.time.LocalTime
 
-/** 기기에만 저장하는 앱 설정 (테마, 언어). 프로젝트 데이터는 Firestore에 저장. */
+/** 기기에만 저장하는 앱 설정 (테마, 언어, 알림, 알람). 프로젝트 데이터는 Firestore에 저장. */
 object Prefs {
 
     enum class ThemeMode { DARK, LIGHT, SYSTEM }
@@ -66,6 +68,75 @@ object Prefs {
     private const val KEY_MEETING_SEEN = "meeting_seen_"
     private const val KEY_PENDING_SCHOOL = "pending_school"
     private const val KEY_PENDING_COLOR = "pending_color"
+
+    // ───────────────────────── 알림 · 알람 설정 ─────────────────────────
+
+    /** 받을 알림 종류: 마감 알림 · 채팅 메시지 · 업무 배정 */
+    enum class Alert { DEADLINE, CHAT, ASSIGN }
+
+    fun alertOn(alert: Alert): Boolean = prefs.getBoolean(KEY_ALERT + alert.name, true)
+
+    fun setAlert(alert: Alert, on: Boolean) = prefs.edit { putBoolean(KEY_ALERT + alert.name, on) }
+
+    /** 매일 마감 알림이 오는 시각 (기본 아침 8시) */
+    var digestTime: LocalTime
+        get() = LocalTime.of(prefs.getInt(KEY_DIGEST_HOUR, 8), prefs.getInt(KEY_DIGEST_MINUTE, 0))
+        set(value) = prefs.edit {
+            putInt(KEY_DIGEST_HOUR, value.hour)
+            putInt(KEY_DIGEST_MINUTE, value.minute)
+        }
+
+    /** 새 알람의 기본 소리 */
+    data class AlarmSound(val kind: AlarmSoundKind, val uri: String = "", val name: String = "")
+
+    var alarmSound: AlarmSound
+        get() = AlarmSound(
+            AlarmSoundKind.entries.firstOrNull { it.name == prefs.getString(KEY_SOUND_KIND, null) } ?: AlarmSoundKind.SYSTEM,
+            prefs.getString(KEY_SOUND_URI, "").orEmpty(),
+            prefs.getString(KEY_SOUND_NAME, "").orEmpty(),
+        )
+        set(value) = prefs.edit {
+            putString(KEY_SOUND_KIND, value.kind.name)
+            putString(KEY_SOUND_URI, value.uri)
+            putString(KEY_SOUND_NAME, value.name)
+        }
+
+    /** 업무를 완료로 체크할 때 효과음 · 진동 */
+    var doneFeedback: Boolean
+        get() = prefs.getBoolean(KEY_DONE_FEEDBACK, true)
+        set(value) = prefs.edit { putBoolean(KEY_DONE_FEEDBACK, value) }
+
+    /** 알림 권한을 이미 한 번 물어봤는지 */
+    var notifPermissionAsked: Boolean
+        get() = prefs.getBoolean(KEY_NOTIF_ASKED, false)
+        set(value) = prefs.edit { putBoolean(KEY_NOTIF_ASKED, value) }
+
+    /** 업무 알람 목록 (JSON). AlarmStore가 읽고 씀 */
+    var alarmsJson: String
+        get() = prefs.getString(KEY_ALARMS, "").orEmpty()
+        set(value) = prefs.edit { putString(KEY_ALARMS, value) }
+
+    /** 내가 맡은 미완료 업무 스냅샷 (JSON). 앱이 꺼져 있어도 아침 마감 알림을 만들 수 있게 저장 */
+    var digestJson: String
+        get() = prefs.getString(KEY_DIGEST, "").orEmpty()
+        set(value) = prefs.edit { putString(KEY_DIGEST, value) }
+
+    /** 프로필 사진 (작게 줄인 JPEG를 Base64로). 이 기기에만 저장 */
+    var profilePhoto: String
+        get() = prefs.getString(KEY_PHOTO, "").orEmpty()
+        set(value) = prefs.edit { putString(KEY_PHOTO, value) }
+
+    private const val KEY_ALERT = "alert_"
+    private const val KEY_DIGEST_HOUR = "digest_hour"
+    private const val KEY_DIGEST_MINUTE = "digest_minute"
+    private const val KEY_SOUND_KIND = "alarm_sound_kind"
+    private const val KEY_SOUND_URI = "alarm_sound_uri"
+    private const val KEY_SOUND_NAME = "alarm_sound_name"
+    private const val KEY_DONE_FEEDBACK = "done_feedback"
+    private const val KEY_NOTIF_ASKED = "notif_asked"
+    private const val KEY_ALARMS = "task_alarms"
+    private const val KEY_DIGEST = "digest_tasks"
+    private const val KEY_PHOTO = "profile_photo"
 
     /** "ko", "en" 또는 시스템 언어를 따르면 "" */
     var language: String

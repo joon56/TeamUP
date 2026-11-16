@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 기다리는 동안 움직이는 막대: 왼쪽 끝에서부터 가로로 늘어나기를 반복 -->
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1100"
+    android:interpolator="@android:interpolator/accelerate_decelerate"
+    android:propertyName="scaleX"
+    android:repeatCount="infinite"
+    android:repeatMode="restart"
+    android:valueFrom="0.02"
+    android:valueTo="1"
+    android:valueType="floatType" />

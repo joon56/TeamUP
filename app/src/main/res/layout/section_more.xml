@@ -35,15 +35,12 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp">
 
-                <com.google.android.material.progressindicator.CircularProgressIndicator
+                <View
                     android:id="@+id/ring"
-                    style="@style/Widget.Modo.Progress.Circular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:max="100"
-                    app:indicatorSize="72dp"
-                    app:trackThickness="7dp" />
+                    android:background="@drawable/ring_progress" />
 
                 <TextView
                     android:id="@+id/ringRate"
@@ -100,7 +97,7 @@
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.Modo.Section" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/invite"
                 style="@style/Widget.Modo.Button.Text"
                 android:layout_width="wrap_content"

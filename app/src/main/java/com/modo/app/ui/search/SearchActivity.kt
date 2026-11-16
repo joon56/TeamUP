@@ -20,8 +20,8 @@ import com.modo.app.databinding.ActivitySearchBinding
 import com.modo.app.logic.TaskRules
 import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.applySystemBarsPadding
+import com.modo.app.ui.common.changeTaskStatus
 import com.modo.app.ui.common.ensureSignedIn
-import com.modo.app.ui.common.failureToast
 import com.modo.app.ui.project.ProjectActions
 import com.modo.app.ui.project.ProjectActivity
 import com.modo.app.ui.task.TaskEditActivity
@@ -129,11 +129,7 @@ class SearchActivity : AppCompatActivity() {
             for (task in tasks) {
                 Items.addTask(
                     container, task, data, today, showProject = true,
-                    onToggle = { checked ->
-                        TeamRepository.setTaskStatus(
-                            task, if (checked) TaskStatus.DONE else TaskStatus.TODO, failureToast(),
-                        )
-                    },
+                    onToggle = { checked -> changeTaskStatus(task, if (checked) TaskStatus.DONE else TaskStatus.TODO) },
                     onClick = { TaskEditActivity.start(this, task.projectId, task.id) },
                 )
             }

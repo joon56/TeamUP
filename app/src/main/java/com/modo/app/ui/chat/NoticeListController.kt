@@ -21,6 +21,7 @@ import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.set
 
 /**
  * 공지 목록 (공지 화면 · 소통 중심 모드 공지 탭 공용).
@@ -125,7 +126,7 @@ class NoticeListController(
             row.mark.imageTintList = ColorStateList.valueOf(activity.colorOf(if (chosen) R.color.primary else R.color.text_tertiary))
             row.text.text = option.text
             row.count.text = activity.getString(R.string.notice_votes, count)
-            row.bar.progress = if (voters == 0) 0 else count * 100 / voters
+            row.bar.set(if (voters == 0) 0 else count * 100 / voters)
             row.root.setOnClickListener {
                 val next = when {
                     poll.multiple -> if (chosen) mine - option.id else mine + option.id

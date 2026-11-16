@@ -21,6 +21,8 @@ import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.colorOf
+import com.modo.app.ui.common.set
+import com.modo.app.ui.common.setRing
 import com.modo.app.ui.member.MemberDetailActivity
 import com.modo.app.ui.project.ProjectActivity
 import java.time.LocalDate
@@ -39,13 +41,11 @@ class OverviewProgressSection(private val host: ProjectActivity, inflater: Layou
 
         val week = WeekCalculator.weekOf(project, today)
         val weekRate = ProgressCalculator.weekRate(project, tasks, week)
-        b.ring.setIndicatorColor(color)
-        b.ring.progress = weekRate ?: 0
+        b.ring.setRing(weekRate ?: 0, color)
         b.ringRate.text = if (weekRate == null) "–" else host.getString(R.string.percent, weekRate)
         val overall = ProgressCalculator.rate(tasks)
         b.overallText.text = host.getString(R.string.progress_hero_overall, Fmt.percent(host, overall))
-        b.overallBar.setIndicatorColor(color)
-        b.overallBar.progress = overall ?: 0
+        b.overallBar.set(overall ?: 0, color)
         b.remainingText.text = host.getString(R.string.progress_remaining, tasks.count { it.status != TaskStatus.DONE })
         val next = Schedule.nextMeeting(project, LocalDateTime.now())
         b.meetingText.text = when {

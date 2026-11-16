@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 지금 쓸 수 있는 너비가 600dp 이상일 때(폰을 가로로 돌렸을 때 포함): 보드 두 칸이 한 번에 보이게 -->
+<resources>
+    <integer name="board_column_percent">46</integer>
+</resources>

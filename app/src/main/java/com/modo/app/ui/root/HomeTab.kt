@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.appcompat.app.AlertDialog
 import com.modo.app.R
 import com.modo.app.data.AppData
 import com.modo.app.data.Project
@@ -28,6 +28,7 @@ import com.modo.app.ui.common.Items
 import com.modo.app.ui.common.Labels
 import com.modo.app.ui.common.addPressEffect
 import com.modo.app.ui.common.colorOf
+import com.modo.app.ui.common.set
 import com.modo.app.ui.nav.Nav
 import com.modo.app.ui.project.ProjectEditActivity
 import com.modo.app.ui.task.TaskEditActivity
@@ -148,8 +149,7 @@ class HomeTab(private val activity: RootActivity, private val b: TabHomeBinding)
             card.subject.text = if (project.subject.isBlank()) dDay else activity.getString(R.string.dot_join, project.subject, dDay)
             val tasks = data.tasksOf(project.id)
             val rate = ProgressCalculator.weekRate(project, tasks, WeekCalculator.weekOf(project, today))
-            card.progress.setIndicatorColor(color)
-            card.progress.progress = rate ?: 0
+            card.progress.set(rate ?: 0, color)
             card.rate.text = if (rate == null) activity.getString(R.string.this_week_none) else activity.getString(R.string.percent, rate)
             val next = Schedule.nextMeeting(project, now)
             card.meta.text = when {
@@ -180,7 +180,7 @@ class HomeTab(private val activity: RootActivity, private val b: TabHomeBinding)
     }
 
     private fun chooseAdd() {
-        MaterialAlertDialogBuilder(activity)
+        AlertDialog.Builder(activity)
             .setItems(arrayOf(activity.getString(R.string.switcher_new_project), activity.getString(R.string.home_join_code))) { _, which ->
                 if (which == 0) ProjectEditActivity.start(activity, null)
                 else Dialogs.showJoin(activity) { projectId -> Nav.openProject(activity, projectId) }

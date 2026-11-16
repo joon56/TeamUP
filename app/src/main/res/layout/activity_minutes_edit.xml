@@ -121,7 +121,7 @@
                 android:textColor="@color/primary"
                 android:visibility="gone" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/attachButton"
                 style="@style/Widget.Modo.Button.Tonal"
                 android:layout_width="match_parent"
@@ -182,6 +182,23 @@
                     android:textColor="@color/primary"
                     android:visibility="gone" />
 
+                <!-- 녹음 중 배터리가 부족할 때만 보임 -->
+                <TextView
+                    android:id="@+id/batteryWarning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_s"
+                    android:background="@drawable/bg_card_high"
+                    android:backgroundTint="@color/warning_container"
+                    android:drawablePadding="@dimen/gap_s"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/gap_s"
+                    android:textAppearance="@style/TextAppearance.Modo.Caption"
+                    android:textColor="@color/warning"
+                    android:visibility="gone"
+                    app:drawableStartCompat="@drawable/ic_battery"
+                    app:drawableTint="@color/warning" />
+
                 <EditText
                     android:id="@+id/transcriptInput"
                     android:layout_width="match_parent"
@@ -227,7 +244,7 @@
                         android:text="@string/minutes_ai"
                         android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/aiButton"
                         style="@style/Widget.Modo.Button.Tonal"
                         android:layout_width="wrap_content"
@@ -244,13 +261,12 @@
                     android:text="@string/minutes_ai_help"
                     android:textAppearance="@style/TextAppearance.Modo.Caption" />
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <include
                     android:id="@+id/aiProgress"
-                    style="@style/Widget.Modo.Progress.Linear"
+                    layout="@layout/view_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/progress_track"
                     android:layout_marginTop="@dimen/gap_m"
-                    android:indeterminate="true"
                     android:visibility="gone" />
 
                 <TextView
@@ -300,7 +316,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/addTasksButton"
                     style="@style/Widget.Modo.Button.Primary"
                     android:layout_width="match_parent"
@@ -322,7 +338,7 @@
         android:paddingEnd="@dimen/screen_padding"
         android:paddingBottom="@dimen/gap_m">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/saveButton"
             style="@style/Widget.Modo.Button.Primary"
             android:layout_width="match_parent"
