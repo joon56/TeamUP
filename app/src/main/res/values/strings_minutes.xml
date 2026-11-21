@@ -50,5 +50,18 @@
     <string name="minutes_action_added">보드에 있음</string>
     <string name="minutes_no_assignee">담당자 미정</string>
     <string name="minutes_task_source">회의록 \'%1$s\'에서 나온 일</string>
+
+    <string name="timer_title">회의 타이머</string>
+    <string name="timer_start">시작</string>
+    <string name="timer_stop">멈춤</string>
+    <string name="timer_minutes">%1$d분</string>
+    <string name="timer_custom">직접</string>
+    <string name="timer_help">시간이 다 되면 알람음과 진동으로 알려요. 화면을 끄거나 앱을 나가 있어도 울려요.</string>
+    <string name="timer_ends_at">%1$s에 끝나요</string>
+    <string name="timer_ended">회의 시간이 끝났어요</string>
+    <string name="timer_ended_body">맞춰 둔 %1$d분이 지났어요</string>
+    <string name="timer_pick_title">타이머 길이 (시간 : 분)</string>
+    <string name="timer_pick_zero">1분 이상으로 맞춰 주세요</string>
+    <string name="timer_no_notif">알림이 꺼져 있어서 끝나도 소리가 나지 않아요</string>
     <string name="bullet_item">• %1$s</string>
 </resources>

@@ -31,6 +31,12 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 앱이 이미 떠 있는데(다른 화면을 보던 중) 알림 등으로 이 화면이 그 위에 다시 불린 경우:
+        // 처음부터 다시 시작하지 않고 바로 닫아서, 보던 화면이 그대로 앞으로 나오게 함
+        if (!isTaskRoot) {
+            finish()
+            return
+        }
         enableEdgeToEdge()
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)

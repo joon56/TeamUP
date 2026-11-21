@@ -21,7 +21,6 @@
     <string name="chat_last_task">Task added · %1$s</string>
     <string name="chat_sender_prefix">%1$s: %2$s</string>
     <string name="chat_unknown_person">Unknown</string>
-    <string name="chat_copy">Copy</string>
     <string name="chat_to_task">Make it a task</string>
     <string name="chat_delete">Delete message</string>
     <string name="chat_copied">Message copied</string>

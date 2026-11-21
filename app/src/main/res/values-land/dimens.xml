@@ -3,4 +3,7 @@
 <resources>
     <dimen name="bottom_nav_min_height">56dp</dimen>
     <dimen name="splash_gap">20dp</dimen>
+    <!-- 회의록 입력칸의 최대 줄 수도 줄임 -->
+    <integer name="minutes_notes_max_lines">5</integer>
+    <integer name="minutes_transcript_max_lines">4</integer>
 </resources>

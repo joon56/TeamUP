@@ -130,9 +130,10 @@
         <receiver
             android:name=".notify.AlarmReceiver"
             android:exported="false" />
-        <!-- 부팅이 끝나면 알람을 다시 예약 -->
+        <!-- 부팅이 끝나면 알람을 다시 예약. enabled: 시스템이 이 리시버를 실행해도 되는지(기본값 true) -->
         <receiver
             android:name=".notify.BootReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

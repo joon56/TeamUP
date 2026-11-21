@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 회의록 작성·수정: 제목 · 날짜 · 참석자 · 메모 · 녹음 받아쓰기 · AI 요약(결정 사항·할 일 → 보드) -->
+<!-- 회의록 작성·수정: 제목 · 날짜 · 참석자 · 회의 타이머 · 메모 · 녹음 받아쓰기 · AI 요약(결정 사항·할 일 → 보드) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
@@ -81,6 +81,113 @@
                     android:orientation="horizontal" />
             </HorizontalScrollView>
 
+            <!-- ===== 회의 타이머: 길이를 고르고 시작하면 남은 시간이 줄어들고, 끝나면 알람음 · 진동 · 알림 ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gap_l"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_m"
+                        android:layout_height="@dimen/icon_m"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_timer"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/gap_s"
+                        android:layout_weight="1"
+                        android:text="@string/timer_title"
+                        android:textAppearance="@style/TextAppearance.Modo.BodyStrong" />
+
+                    <Button
+                        android:id="@+id/timerButton"
+                        style="@style/Widget.Modo.Button.Tonal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:text="@string/timer_start" />
+                </LinearLayout>
+
+                <!-- 길이 고르기 (RadioGroup: 하나만 고를 수 있음). 글자는 코드에서 넣고, 타이머가 도는 동안은 숨김 -->
+                <RadioGroup
+                    android:id="@+id/timerGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_m"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/timerPreset0"
+                        style="@style/Widget.Modo.ChipRadio.Square"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:id="@+id/timerPreset1"
+                        style="@style/Widget.Modo.ChipRadio.Square"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:id="@+id/timerPreset2"
+                        style="@style/Widget.Modo.ChipRadio.Square"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:id="@+id/timerCustom"
+                        style="@style/Widget.Modo.ChipRadio.Square"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/timer_custom" />
+                </RadioGroup>
+
+                <!-- 남은 시간. 숫자 폭을 모두 같게(tnum) 해서 줄어들 때 글자가 좌우로 흔들리지 않게 함 -->
+                <TextView
+                    android:id="@+id/timerClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_m"
+                    android:fontFeatureSettings="tnum"
+                    android:textAppearance="@style/TextAppearance.Modo.Number"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/timerBar"
+                    layout="@layout/view_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/progress_track"
+                    android:layout_marginTop="@dimen/gap_s"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/timerStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_s"
+                    android:text="@string/timer_help"
+                    android:textAppearance="@style/TextAppearance.Modo.Caption" />
+            </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/notesLayout"
                 android:layout_width="match_parent"
@@ -95,7 +202,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="top|start"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:minLines="5" />
+                    android:maxLines="@integer/minutes_notes_max_lines"
+                    android:minLines="5"
+                    android:scrollbars="vertical" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- ===== 첨부 파일 ===== -->
@@ -209,7 +318,9 @@
                     android:hint="@string/minutes_transcript_hint"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="@integer/minutes_transcript_max_lines"
                     android:minLines="3"
+                    android:scrollbars="vertical"
                     android:textAppearance="@style/TextAppearance.Modo.Body"
                     android:textColorHint="@color/text_tertiary" />
             </LinearLayout>

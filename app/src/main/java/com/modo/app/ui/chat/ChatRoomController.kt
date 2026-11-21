@@ -1,5 +1,6 @@
 package com.modo.app.ui.chat
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -11,6 +12,7 @@ import android.text.Spanned
 import android.text.style.StyleSpan
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
@@ -277,6 +279,7 @@ class ChatRoomController(
             }
             message.type == MessageType.FILE && file != null -> {
                 image.isVisible = false
+                text.autoLinkMask = 0 // 파일 이름(예: main.py)이 웹 주소로 잘못 걸리지 않게, 이 줄은 링크 찾기를 끔
                 text.text = activity.getString(R.string.chat_last_file, file.name) + " · " + FileActions.formatSize(file.size)
                 text.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_doc, 0, 0, 0)
                 text.compoundDrawablePadding = activity.resources.getDimensionPixelSize(R.dimen.gap_s)
@@ -294,7 +297,7 @@ class ChatRoomController(
         bindBody(message, row.bubble, row.text, row.image)
         row.time.isVisible = showTime
         row.time.text = Fmt.time(activity, Instant.ofEpochMilli(message.createdAt).atZone(zone).toLocalTime())
-        attachActions(row.bubble, message)
+        attachActions(row.bubble, row.text, message)
         b.msgList.addView(row.root)
     }
 
@@ -313,7 +316,7 @@ class ChatRoomController(
         row.time.isVisible = showTime
         row.time.text = Fmt.time(activity, Instant.ofEpochMilli(message.createdAt).atZone(zone).toLocalTime())
         if (!showHeader) (row.root.layoutParams as? android.widget.LinearLayout.LayoutParams)?.topMargin = 2
-        attachActions(row.bubble, message)
+        attachActions(row.bubble, row.text, message)
         b.msgList.addView(row.root)
     }
 
@@ -332,12 +335,13 @@ class ChatRoomController(
         return span
     }
 
-    private fun attachActions(bubble: View, message: ChatMessage) {
+    private fun attachActions(bubble: View, text: android.widget.TextView, message: ChatMessage) {
         val file = message.file
         if (file != null) bubble.setOnClickListener { FileActions.open(activity, file) }
-        bubble.setOnLongClickListener { view ->
+        val openMenu = View.OnLongClickListener { view ->
             val popup = PopupMenu(activity, view)
-            if (message.text.isNotBlank()) popup.menu.add(0, MENU_COPY, 0, R.string.chat_copy)
+            // "복사"는 안드로이드에 들어 있는 문자열(플랫폼 리소스 android.R.string.…)을 씀
+            if (message.text.isNotBlank()) popup.menu.add(0, MENU_COPY, 0, android.R.string.copy)
             if (projectId != null && message.text.isNotBlank()) popup.menu.add(0, MENU_TASK, 1, R.string.chat_to_task)
             if (message.senderUid == DataHub.uid) popup.menu.add(0, MENU_DELETE, 2, R.string.chat_delete)
             popup.setOnMenuItemClickListener { item ->
@@ -363,6 +367,34 @@ class ChatRoomController(
             }
             popup.show()
             true
+        }
+        bubble.setOnLongClickListener(openMenu)
+        if (text.urls.isNotEmpty()) keepMenuOnLinkedText(text, openMenu)
+    }
+
+    /**
+     * 웹 주소가 든 글(autoLink)은 링크를 열려고 터치를 글이 직접 받으므로, 말풍선의 길게 누르기가 오지 않는다.
+     * 그래서 글에도 같은 메뉴를 달고, 메뉴가 뜬 뒤 손을 뗄 때(ACTION_UP)는 링크가 열리지 않게 '취소'로 바꿔 넘긴다.
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    private fun keepMenuOnLinkedText(text: android.widget.TextView, openMenu: View.OnLongClickListener) {
+        var menuOpened = false
+        text.setOnLongClickListener { view ->
+            menuOpened = true
+            openMenu.onLongClick(view)
+        }
+        text.setOnTouchListener { view, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> menuOpened = false
+                MotionEvent.ACTION_UP -> if (menuOpened) {
+                    val cancel = MotionEvent.obtain(event)
+                    cancel.action = MotionEvent.ACTION_CANCEL
+                    view.onTouchEvent(cancel)
+                    cancel.recycle()
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
     }
 

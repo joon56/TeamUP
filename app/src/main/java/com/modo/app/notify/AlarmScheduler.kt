@@ -9,6 +9,7 @@ import android.os.Build
 import com.modo.app.data.AlarmStore
 import com.modo.app.data.Prefs
 import com.modo.app.logic.AlarmRules
+import com.modo.app.logic.MeetingTimer
 import com.modo.app.logic.TaskAlarm
 import com.modo.app.ui.task.TaskEditActivity
 import java.time.LocalDateTime
@@ -23,6 +24,7 @@ object AlarmScheduler {
 
     const val ACTION_TASK_ALARM = "com.modo.app.action.TASK_ALARM"
     const val ACTION_DIGEST = "com.modo.app.action.DIGEST"
+    const val ACTION_MEETING_TIMER = "com.modo.app.action.MEETING_TIMER"
     const val EXTRA_TASK_ID = "task_id"
 
     /** 방금 울리기 시작한 알람(리시버가 처리 중)으로 보는 시간 */
@@ -46,6 +48,9 @@ object AlarmScheduler {
 
     private fun digestIntent(context: Context): PendingIntent =
         PendingIntent.getBroadcast(context, 0, Intent(context, AlarmReceiver::class.java).setAction(ACTION_DIGEST), FLAGS)
+
+    private fun timerIntent(context: Context): PendingIntent =
+        PendingIntent.getBroadcast(context, 0, Intent(context, AlarmReceiver::class.java).setAction(ACTION_MEETING_TIMER), FLAGS)
 
     fun schedule(context: Context, alarm: TaskAlarm) {
         val operation = taskIntent(context, alarm.taskId)
@@ -92,7 +97,34 @@ object AlarmScheduler {
                 }
             }
         }
+        // 회의 타이머: 아직 안 끝났으면 다시 예약, 기기가 꺼져 있는 동안 끝나 버렸으면 지움
+        Prefs.meetingTimer?.let { timer ->
+            if (timer.endAt > now) scheduleTimer(context, timer) else if (now - timer.endAt >= JUST_FIRED_MS) Prefs.meetingTimer = null
+        }
         scheduleDigest(context)
+    }
+
+    // ───────── 회의 타이머 ─────────
+
+    /** 회의 타이머 시작: 기기에 저장하고, 끝나는 시각에 [AlarmReceiver]를 깨우도록 예약 (화면을 끄거나 앱을 나가 있어도 울림) */
+    fun startTimer(context: Context, timer: MeetingTimer) {
+        Prefs.meetingTimer = timer
+        scheduleTimer(context, timer)
+    }
+
+    private fun scheduleTimer(context: Context, timer: MeetingTimer) {
+        val operation = timerIntent(context)
+        if (canExact(context)) {
+            manager(context).setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timer.endAt, operation)
+        } else {
+            manager(context).setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timer.endAt, operation)
+        }
+    }
+
+    /** 회의 타이머 멈춤: 저장한 것을 지우고 예약도 취소 */
+    fun stopTimer(context: Context) {
+        Prefs.meetingTimer = null
+        manager(context).cancel(timerIntent(context))
     }
 
     /** 매일 한 번 오는 마감 알림(아침 목록)을 다음 시각에 예약. 설정에서 껐으면 취소 */
@@ -112,11 +144,12 @@ object AlarmScheduler {
         }
     }
 
-    /** 로그아웃: 이 기기의 알람과 마감 알림 예약을 모두 지움 */
+    /** 로그아웃: 이 기기의 알람 · 마감 알림 · 회의 타이머 예약을 모두 지움 */
     fun clearAll(context: Context) {
         for (alarm in AlarmStore.all()) cancel(context, alarm.taskId)
         AlarmStore.clear()
         Prefs.digestJson = ""
         manager(context).cancel(digestIntent(context))
+        stopTimer(context)
     }
 }

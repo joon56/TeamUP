@@ -40,4 +40,12 @@
 
     <!-- 보드: 화면 너비 중 한 칸(열)이 차지하는 비율(%). 넓은 화면일수록 여러 칸이 한 번에 보임 -->
     <integer name="board_column_percent">82</integer>
+
+    <!-- 회의록 입력칸이 한 번에 보여 주는 최대 줄 수(android:maxLines). 넘치면 칸 안에서 넘겨 봄 -->
+    <integer name="minutes_notes_max_lines">10</integer>
+    <integer name="minutes_transcript_max_lines">8</integer>
+
+    <!-- 가능 시간 격자의 글자 크기 (코드에서 resources.getDimension으로 읽음) -->
+    <dimen name="grid_text_small">10sp</dimen>
+    <dimen name="grid_text">12sp</dimen>
 </resources>

@@ -86,7 +86,6 @@
     <string name="nav_schedule">일정</string>
     <string name="nav_settings">설정</string>
     <string name="msg_press_back_again">한 번 더 누르면 종료돼요</string>
-    <string name="desc_search">검색</string>
     <string name="desc_notifications">알림</string>
 
     <!-- ===== 홈 ===== -->

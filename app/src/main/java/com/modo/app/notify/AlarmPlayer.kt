@@ -1,5 +1,6 @@
 package com.modo.app.notify
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
@@ -85,9 +86,18 @@ class AlarmPlayer(context: Context) {
         }
         tone.audioAttributes = attributes
         // Ringtone 반복 재생은 API 28부터 지원 (그 전 기기에서는 한 번만 울림)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) tone.isLooping = loop
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) setLooping(tone, loop)
         tone.play()
         ringtone = tone
+    }
+
+    /**
+     * TargetApi 애너테이션: "이 함수 안의 코드는 API 28 기준으로 썼다"는 표시라, 안에서 API 28 기능을 써도 오류로 보지 않는다.
+     * RequiresApi와 달리 부르는 쪽이 버전 확인을 빠뜨려도 알려 주지 않으므로, 부르는 곳에서 SDK_INT를 꼭 확인해야 한다.
+     */
+    @TargetApi(Build.VERSION_CODES.P)
+    private fun setLooping(tone: Ringtone, loop: Boolean) {
+        tone.isLooping = loop
     }
 
     fun stop() {

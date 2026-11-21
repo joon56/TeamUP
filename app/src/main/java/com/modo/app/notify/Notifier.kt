@@ -28,6 +28,7 @@ import com.modo.app.logic.TaskAlarm
 import com.modo.app.ui.alarm.AlarmActivity
 import com.modo.app.ui.chat.ChatRoomActivity
 import com.modo.app.ui.root.RootActivity
+import com.modo.app.ui.splash.SplashActivity
 import com.modo.app.ui.task.TaskEditActivity
 import java.time.Instant
 import java.time.LocalDate
@@ -37,7 +38,7 @@ import java.time.format.DateTimeFormatter
 
 /**
  * 알림(Notification)을 만드는 곳.
- * 채널 5개: 채팅(배너) · 업무 알람 · 마감 알림 · 업무 배정 · 진행 상황(파일 올리기)
+ * 채널 6개: 채팅(배너) · 업무 알람 · 마감 알림 · 업무 배정 · 진행 상황(파일 올리기) · 회의 타이머
  */
 object Notifier {
 
@@ -46,10 +47,12 @@ object Notifier {
     const val CH_DEADLINE = "deadline"
     const val CH_ASSIGN = "assign"
     const val CH_PROGRESS = "progress"
+    const val CH_TIMER = "timer"
 
     const val ID_DIGEST = 1001
     const val ID_ALARM = 1002
     const val ID_UPLOAD = 1003
+    const val ID_TIMER = 1004
 
     /**
      * 이 앱의 알림은 모두 한 묶음(group)에 넣고, 묶음 대표(요약) 알림을 함께 올린다.
@@ -120,7 +123,20 @@ object Notifier {
             description = context.getString(R.string.channel_progress_desc)
             setShowBadge(false)
         }
-        manager(context).createNotificationChannels(listOf(chat, alarm, deadline, assign, progress))
+        val timer = NotificationChannel(CH_TIMER, context.getString(R.string.channel_timer), NotificationManager.IMPORTANCE_HIGH).apply {
+            description = context.getString(R.string.channel_timer_desc)
+            setShowBadge(false)
+            // 끝났을 때 나는 소리: 앱에 들어 있는 알람음(res/raw)을 알람 음량으로 한 번 + 진동
+            val sound = Uri.parse("android.resource://${context.packageName}/${R.raw.alarm_modo}")
+            val attributes = AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build()
+            setSound(sound, attributes)
+            enableVibration(true)
+            vibrationPattern = Feedback.ALARM_PATTERN
+        }
+        manager(context).createNotificationChannels(listOf(chat, alarm, deadline, assign, progress, timer))
     }
 
     /** 알림을 띄울 수 있는지: Android 13(API 33)부터는 사용자가 허용해야 함 */
@@ -403,6 +419,24 @@ object Notifier {
     }
 
     fun formatTime(time: LocalTime): String = "%02d:%02d".format(time.hour, time.minute)
+
+    // ───────────────────────── 회의 타이머 ─────────────────────────
+
+    /**
+     * 회의 타이머가 끝남. 소리 · 진동은 채널(CH_TIMER)에 정해 둔 대로 난다.
+     * 누르면 앱이 앞으로 나옴: 앱이 떠 있었으면 보던 화면 그대로(시작 화면이 스스로 닫힘), 꺼져 있었으면 처음부터 시작
+     */
+    fun timerDone(context: Context, minutes: Int) {
+        val open = Intent(context, SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val builder = base(context, CH_TIMER)
+            .setContentTitle(context.getString(R.string.timer_ended))
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(PendingIntent.getActivity(context, 0, open, IMMUTABLE))
+            .setAutoCancel(true)
+        if (minutes > 0) builder.setContentText(context.getString(R.string.timer_ended_body, minutes))
+        post(context, null, ID_TIMER, builder.build())
+    }
 
     // ───────────────────────── 진행 상황: 파일 업로드 (setProgress) ─────────────────────────
 

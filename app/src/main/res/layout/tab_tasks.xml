@@ -35,7 +35,7 @@
         <ImageButton
             android:id="@+id/search"
             style="@style/Widget.Modo.IconButton"
-            android:contentDescription="@string/desc_search"
+            android:contentDescription="@android:string/search_go"
             android:src="@drawable/ic_search" />
     </LinearLayout>
 

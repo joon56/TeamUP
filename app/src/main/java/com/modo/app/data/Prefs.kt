@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import com.modo.app.logic.AlarmSoundKind
+import com.modo.app.logic.MeetingTimer
 import java.time.LocalTime
 
 /** 기기에만 저장하는 앱 설정 (테마, 언어, 알림, 알람). 프로젝트 데이터는 Firestore에 저장. */
@@ -126,6 +127,22 @@ object Prefs {
         get() = prefs.getString(KEY_PHOTO, "").orEmpty()
         set(value) = prefs.edit { putString(KEY_PHOTO, value) }
 
+    /** 돌고 있는 회의 타이머. 없으면 null. 화면을 닫거나 앱이 꺼져도 이어지도록 기기에 저장 */
+    var meetingTimer: MeetingTimer?
+        get() {
+            val endAt = prefs.getLong(KEY_TIMER_END, 0)
+            return if (endAt <= 0) null else MeetingTimer(endAt, prefs.getLong(KEY_TIMER_TOTAL, 0))
+        }
+        set(value) = prefs.edit {
+            if (value == null) {
+                remove(KEY_TIMER_END)
+                remove(KEY_TIMER_TOTAL)
+            } else {
+                putLong(KEY_TIMER_END, value.endAt)
+                putLong(KEY_TIMER_TOTAL, value.totalMs)
+            }
+        }
+
     private const val KEY_ALERT = "alert_"
     private const val KEY_DIGEST_HOUR = "digest_hour"
     private const val KEY_DIGEST_MINUTE = "digest_minute"
@@ -137,6 +154,8 @@ object Prefs {
     private const val KEY_ALARMS = "task_alarms"
     private const val KEY_DIGEST = "digest_tasks"
     private const val KEY_PHOTO = "profile_photo"
+    private const val KEY_TIMER_END = "meeting_timer_end"
+    private const val KEY_TIMER_TOTAL = "meeting_timer_total"
 
     /** "ko", "en" 또는 시스템 언어를 따르면 "" */
     var language: String

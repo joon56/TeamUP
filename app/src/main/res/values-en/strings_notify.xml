@@ -11,6 +11,8 @@
     <string name="channel_assign_desc">Tells you when a new task is assigned to you</string>
     <string name="channel_progress">Progress</string>
     <string name="channel_progress_desc">Shows work in progress such as file uploads</string>
+    <string name="channel_timer">Meeting timer</string>
+    <string name="channel_timer_desc">Rings with sound and vibration when the meeting time is up</string>
 
     <string name="notif_me">Me</string>
     <string name="notif_reply">Reply</string>

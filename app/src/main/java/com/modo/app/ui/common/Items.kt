@@ -149,6 +149,7 @@ object Items {
         // 체크 "상태 변경"이 아니라 사용자 "클릭"에만 반응해야 함.
         // (화면 회전 시 시스템이 체크 상태를 복원하면서 변경 리스너가 불려 업무가 잘못 완료 처리되는 것을 막음)
         b.check.setOnClickListener { onToggle(b.check.isChecked) }
+        b.check.addPressEffect(0.85f) // 터치 이벤트: 체크 표시를 누르고 있는 동안 눌린 것처럼 작아짐
 
         b.root.setOnClickListener { onClick() }
         b.root.addPressEffect()

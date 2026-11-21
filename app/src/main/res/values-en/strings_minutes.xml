@@ -49,5 +49,18 @@
     <string name="minutes_action_added">On the board</string>
     <string name="minutes_no_assignee">No assignee</string>
     <string name="minutes_task_source">From minutes \'%1$s\'</string>
+
+    <string name="timer_title">Meeting timer</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_stop">Stop</string>
+    <string name="timer_minutes">%1$d min</string>
+    <string name="timer_custom">Custom</string>
+    <string name="timer_help">Rings with sound and vibration when time is up, even if the screen is off or you leave the app.</string>
+    <string name="timer_ends_at">Ends at %1$s</string>
+    <string name="timer_ended">Meeting time is up</string>
+    <string name="timer_ended_body">Your %1$d-minute timer has finished</string>
+    <string name="timer_pick_title">Timer length (hours : minutes)</string>
+    <string name="timer_pick_zero">Set at least 1 minute</string>
+    <string name="timer_no_notif">Notifications are off, so there will be no sound at the end</string>
     <string name="bullet_item">• %1$s</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.view.MotionEvent
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
@@ -209,11 +210,36 @@ fun Context.tintOf(@ColorRes res: Int): ColorStateList = ColorStateList.valueOf(
 
 /** 누르는 동안 살짝 작아지는 효과. false를 돌려주므로 클릭 이벤트는 그대로 동작 */
 @SuppressLint("ClickableViewAccessibility")
-fun View.addPressEffect() {
+fun View.addPressEffect(pressedScale: Float = 0.97f) {
     setOnTouchListener { view, event ->
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> view.animate().scaleX(0.97f).scaleY(0.97f).setDuration(80).start()
+            MotionEvent.ACTION_DOWN -> view.animate().scaleX(pressedScale).scaleY(pressedScale).setDuration(80).start()
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> view.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
+        }
+        false
+    }
+}
+
+/**
+ * 줄 수를 제한한(maxLines) 입력칸용. 내용이 넘쳐 칸 안에서 넘겨 볼 수 있으면 칸 안의 글을 먼저 움직이고,
+ * 그 방향으로 끝까지 갔으면 바깥 화면(ScrollView)이 이어서 움직이게 한다.
+ * (그냥 두면 바깥 ScrollView가 세로로 끄는 터치를 가로채서, 칸 안의 글을 손가락으로 넘길 수 없음)
+ */
+@SuppressLint("ClickableViewAccessibility")
+fun TextView.scrollInsideFirst() {
+    var lastY = 0f
+    setOnTouchListener { view, event ->
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                lastY = event.y
+                view.parent.requestDisallowInterceptTouchEvent(view.canScrollVertically(1) || view.canScrollVertically(-1))
+            }
+            MotionEvent.ACTION_MOVE -> if (event.y != lastY) {
+                val direction = if (event.y < lastY) 1 else -1 // 손가락을 위로 끌면 아래쪽 내용을 보려는 것
+                lastY = event.y
+                view.parent.requestDisallowInterceptTouchEvent(view.canScrollVertically(direction))
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> view.parent.requestDisallowInterceptTouchEvent(false)
         }
         false
     }
@@ -250,8 +276,8 @@ fun Context.errorMessage(e: Exception?): String = getString(
     }
 )
 
-/** 쓰기 실패 콜백용: 화면이 닫혀도 안전하도록 applicationContext로 토스트 */
+/** 쓰기 실패 콜백용: 화면이 닫혀도 안전하도록 applicationContext로 토스트. 오류 문장은 읽을 시간이 필요해 길게(LENGTH_LONG) 띄움 */
 fun Context.failureToast(): (Exception) -> Unit {
     val app = applicationContext
-    return { e -> app.toast(app.errorMessage(e)) }
+    return { e -> Toast.makeText(app, app.errorMessage(e), Toast.LENGTH_LONG).show() }
 }

@@ -16,6 +16,9 @@ object Feedback {
     /** 알람이 울릴 때 진동 패턴: 대기 0, 진동 500, 쉼 400, 진동 500, 쉼 1200 (밀리초) */
     val ALARM_PATTERN = longArrayOf(0, 500, 400, 500, 1200)
 
+    /** 위 패턴의 구간별 세기 (0 = 쉼, 255 = 가장 세게). 알람이라 가장 세게 */
+    val ALARM_STRENGTH = intArrayOf(0, 255, 0, 255, 0)
+
     /**
      * 진동 장치. API 31부터는 VibratorManager에서 꺼내고, 그 전에는 VIBRATOR_SERVICE를 쓴다.
      */
@@ -37,9 +40,9 @@ object Feedback {
         vibrator(context).vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE))
     }
 
-    /** 패턴 진동. repeat: 되풀이할 위치(0 = 처음부터 계속), -1 = 한 번만 */
-    fun pattern(context: Context, timings: LongArray, repeat: Int) {
-        vibrator(context).vibrate(VibrationEffect.createWaveform(timings, repeat))
+    /** 패턴 진동. amplitudes: 구간별 세기, repeat: 되풀이할 위치(0 = 처음부터 계속), -1 = 한 번만 */
+    fun pattern(context: Context, timings: LongArray, amplitudes: IntArray, repeat: Int) {
+        vibrator(context).vibrate(VibrationEffect.createWaveform(timings, amplitudes, repeat))
     }
 
     fun cancel(context: Context) {

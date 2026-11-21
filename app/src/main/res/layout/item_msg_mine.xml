@@ -46,10 +46,12 @@
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 
+            <!-- autoLink: 글 속의 웹 주소를 찾아 누를 수 있는 링크로 바꿈 -->
             <TextView
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:textAppearance="@style/TextAppearance.Modo.Body"
                 android:textColor="@color/on_primary"
                 android:textColorLink="@color/on_primary" />

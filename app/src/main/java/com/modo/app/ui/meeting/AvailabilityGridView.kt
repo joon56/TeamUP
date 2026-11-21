@@ -34,7 +34,6 @@ class AvailabilityGridView @JvmOverloads constructor(context: Context, attrs: At
     private val rows = MeetingFinder.LAST_SLOT - MeetingFinder.FIRST_SLOT
 
     private fun dp(value: Float): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, resources.displayMetrics)
-    private fun sp(value: Float): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, resources.displayMetrics)
 
     private val gutter = dp(40f)
     private val header = dp(28f)
@@ -57,20 +56,20 @@ class AvailabilityGridView @JvmOverloads constructor(context: Context, attrs: At
     }
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.colorOf(R.color.text_tertiary)
-        textSize = sp(10f)
+        textSize = resources.getDimension(R.dimen.grid_text_small)
         textAlign = Paint.Align.RIGHT
         typeface = ResourcesCompat.getFont(context, R.font.pretendard)
     }
     private val dayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.colorOf(R.color.text_secondary)
-        textSize = sp(12f)
+        textSize = resources.getDimension(R.dimen.grid_text)
         textAlign = Paint.Align.CENTER
         typeface = ResourcesCompat.getFont(context, R.font.pretendard_semibold)
     }
     private val badgePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val badgeText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.colorOf(R.color.bg)
-        textSize = sp(10f)
+        textSize = resources.getDimension(R.dimen.grid_text_small)
         textAlign = Paint.Align.CENTER
         typeface = Typeface.create(ResourcesCompat.getFont(context, R.font.pretendard_semibold), Typeface.BOLD)
     }

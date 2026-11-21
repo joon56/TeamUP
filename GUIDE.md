@@ -33,7 +33,7 @@ MODO(구 TeamUp)는 안드로이드 앱이라 아이폰에는 설치할 수 없�
 
 ### 3단계: 앱 설치
 
-1. 이 저장소의 [`release/MODO-v0.3.0.apk`](release/MODO-v0.3.0.apk)를 엽니다. GitHub 화면 오른쪽의 **Download raw file(⬇)** 버튼으로 내려받습니다.
+1. 이 저장소의 [`release/MODO-v0.3.1.apk`](release/MODO-v0.3.1.apk)를 엽니다. GitHub 화면 오른쪽의 **Download raw file(⬇)** 버튼으로 내려받습니다.
 2. 내려받은 APK 파일을 **켜져 있는 가상 폰 화면 위로 끌어다 놓습니다.** 잠시 뒤 설치가 끝납니다.
 3. 가상 폰 화면을 아래에서 위로 쓸어 올려 앱 목록을 열고 **MODO**를 실행합니다. (예전 TeamUp 앱이 있으면 지워도 됩니다. 패키지가 달라 따로 설치됩니다.)
 

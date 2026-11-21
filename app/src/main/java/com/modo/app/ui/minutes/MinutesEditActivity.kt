@@ -2,12 +2,15 @@ package com.modo.app.ui.minutes
 
 import android.Manifest
 import android.animation.Animator
+import android.app.TimePickerDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.speech.SpeechRecognizer
@@ -26,6 +29,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.ai.type.QuotaExceededException
 import com.modo.app.R
@@ -42,21 +46,31 @@ import com.modo.app.data.TeamRepository
 import com.modo.app.databinding.ActivityMinutesEditBinding
 import com.modo.app.databinding.ItemMinutesActionBinding
 import com.modo.app.logic.ActionMatcher
+import com.modo.app.logic.MeetingTimer
 import com.modo.app.logic.MinutesPrompt
 import com.modo.app.logic.Schedule
+import com.modo.app.logic.TimerRules
 import com.modo.app.logic.WeekCalculator
+import com.modo.app.notify.AlarmScheduler
+import com.modo.app.notify.Notifier
 import com.modo.app.ui.common.Dialogs
 import com.modo.app.ui.common.Fmt
 import com.modo.app.ui.common.applySystemBarsPadding
 import com.modo.app.ui.common.colorOf
 import com.modo.app.ui.common.ensureSignedIn
 import com.modo.app.ui.common.failureToast
+import com.modo.app.ui.common.scrollInsideFirst
+import com.modo.app.ui.common.set
 import com.modo.app.ui.common.setBusy
 import com.modo.app.ui.common.toast
 import com.modo.app.ui.files.AttachmentsEditor
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -86,6 +100,15 @@ class MinutesEditActivity : AppCompatActivity() {
     private val micPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) startRecording() else toast(R.string.minutes_mic_denied)
     }
+
+    /** 회의 타이머: 돌고 있는 타이머(없으면 null) · 방금 끝났는지 · 고른 길이(분) · 남은 시간을 다시 그리는 코루틴 */
+    private var timer: MeetingTimer? = null
+    private var timerEnded = false
+    private var timerMinutes = TimerRules.PRESET_MINUTES[1]
+    private var timerJob: Job? = null
+
+    /** 타이머는 끝날 때 알림(소리 · 진동)으로 알려 주므로, 알림이 막혀 있으면 시작 전에 허용을 물어봄. 거절해도 타이머는 시작 */
+    private val timerPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { startTimer() }
 
     /** 화면이 꺼지는 바람에 녹음이 멈췄는지 (다시 켜지면 이어서 녹음) */
     private var pausedByScreenOff = false
@@ -144,6 +167,10 @@ class MinutesEditActivity : AppCompatActivity() {
             }
         }
         binding.titleInput.doAfterTextChanged { binding.titleLayout.error = null }
+        // 메모 · 받아쓰기 칸은 정해 둔 줄 수(maxLines)까지만 늘어나고, 넘치면 칸 안에서 넘겨 봄
+        binding.notesInput.scrollInsideFirst()
+        binding.transcriptInput.scrollInsideFirst()
+        setupTimer()
         binding.recordButton.setOnClickListener { toggleRecording() }
         binding.aiButton.setOnClickListener { summarize() }
         binding.addTasksButton.setOnClickListener { addTasks() }
@@ -204,6 +231,17 @@ class MinutesEditActivity : AppCompatActivity() {
         // 백그라운드에서는 마이크를 못 쓰므로 멈춤
         if (speech?.isRunning == true) stoppedInBackgroundAt = SystemClock.elapsedRealtime()
         stopRecording()
+    }
+
+    /**
+     * 이 화면은 회전해도 다시 만들어지지 않으므로(매니페스트의 configChanges), 방향마다 다른 값은 여기서 다시 읽어 적용한다.
+     * 입력칸의 최대 줄 수는 values(세로)와 values-land(가로)에 따로 적어 둠
+     */
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (!::binding.isInitialized) return
+        binding.notesInput.maxLines = resources.getInteger(R.integer.minutes_notes_max_lines)
+        binding.transcriptInput.maxLines = resources.getInteger(R.integer.minutes_transcript_max_lines)
     }
 
     override fun onDestroy() {
@@ -276,6 +314,120 @@ class MinutesEditActivity : AppCompatActivity() {
         }
     }
 
+    // ───────────────────────── 회의 타이머 ─────────────────────────
+
+    private fun setupTimer() {
+        val presets = listOf(binding.timerPreset0, binding.timerPreset1, binding.timerPreset2)
+        for ((index, chip) in presets.withIndex()) {
+            val minutes = TimerRules.PRESET_MINUTES[index]
+            chip.text = getString(R.string.timer_minutes, minutes)
+            chip.setOnClickListener { timerMinutes = minutes }
+        }
+        showTimerChoice()
+        binding.timerCustom.setOnClickListener { pickTimerLength() }
+        binding.timerButton.setOnClickListener { onTimerButton() }
+        watchTimer()
+    }
+
+    /** 고른 길이에 맞는 칸에 표시 */
+    private fun showTimerChoice() {
+        binding.timerGroup.check(
+            when (TimerRules.PRESET_MINUTES.indexOf(timerMinutes)) {
+                0 -> R.id.timerPreset0
+                1 -> R.id.timerPreset1
+                2 -> R.id.timerPreset2
+                else -> R.id.timerCustom
+            }
+        )
+    }
+
+    /** [직접]: 시간 선택창(TimePickerDialog)을 "몇 시간 몇 분"을 고르는 데 씀. 취소하면 원래 고른 칸으로 되돌림 */
+    private fun pickTimerLength() {
+        val dialog = TimePickerDialog(
+            this,
+            { _, hour, minute ->
+                val minutes = TimerRules.minutesOf(hour, minute)
+                if (minutes > 0) {
+                    timerMinutes = minutes
+                    binding.timerCustom.text = getString(R.string.timer_minutes, minutes)
+                } else {
+                    toast(R.string.timer_pick_zero)
+                    showTimerChoice()
+                }
+            },
+            timerMinutes / 60, timerMinutes % 60, true,
+        )
+        dialog.setTitle(R.string.timer_pick_title)
+        dialog.setOnCancelListener { showTimerChoice() }
+        dialog.show()
+    }
+
+    private fun onTimerButton() {
+        when {
+            timer != null -> stopTimer()
+            // Android 13(API 33)부터는 알림을 띄우려면 사용자에게 허용을 받아야 함
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !Notifier.canPost(this) ->
+                timerPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+            else -> startTimer()
+        }
+    }
+
+    private fun startTimer() {
+        if (!Notifier.canPost(this)) toast(R.string.timer_no_notif)
+        Notifier.cancel(this, Notifier.ID_TIMER) // 지난번 "끝났어요" 알림이 남아 있으면 치움
+        timerEnded = false
+        // 끝나는 시각에 울리도록 시스템에 예약해 둠 → 화면을 끄거나 앱을 나가 있어도 울림
+        AlarmScheduler.startTimer(this, TimerRules.start(timerMinutes, System.currentTimeMillis()))
+        watchTimer()
+    }
+
+    private fun stopTimer() {
+        AlarmScheduler.stopTimer(this)
+        timer = null
+        timerEnded = false
+        renderTimer()
+    }
+
+    /**
+     * 남은 시간을 0.5초마다 다시 그리는 코루틴. 화면이 보이는 동안(STARTED)에만 돌고,
+     * 화면이 다시 보이게 되면 저장해 둔 타이머를 읽어 이어서 보여 준다. 돌고 있는 타이머가 없으면 한 번 그리고 끝난다.
+     */
+    private fun watchTimer() {
+        timerJob?.cancel()
+        timerJob = lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                timer = Prefs.meetingTimer
+                while (renderTimer()) delay(TIMER_TICK_MS)
+            }
+        }
+    }
+
+    /** 타이머 카드를 지금 상태로 그림. 타이머가 돌고 있으면 true */
+    private fun renderTimer(): Boolean {
+        val now = System.currentTimeMillis()
+        var running = timer
+        if (running != null && TimerRules.remaining(running, now) == 0L) {
+            // 시간이 다 됨. 소리 · 진동 · 알림은 예약해 둔 리시버(AlarmReceiver)가 냄
+            timer = null
+            timerEnded = true
+            running = null
+        }
+        binding.timerButton.setText(if (running != null) R.string.timer_stop else R.string.timer_start)
+        binding.timerGroup.isVisible = running == null
+        binding.timerClock.isVisible = running != null
+        binding.timerBar.root.isVisible = running != null
+        if (running != null) {
+            binding.timerClock.text = TimerRules.clock(TimerRules.remaining(running, now))
+            binding.timerBar.set(TimerRules.percent(running, now))
+            val endTime = Instant.ofEpochMilli(running.endAt).atZone(ZoneId.systemDefault()).toLocalTime()
+            binding.timerStatus.text = getString(R.string.timer_ends_at, Fmt.time(this, endTime))
+        } else {
+            binding.timerStatus.setText(if (timerEnded) R.string.timer_ended else R.string.timer_help)
+        }
+        binding.timerStatus.setTextColor(colorOf(if (running == null && timerEnded) R.color.primary else R.color.text_secondary))
+        return running != null
+    }
+
     // ───────────────────────── 받아쓰기 ─────────────────────────
 
     private fun toggleRecording() {
@@ -340,10 +492,12 @@ class MinutesEditActivity : AppCompatActivity() {
         val level = battery.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)   // 지금 남은 양
         val scale = battery.getIntExtra(BatteryManager.EXTRA_SCALE, -1)   // 가득 찼을 때의 값
         val status = battery.getIntExtra(BatteryManager.EXTRA_STATUS, -1) // 충전 중 · 방전 중 · 가득 참
-        val plugged = battery.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) // 0이면 전원에 연결 안 됨 (AC · USB · 무선)
+        val plugged = battery.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) // 연결된 전원 종류. 0이면 연결 안 됨
         if (level < 0 || scale <= 0) return
         val percent = level * 100 / scale
-        val charging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL || plugged != 0
+        val onPower = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB ||
+            plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS // 충전기 · USB · 무선 충전
+        val charging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL || onPower
         val low = !charging && percent <= LOW_BATTERY_PERCENT
         binding.batteryWarning.isVisible = low
         if (low) binding.batteryWarning.text = getString(R.string.minutes_battery_low, percent)
@@ -566,6 +720,7 @@ class MinutesEditActivity : AppCompatActivity() {
         private const val EXTRA_MINUTES_ID = "minutes_id"
         private const val LOW_BATTERY_PERCENT = 20
         private const val JUST_STOPPED_MS = 3_000L
+        private const val TIMER_TICK_MS = 500L
 
         /** minutesId == null 이면 새 회의록 */
         fun start(context: Context, projectId: String, minutesId: String? = null) {

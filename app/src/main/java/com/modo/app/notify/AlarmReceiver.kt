@@ -22,7 +22,15 @@ class AlarmReceiver : BroadcastReceiver() {
         when (intent.action) {
             AlarmScheduler.ACTION_TASK_ALARM -> onTaskAlarm(context, intent.getStringExtra(AlarmScheduler.EXTRA_TASK_ID) ?: return)
             AlarmScheduler.ACTION_DIGEST -> onDigest(context)
+            AlarmScheduler.ACTION_MEETING_TIMER -> onMeetingTimer(context)
         }
+    }
+
+    /** 회의 타이머가 끝남: 알람음 · 진동이 달린 알림으로 알려 주고, 저장해 둔 타이머를 지움 */
+    private fun onMeetingTimer(context: Context) {
+        val timer = Prefs.meetingTimer
+        Prefs.meetingTimer = null
+        Notifier.timerDone(context, timer?.minutes ?: 0)
     }
 
     /** 업무 알람: 소리와 진동은 오래 걸리는 일이라 포그라운드 서비스에 맡김 (리시버는 바로 끝나야 함) */

@@ -12,6 +12,8 @@
     <string name="channel_assign_desc">나에게 새 업무가 배정되면 알려요</string>
     <string name="channel_progress">진행 상황</string>
     <string name="channel_progress_desc">파일 올리기처럼 진행 중인 일을 보여줘요</string>
+    <string name="channel_timer">회의 타이머</string>
+    <string name="channel_timer_desc">맞춰 둔 회의 시간이 끝나면 알람음과 진동으로 알려요</string>
 
     <!-- 채팅 배너 -->
     <string name="notif_me">나</string>

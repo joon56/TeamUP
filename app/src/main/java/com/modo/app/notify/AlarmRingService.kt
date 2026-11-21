@@ -69,7 +69,7 @@ class AlarmRingService : Service() {
         )
         Notifier.ensureSummary(this)
         player.play(alarm.soundKind, alarm.soundUri, loop = true)
-        Feedback.pattern(this, Feedback.ALARM_PATTERN, repeat = 0)
+        Feedback.pattern(this, Feedback.ALARM_PATTERN, Feedback.ALARM_STRENGTH, repeat = 0)
         handler.removeCallbacks(timeout)
         handler.postDelayed(timeout, AlarmRules.RING_SECONDS * 1000L)
 

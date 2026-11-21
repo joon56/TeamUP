@@ -146,20 +146,24 @@ class RootActivity : AppCompatActivity() {
 
     private fun showExitToast() {
         val toast = Toast.makeText(this, R.string.msg_press_back_again, Toast.LENGTH_SHORT)
-        exitArmed = true
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            disarmWhenHidden(toast)
+            armWhileShown(toast)
         } else {
-            // API 30 미만: 토스트가 사라지는 때를 알 수 없으므로 2초로 어림
+            // API 30 미만: 토스트가 뜨고 사라지는 때를 알 수 없으므로, 지금부터 2초로 어림
+            exitArmed = true
             binding.root.postDelayed({ exitArmed = false }, 2000)
         }
         toast.show()
     }
 
-    /** API 30부터는 토스트가 사라지는 순간을 콜백으로 알 수 있음 → 그때까지만 "한 번 더"를 받아 줌 */
+    /** API 30부터는 토스트가 뜨는 순간과 사라지는 순간을 콜백으로 알 수 있음 → 떠 있는 동안에만 "한 번 더"를 받아 줌 */
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun disarmWhenHidden(toast: Toast) {
+    private fun armWhileShown(toast: Toast) {
         toast.addCallback(object : Toast.Callback() {
+            override fun onToastShown() {
+                exitArmed = true
+            }
+
             override fun onToastHidden() {
                 exitArmed = false
             }
